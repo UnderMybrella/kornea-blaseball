@@ -1,0 +1,3 @@
+
+rootProject.name = "kornea-blaseball"
+
