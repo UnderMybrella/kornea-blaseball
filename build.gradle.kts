@@ -26,12 +26,13 @@ kotlin {
     jvm {
         compilations.all {
             kotlinOptions.jvmTarget = "1.8"
+            kotlinOptions.useIR = true
         }
         testRuns["test"].executionTask.configure {
             useJUnit()
         }
     }
-    js(LEGACY) {
+    js(IR) {
         browser {
             testTask {
                 useKarma {
