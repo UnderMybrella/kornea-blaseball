@@ -27,7 +27,7 @@ data class BlaseballStreamDataGames(
     val season: BlaseballStreamDataSeason,
     val standings: BlaseballStreamDataStandings,
     val schedule: List<BlaseballStreamDataSchedule>,
-    val tomorrowSchedule: JsonArray,
+    val tomorrowSchedule: List<BlaseballStreamDataSchedule>,
     val postseason: BlaseballStreamDataPostseason
 )
 
@@ -93,7 +93,7 @@ data class BlaseballStreamDataSchedule(
     val basesOccupied: List<Int>,
     val baseRunners: List<PlayerID>,
     val baseRunnerNames: List<String>,
-    val outcomes: JsonArray,
+    val outcomes: List<String>,
     val terminology: String,
     val lastUpdate: String,
     val rules: String,

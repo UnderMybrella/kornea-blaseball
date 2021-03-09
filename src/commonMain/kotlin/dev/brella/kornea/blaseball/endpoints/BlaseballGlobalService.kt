@@ -3,6 +3,7 @@ package dev.brella.kornea.blaseball.endpoints
 import dev.brella.kornea.blaseball.beans.BlaseballGlobalEvent
 import dev.brella.kornea.blaseball.beans.BlaseballIdols
 import dev.brella.kornea.blaseball.beans.BlaseballItem
+import dev.brella.kornea.blaseball.beans.BlaseballMod
 import dev.brella.kornea.blaseball.beans.BlaseballSimulationData
 import dev.brella.kornea.blaseball.beans.BlaseballStreamData
 import dev.brella.kornea.blaseball.beans.BlaseballStreamDataResponse
@@ -32,7 +33,7 @@ interface BlaseballGlobalService: BlaseballDatabaseService {
         client.get("$databaseBaseUrl/globalEvents")
     suspend fun getItems(vararg itemIDs: String): List<BlaseballItem> =
         client.get("$databaseBaseUrl/items") { parameter("ids", itemIDs.joinToString(",")) }
-    suspend fun getModifications(vararg modIDs: String): List<BlaseballItem> =
+    suspend fun getModifications(vararg modIDs: String): List<BlaseballMod> =
         client.get("$databaseBaseUrl/mods") { parameter("ids", modIDs.joinToString(",")) }
     suspend fun getSimulationData(): BlaseballSimulationData =
         client.get("$databaseBaseUrl/simulationData")

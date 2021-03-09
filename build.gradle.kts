@@ -7,6 +7,7 @@ buildscript {
 plugins {
     kotlin("multiplatform") version "1.4.30"
     kotlin("plugin.serialization") version "1.4.30"
+    id("com.adarshr.test-logger") version "2.1.1"
 }
 
 apply(plugin = "kotlinx-atomicfu")
@@ -29,19 +30,19 @@ kotlin {
             kotlinOptions.useIR = true
         }
         testRuns["test"].executionTask.configure {
-            useJUnit()
+            useJUnitPlatform()
         }
     }
-    js(IR) {
-        browser {
-            testTask {
-                useKarma {
-                    useChromeHeadless()
-                    webpackConfig.cssSupport.enabled = true
-                }
-            }
-        }
-    }
+//    js(IR) {
+//        browser {
+//            testTask {
+//                useKarma {
+//                    useChromeHeadless()
+//                    webpackConfig.cssSupport.enabled = true
+//                }
+//            }
+//        }
+//    }
 //    val hostOs = System.getProperty("os.name")
 //    val isMingwX64 = hostOs.startsWith("Windows")
 //    val nativeTarget = when {
@@ -82,15 +83,23 @@ kotlin {
         }
         val jvmTest by getting {
             dependencies {
-                implementation(kotlin("test-junit"))
+                implementation("org.junit.jupiter:junit-jupiter-api:5.7.1")
+                implementation("org.junit.jupiter:junit-jupiter-params:5.7.1")
+                runtimeOnly("org.junit.jupiter:junit-jupiter-engine")
+
+                implementation("io.ktor:ktor-client-apache:1.5.0")
+                implementation("io.ktor:ktor-client-encoding:1.5.0")
+                implementation("io.ktor:ktor-client-core-jvm:1.5.0")
+                implementation("dev.brella:ktornea-apache:1.0.0-alpha")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.3")
             }
         }
-        val jsMain by getting
-        val jsTest by getting {
-            dependencies {
-                implementation(kotlin("test-js"))
-            }
-        }
+//        val jsMain by getting
+//        val jsTest by getting {
+//            dependencies {
+//                implementation(kotlin("test-js"))
+//            }
+//        }
 //        val nativeMain by getting
 //        val nativeTest by getting
     }
@@ -98,4 +107,10 @@ kotlin {
 
 configure<kotlinx.atomicfu.plugin.gradle.AtomicFUPluginExtension> {
     dependenciesVersion = null
+}
+
+configure<PublishingExtension> {
+    repositories {
+        maven(url = "${rootProject.buildDir}/repo")
+    }
 }
