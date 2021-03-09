@@ -10,16 +10,13 @@ import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*
 import io.ktor.http.*
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.single
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.withTimeout
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
-import org.junit.jupiter.api.assertTimeout
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 import org.junit.jupiter.params.provider.NullSource
@@ -48,9 +45,6 @@ class BlaseballGlobalService {
             userAgent("kornea-blaseball v1.0.0")
         }
     })
-
-    inline infix fun <T> T.assertEquals(other: T) = assertEquals(other, this)
-    inline infix fun <T> T.assertNotEquals(other: T) = assertNotEquals(other, this)
 
     @Test
     fun `Test Idol Board`() = runBlocking {
@@ -83,24 +77,26 @@ class BlaseballGlobalService {
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     @DisplayName("Get Item")
     inner class `Get Item` {
-        val hook = runBlocking { api.getItems("GRAPPLING_HOOK")[0] }
-
-        @ParameterizedTest(name = "Item ID is ''{0}''")
-        @ValueSource(strings = ["GRAPPLING_HOOK"])
-        fun `Item ID`(itemID: String?) {
-            hook.id assertEquals itemID
+        val item = runBlocking {
+            arrayOf(api.getItems("GRAPPLING_HOOK")[0])
         }
 
-        @ParameterizedTest(name = "Item Name is ''{0}''")
-        @ValueSource(strings = ["Grappling Hook"])
-        fun `Item Name`(itemName: String?) {
-            hook.name assertEquals itemName
+        @ParameterizedTest(name = "Item[{0}] ID is ''{1}''")
+        @CsvSource(value = ["0,GRAPPLING_HOOK"])
+        fun `Item ID`(index: Int, itemID: String?) {
+            item[index].id assertEquals itemID
         }
 
-        @ParameterizedTest(name = "Item Attr is ''{0}''")
-        @NullSource
-        fun `Item Attr`(itemAttr: String?) {
-            hook.attr assertEquals itemAttr
+        @ParameterizedTest(name = "Item[{0}] Name is ''{1}''")
+        @CsvSource(value = ["0,Grappling Hook"])
+        fun `Item Name`(index: Int, itemName: String?) {
+            item[index].name assertEquals itemName
+        }
+
+        @ParameterizedTest(name = "Item[{0}] Attr is ''{1}''")
+        @CsvSource(value = ["0,null"], nullValues = ["null"])
+        fun `Item Attr`(index: Int, itemAttr: String?) {
+            item[index].attr assertEquals itemAttr
         }
     }
 
@@ -108,42 +104,44 @@ class BlaseballGlobalService {
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     @DisplayName("Get Mod")
     inner class `Get Mod` {
-        val fireproof = runBlocking { api.getModifications("FIREPROOF")[0] }
-
-        @ParameterizedTest(name = "Mod ID is ''{0}''")
-        @ValueSource(strings = ["FIREPROOF"])
-        fun `Mod ID`(modID: String) {
-            fireproof.id assertEquals modID
+        val mod = runBlocking {
+            arrayOf(api.getModifications("FIREPROOF")[0])
         }
 
-        @ParameterizedTest(name = "Mod Colour is ''{0}''")
-        @ValueSource(strings = ["#a5c5f0"])
-        fun `Mod Colour`(modColour: String) {
-            fireproof.color assertEquals Colour.fromHex(modColour)
+        @ParameterizedTest(name = "Mod[{0}] ID is ''{1}''")
+        @CsvSource(value = ["0,FIREPROOF"])
+        fun `Mod ID`(index: Int, modID: String) {
+            mod[index].id assertEquals modID
         }
 
-        @ParameterizedTest(name = "Mod Background Colour is ''{0}''")
-        @ValueSource(strings = ["#4c77b0"])
-        fun `Mod Background Colour`(modBackground: String) {
-            fireproof.background assertEquals Colour.fromHex(modBackground)
+        @ParameterizedTest(name = "Mod[{0}] Colour is ''{1}''")
+        @CsvSource(value = ["0,#a5c5f0"])
+        fun `Mod Colour`(index: Int, modColour: String) {
+            mod[index].color assertEquals Colour.fromHex(modColour)
         }
 
-        @ParameterizedTest(name = "Mod Text Colour is ''{0}''")
-        @ValueSource(strings = ["#a5c5f0"])
-        fun `Mod Text Colour`(textColour: String) {
-            fireproof.textColor assertEquals Colour.fromHex(textColour)
+        @ParameterizedTest(name = "Mod[{0}] Background Colour is ''{1}''")
+        @CsvSource(value = ["0,#4c77b0"])
+        fun `Mod Background Colour`(index: Int, modBackground: String) {
+            mod[index].background assertEquals Colour.fromHex(modBackground)
         }
 
-        @ParameterizedTest(name = "Mod Title is ''{0}''")
-        @ValueSource(strings = ["Fireproof"])
-        fun `Mod Title`(title: String) {
-            fireproof.title assertEquals title
+        @ParameterizedTest(name = "Mod[{0}] Text Colour is ''{1}''")
+        @CsvSource(value = ["0,#a5c5f0"])
+        fun `Mod Text Colour`(index: Int, textColour: String) {
+            mod[index].textColor assertEquals Colour.fromHex(textColour)
         }
 
-        @ParameterizedTest(name = "Mod Description is ''{0}''")
-        @ValueSource(strings = ["A Fireproof player can not be incinerated."])
-        fun `Mod Description`(description: String) {
-            fireproof.description assertEquals description
+        @ParameterizedTest(name = "Mod[{0}] Title is ''{1}''")
+        @CsvSource(value = ["0,Fireproof"])
+        fun `Mod Title`(index: Int, title: String) {
+            mod[index].title assertEquals title
+        }
+
+        @ParameterizedTest(name = "Mod[{0}] Description is ''{1}''")
+        @CsvSource(value = ["0,A Fireproof player can not be incinerated."])
+        fun `Mod Description`(index: Int, description: String) {
+            mod[index].description assertEquals description
         }
     }
 
