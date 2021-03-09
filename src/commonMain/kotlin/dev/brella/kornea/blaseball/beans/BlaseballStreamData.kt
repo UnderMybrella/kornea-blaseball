@@ -1,6 +1,8 @@
 package dev.brella.kornea.blaseball.beans
 
 import dev.brella.kornea.blaseball.GameID
+import dev.brella.kornea.blaseball.PlayerID
+import dev.brella.kornea.blaseball.StadiumID
 import dev.brella.kornea.blaseball.json.RoundsGameSerialiser
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Serializer
@@ -12,7 +14,12 @@ import kotlinx.serialization.json.JsonObject
 data class BlaseballStreamDataResponse(val value: BlaseballStreamData)
 
 @Serializable
-data class BlaseballStreamData(val games: BlaseballStreamDataGames, val leagues: BlaseballStreamDataLeagues, val temporal: BlaseballStreamDataTemporal, val fights: BlaseballStreamDataFights)
+data class BlaseballStreamData(
+    val games: BlaseballStreamDataGames? = null,
+    val leagues: BlaseballStreamDataLeagues? = null,
+    val temporal: BlaseballStreamDataTemporal? = null,
+    val fights: BlaseballStreamDataFights? = null
+)
 
 @Serializable
 data class BlaseballStreamDataGames(
@@ -83,9 +90,9 @@ data class BlaseballStreamDataStandings(
 @Serializable
 data class BlaseballStreamDataSchedule(
     val id: String,
-    val basesOccupied: JsonArray,
-    val baseRunners: JsonArray,
-    val baseRunnerNames: JsonArray,
+    val basesOccupied: List<Int>,
+    val baseRunners: List<PlayerID>,
+    val baseRunnerNames: List<String>,
     val outcomes: JsonArray,
     val terminology: String,
     val lastUpdate: String,
@@ -146,14 +153,14 @@ data class BlaseballStreamDataSchedule(
     val awayOuts: Int,
     val playCount: Int,
     val tournament: Int,
-    val baseRunnerMods: JsonArray,
+    val baseRunnerMods: List<String>,
     val homePitcherMod: String,
     val homeBatterMod: String,
     val awayPitcherMod: String,
     val awayBatterMod: String,
     val scoreUpdate: String,
     val scoreLedger: String,
-    val stadiumId: JsonElement?,
+    val stadiumId: StadiumID?,
     val secretBaserunner: JsonElement?,
     val topInningScore: Double,
     val bottomInningScore: Double,
@@ -164,13 +171,13 @@ data class BlaseballStreamDataSchedule(
 
 @Serializable
 data class BlaseballStreamDataPostseason(
-    val playoffs: BlaseballStreamDataPostseasonPlayoffs,
-    val allRounds: List<BlaseballStreamDataPostseasonRound>,
-    val allMatchups: List<BlaseballStreamDataPostseasonMatchup>,
-    val round: BlaseballStreamDataPostseasonRound,
-    val matchups: List<BlaseballStreamDataPostseasonMatchup>,
-    val tomorrowRound: BlaseballStreamDataPostseasonRound,
-    val tomorrowMatchups: List<BlaseballStreamDataPostseasonMatchup>
+    val playoffs: BlaseballStreamDataPostseasonPlayoffs? = null,
+    val allRounds: List<BlaseballStreamDataPostseasonRound>? = null,
+    val allMatchups: List<BlaseballStreamDataPostseasonMatchup>? = null,
+    val round: BlaseballStreamDataPostseasonRound? = null,
+    val matchups: List<BlaseballStreamDataPostseasonMatchup>? = null,
+    val tomorrowRound: BlaseballStreamDataPostseasonRound? = null,
+    val tomorrowMatchups: List<BlaseballStreamDataPostseasonMatchup>? = null
 )
 
 /*   */

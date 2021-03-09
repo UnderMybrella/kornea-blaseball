@@ -1,71 +1,15 @@
 package dev.brella.kornea.blaseball.beans
 
+import dev.brella.kornea.blaseball.DecreeID
 import dev.brella.kornea.blaseball.GameID
+import dev.brella.kornea.blaseball.PlayerID
+import dev.brella.kornea.blaseball.TeamID
+import dev.brella.kornea.blaseball.json.RoundsGameSerialiser
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
 
-@Serializable
-data class BlaseballDatabaseLeague(
-    val id: String,
-    val subleagues: List<String>,
-    val name: String,
-    val tiebreakers: String
-)
-
-@Serializable
-data class BlaseballDatabaseSubleague(
-    val id: String,
-    val divisions: List<String>,
-    val name: String
-)
-
-@Serializable
-data class BlaseballDatabaseDivision(
-    val id: String,
-    val teams: List<String>,
-    val name: String
-)
-
-@Serializable
-data class BlaseballDatabaseTeam(
-    val id: String,
-    val lineup: List<String>,
-    val rotation: List<String>,
-    val bullpen: List<String>,
-    val bench: List<String>,
-    val fullName: String,
-    val location: String,
-    val mainColor: String,
-    val nickname: String,
-    val secondaryColor: String,
-    val shorthand: String,
-    val emoji: String,
-    val slogan: String,
-    val shameRuns: Double,
-    val totalShames: Int,
-    val totalShamings: Int,
-    val seasonShames: Int,
-    val seasonShamings: Int,
-    val championships: Int,
-    val rotationSlot: Int,
-    val weekAttr: List<String>,
-    val gameAttr: List<String>,
-    val seasAttr: List<String>,
-    val permAttr: List<String>,
-    val teamSpirit: Double,
-    val card: Int,
-    /*   */
-    val tournamentWins: Int,
-    val stadium: String?,
-    val imPosition: Double,
-    val eDensity: Double,
-    val eVelocity: Double,
-    val state: JsonObject,
-    val evolution: Double,
-    val winStreak: Double
-)
+typealias unknown = Map<String, JsonElement>
 
 @Serializable
 data class BlaseballDatabasePlayer(
@@ -217,4 +161,115 @@ data class BlaseballDatabasePlayoffs(
     val tomorrowRound: Int,
     val winner: String,
     val tournament: Int
+)
+
+@Serializable
+data class BlaseballDatabasePlayoffRound(
+    val id: String,
+    val gameIndex: Int,
+    val games: List<List<@Serializable(with = RoundsGameSerialiser::class) GameID?>>,
+    val matchups: List<String>,
+    val name: String,
+    val roundNumber: Int,
+    val special: Boolean,
+    val winnerSeeds: List<Double>,
+    val winners: List<String>
+)
+
+
+
+@Serializable
+data class BlaseballDatabaseBlessingResult(
+    val id: String,
+    val bonusId: String,
+    val bonusTitle: String,
+    val teamId: String,
+    val totalVotes: Int,
+    val description: String,
+    val teamVotes: Int? = null,
+    val highestTeam: String? = null,
+    val highestTeamVotes: Int? = null
+)
+
+@Serializable
+data class BlaseballDatabaseDecreeResult(
+    val id: DecreeID,
+    val decreeId: String,
+    val decreeTitle: String,
+    val description: String,
+    val totalVotes: Int
+)
+
+@Serializable
+data class BlaseballDatabaseEventResult(
+    val id: String,
+    val msg: String
+)
+
+@Serializable
+data class BlaseballDatabaseOffseasonRecap(
+    val id: String,
+    val bonusResults: List<String>,
+    val decreeResults: List<DecreeID>,
+    val name: String,
+    val season: Int,
+    val totalBonusVotes: Int,
+    val totalDecreeVotes: Int,
+    val voteCount: Int,
+    val eventResults: List<String>,
+    val willResults: List<String>? = null,
+    val totalWillVotes: Int? = null
+)
+
+@Serializable
+data class BlaseballDatabaseOffseasonSetup(
+    val decrees: List<BlaseballDatabaseOffseasonDecree>,
+    val blessings: List<BlaseballDatabaseOffseasonBlessing>,
+    val wills: List<BlaseballDatabaseOffseasonWill>,
+
+    val decreesToPass: Int,
+    val willsToPass: Int
+)
+
+@Serializable
+data class BlaseballDatabaseOffseasonDecree(
+    val id: String,
+    val type: Int,
+    val title: String,
+    val description: String
+)
+
+@Serializable
+data class BlaseballDatabaseOffseasonBlessing(
+    val id: String,
+    val type: Int,
+    val value: Int,
+    val title: String,
+    val subheader: String? = null,
+    val description: String
+)
+
+@Serializable
+data class BlaseballDatabaseOffseasonWill(
+    val id: String,
+    val title: String,
+    val description: String,
+    val info: List<JsonObject>
+)
+
+@Serializable
+data class BlaseballFeedEvent(
+    val id: String,
+    val playerTags: List<PlayerID>,
+    val teamTags: List<TeamID>,
+    val gameTags: List<GameID>,
+    val metadata: unknown,
+    val created: String,
+    val season: Int,
+    val tournament: Int,
+    val type: Int,
+    val day: Int,
+    val phase: Int,
+    val category: Int,
+    val description: String
 )

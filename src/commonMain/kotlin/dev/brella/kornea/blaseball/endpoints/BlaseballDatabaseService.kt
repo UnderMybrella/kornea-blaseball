@@ -1,56 +1,50 @@
 package dev.brella.kornea.blaseball.endpoints
 
+import dev.brella.kornea.blaseball.DecreeID
 import dev.brella.kornea.blaseball.GameID
-import dev.brella.kornea.blaseball.beans.BlaseballDatabaseDivision
-import dev.brella.kornea.blaseball.beans.BlaseballDatabaseGame
-import dev.brella.kornea.blaseball.beans.BlaseballDatabaseLeague
-import dev.brella.kornea.blaseball.beans.BlaseballDatabasePlayer
-import dev.brella.kornea.blaseball.beans.BlaseballDatabaseSubleague
-import dev.brella.kornea.blaseball.beans.BlaseballDatabaseTeam
+import dev.brella.kornea.blaseball.PlayerID
+import dev.brella.kornea.blaseball.TeamID
+import dev.brella.kornea.blaseball.beans.*
 import io.ktor.client.request.*
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonObject
 
 interface BlaseballDatabaseService : BlaseballService {
+    companion object {
+        const val YES_BRELLA_I_WOULD_LIKE_UNLIMITED_EVENTS = -1
+    }
+
     val databaseBaseUrl: String
-        get() = "https://www.blaseball.com/database"
+        get() = "$blaseballBaseUrl/database"
 
-    suspend fun getLeague(leagueID: String): BlaseballDatabaseLeague =
-        client.get("$databaseBaseUrl/league") { parameter("id", leagueID) }
-
-    suspend fun getSubleague(subleagueID: String): BlaseballDatabaseSubleague =
-        client.get("$databaseBaseUrl/subleague") { parameter("id", subleagueID) }
-
-    suspend fun getDivision(divisionID: String): BlaseballDatabaseDivision =
-        client.get("$databaseBaseUrl/division") { parameter("id", divisionID) }
-
-    suspend fun getAllTeams(): List<BlaseballDatabaseTeam> =
-        client.get("$databaseBaseUrl/allTeams")
-
-    suspend fun getTeam(teamID: String): BlaseballDatabaseTeam =
-        client.get("$databaseBaseUrl/team") { parameter("id", teamID) }
-
-    suspend fun getPlayers(vararg playerIDs: String): List<BlaseballDatabasePlayer> =
-        client.get("$databaseBaseUrl/players") { parameter("ids", playerIDs.joinToString(",")) }
-
-    suspend fun getPlayers(playerIDs: Iterable<String>): List<BlaseballDatabasePlayer> =
-        client.get("$databaseBaseUrl/players") { parameter("ids", playerIDs.joinToString(",")) }
-
-    suspend fun getGameById(gameID: GameID): BlaseballDatabaseGame =
-        client.get("$databaseBaseUrl/gameById/${gameID.uuid}")
-
-    suspend fun getGamesByDate(day: Int, season: Int): List<BlaseballDatabaseGame> =
-        client.get("$databaseBaseUrl/games") {
+    suspend fun getFeedByPhase(phase: Int, season: Int): List<BlaseballFeedEvent> =
+        client.get("$databaseBaseUrl/feedbyphase") {
+            parameter("phase", phase)
             parameter("season", season)
-            parameter("day", day)
         }
 
-    suspend fun getGamesByDate(day: Int, season: Int, tournament: Int): List<BlaseballDatabaseGame> =
-        client.get("$databaseBaseUrl/games") {
-            parameter("season", season)
-            parameter("day", day)
-            parameter("tournament", tournament)
+    suspend fun getGlobalFeed(category: Int? = null, limit: Int = 100, type: Int? = null): List<BlaseballFeedEvent> =
+        client.get("$databaseBaseUrl/feed/global") {
+            if (category != null) parameter("category", category)
+            if (type != null) parameter("type", type)
+            if (limit != YES_BRELLA_I_WOULD_LIKE_UNLIMITED_EVENTS) parameter("limit", limit)
+        }
+
+    suspend fun getPlayerFeed(playerID: PlayerID, category: Int? = null, limit: Int = 100, type: Int? = null): List<BlaseballFeedEvent> =
+        client.get("$databaseBaseUrl/feed/player") {
+            parameter("id", playerID.uuid)
+
+            if (category != null) parameter("category", category)
+            if (type != null) parameter("type", type)
+            if (limit != YES_BRELLA_I_WOULD_LIKE_UNLIMITED_EVENTS) parameter("limit", limit)
+        }
+
+    suspend fun getTeamFeed(teamID: TeamID, category: Int? = null, limit: Int = 100, type: Int? = null): List<BlaseballFeedEvent> =
+        client.get("$databaseBaseUrl/feed/team") {
+            parameter("id", teamID.uuid)
+
+            if (category != null) parameter("category", category)
+            if (type != null) parameter("type", type)
+            if (limit != YES_BRELLA_I_WOULD_LIKE_UNLIMITED_EVENTS) parameter("limit", limit)
         }
 }
-
-suspend inline fun BlaseballDatabaseService.getGameById(gameID: String): BlaseballDatabaseGame = getGameById(GameID(gameID))
