@@ -263,7 +263,7 @@ data class BlaseballFeedEvent(
     val playerTags: List<PlayerID>,
     val teamTags: List<TeamID>,
     val gameTags: List<GameID>,
-    val metadata: unknown,
+    val metadata: unknown?,
     val created: String,
     val season: Int,
     val tournament: Int,
