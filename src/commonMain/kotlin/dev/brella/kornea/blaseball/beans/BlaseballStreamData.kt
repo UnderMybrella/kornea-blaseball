@@ -191,7 +191,7 @@ data class BlaseballStreamDataPostseasonPlayoffs(
     val rounds: List<String>,
     val season: Int,
     val tomorrowRound: Int,
-    val winner: String,
+    val winner: String?,
     val tournament: Int
 )
 
