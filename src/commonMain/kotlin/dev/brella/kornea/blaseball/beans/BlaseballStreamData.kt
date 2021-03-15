@@ -318,13 +318,13 @@ data class BlaseballStreamDataTeam(
     val card: Int,
     val tournamentWins: Int,
     val stadium: String?,
-    val imPosition: Double,
-    val eDensity: Double,
-    val eVelocity: Double,
-    val state: JsonObject,
+    val imPosition: Double? = null,
+    val eDensity: Double? = null,
+    val eVelocity: Double? = null,
+    val state: unknown,
     val evolution: Double,
     val winStreak: Double,
-    val level: Int
+    val level: Int?
 )
 
 @Serializable
