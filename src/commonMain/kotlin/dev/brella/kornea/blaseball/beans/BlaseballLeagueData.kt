@@ -63,7 +63,7 @@ data class BlaseballTeam(
     val state: JsonObject,
     val evolution: Double,
     val winStreak: Double,
-    val level: Int
+    val level: Int?
 )
 
 @Serializable
