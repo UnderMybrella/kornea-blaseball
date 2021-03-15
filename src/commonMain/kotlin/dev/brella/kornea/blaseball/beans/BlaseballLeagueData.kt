@@ -62,7 +62,8 @@ data class BlaseballTeam(
     val eVelocity: Double,
     val state: JsonObject,
     val evolution: Double,
-    val winStreak: Double
+    val winStreak: Double,
+    val level: Int
 )
 
 @Serializable
