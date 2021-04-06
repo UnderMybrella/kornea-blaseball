@@ -40,7 +40,7 @@ class BlaseballDatabaseService {
     })
 
     @ParameterizedTest(name = "Get Feed, Season ''{1}'' Phase ''{0}''")
-    @CsvSource(value = ["0,0"])
+    @CsvSource(value = ["1,11"])
     fun `Get Feed By Phase`(phase: Int, season: Int) {
         assertDoesNotThrow {
             runBlocking {

@@ -73,7 +73,7 @@ class BlaseballGlobalService {
         api.getGlobalEvents().isNotEmpty() assertEquals true
     }
 
-    @Nested
+/*    @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     @DisplayName("Get Item")
     inner class `Get Item` {
@@ -98,7 +98,7 @@ class BlaseballGlobalService {
         fun `Item Attr`(index: Int, itemAttr: String?) {
             item[index].attr assertEquals itemAttr
         }
-    }
+    }*/
 
     @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)

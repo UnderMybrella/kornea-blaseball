@@ -271,5 +271,6 @@ data class BlaseballFeedEvent(
     val day: Int,
     val phase: Int,
     val category: Int,
-    val description: String
+    val description: String,
+    val nuts: Int
 )

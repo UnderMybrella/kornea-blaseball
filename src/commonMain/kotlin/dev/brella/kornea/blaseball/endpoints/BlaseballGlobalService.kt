@@ -31,6 +31,8 @@ interface BlaseballGlobalService: BlaseballDatabaseService {
         client.get("$databaseBaseUrl/coffee") { parameter("ids", coffeeIDs.joinToString(",")) }
     suspend fun getGlobalEvents(): List<BlaseballGlobalEvent> =
         client.get("$databaseBaseUrl/globalEvents")
+    
+    @Deprecated("Item IDs are now UUIDs, but no items are available yet", level = DeprecationLevel.ERROR)
     suspend fun getItems(vararg itemIDs: String): List<BlaseballItem> =
         client.get("$databaseBaseUrl/items") { parameter("ids", itemIDs.joinToString(",")) }
     suspend fun getModifications(vararg modIDs: String): List<BlaseballMod> =
