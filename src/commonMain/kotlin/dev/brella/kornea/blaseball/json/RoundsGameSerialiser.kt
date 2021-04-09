@@ -13,7 +13,7 @@ object RoundsGameSerialiser: KSerializer<GameID?> {
 
     override fun serialize(encoder: Encoder, value: GameID?) {
         if (value == null) encoder.encodeString("none")
-        else encoder.encodeString(value.uuid)
+        else encoder.encodeString(value.id)
     }
 
     override fun deserialize(decoder: Decoder): GameID? {

@@ -2,7 +2,6 @@ package dev.brella.kornea.blaseball
 
 import dev.brella.kornea.blaseball.beans.BlaseballDatabasePlayer
 import dev.brella.kornea.blaseball.beans.BlaseballMod
-import dev.brella.kornea.blaseball.beans.BlaseballTribute
 import dev.brella.ktornea.apache.KtorneaApache
 import dev.brella.ktornea.common.installGranularHttp
 import io.ktor.client.*
@@ -51,24 +50,24 @@ class BlaseballPipelineTests {
 
                     val gameAttributes =
                         if (player.gameAttr.isNotEmpty())
-                            api.getModifications(*player.gameAttr.toTypedArray())
+                            api.getModifications(player.gameAttr)
                         else
                             emptyList()
 
                     val permAttributes =
                         if (player.permAttr.isNotEmpty())
-                            api.getModifications(*player.permAttr.toTypedArray())
+                            api.getModifications(player.permAttr)
                         else
                             emptyList()
 
                     val seasonAttributes =
                         if (player.seasAttr.isNotEmpty())
-                            api.getModifications(*player.seasAttr.toTypedArray())
+                            api.getModifications(player.seasAttr)
                         else
                             emptyList()
                     val weekAttributes =
                         if (player.weekAttr.isNotEmpty())
-                            api.getModifications(*player.weekAttr.toTypedArray())
+                            api.getModifications(player.weekAttr)
                         else
                             emptyList()
 
@@ -91,7 +90,7 @@ class BlaseballPipelineTests {
                             println("<Subleague ${subleagueDetails.name}>")
                             indent(indenting) {
                                 subleagueDetails.divisions
-                                    .map { api.getDivision(DivisionID(it)) }
+                                    .map { api.getDivision(it) }
                                     .forEach { divisionDetails ->
                                         println("<Division ${divisionDetails.name}>")
 
@@ -103,13 +102,13 @@ class BlaseballPipelineTests {
                                                     indent(indenting) {
                                                         val gameAttributes =
                                                             if (teamDetails.gameAttr.isNotEmpty())
-                                                                api.getModifications(*teamDetails.gameAttr.toTypedArray())
+                                                                api.getModifications(teamDetails.gameAttr)
                                                             else
                                                                 emptyList()
 
                                                         val permAttributes =
                                                             if (teamDetails.permAttr.isNotEmpty())
-                                                                api.getModifications(*teamDetails.permAttr.toTypedArray())
+                                                                api.getModifications(teamDetails.permAttr)
                                                             else
                                                                 emptyList()
 
@@ -171,7 +170,7 @@ class BlaseballPipelineTests {
     fun `Hall of Flame Players`() = assertDoesNotThrow {
         runBlocking {
             val tributeBoard = api.getHallOfFlamePlayers()
-            val playerList = api.getPlayers(tributeBoard.map { it.playerId.uuid })
+            val playerList = api.getPlayers(tributeBoard.map { it.playerId })
             tributeBoard.zip(playerList).forEach { (tribute, player) ->
                 println("${player.name} has earned ${tribute.peanuts} peanuts")
             }

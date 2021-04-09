@@ -13,14 +13,14 @@ import io.ktor.client.request.*
 
 interface BlaseballStatsheetsDatabaseService : BlaseballDatabaseService {
     suspend fun getGameStatsheet(gameStatsheetID: GameStatsheetID): BlaseballGameStatsheet =
-        unwrap(client.get("$databaseBaseUrl/gameStatsheets") { parameter("ids", gameStatsheetID.uuid) })
+        unwrap(client.get("$databaseBaseUrl/gameStatsheets") { parameter("ids", gameStatsheetID.id) })
 
     suspend fun getPlayerStatsheet(playerStatsheetID: PlayerStatsheetID): BlaseballPlayerStatsheet =
-        unwrap(client.get("$databaseBaseUrl/playerStatsheets") { parameter("ids", playerStatsheetID.uuid) })
+        unwrap(client.get("$databaseBaseUrl/playerStatsheets") { parameter("ids", playerStatsheetID.id) })
 
     suspend fun getSeasonStatsheet(seasonStatsheetID: SeasonStatsheetID): BlaseballSeasonStatsheet =
-        unwrap(client.get("$databaseBaseUrl/seasonStatsheets") { parameter("ids", seasonStatsheetID.uuid) })
+        unwrap(client.get("$databaseBaseUrl/seasonStatsheets") { parameter("ids", seasonStatsheetID.id) })
 
     suspend fun getTeamStatsheet(teamStatsheetID: TeamStatsheetID): BlaseballTeamStatsheet =
-        unwrap(client.get("$databaseBaseUrl/teamStatsheets") { parameter("ids", teamStatsheetID.uuid) })
+        unwrap(client.get("$databaseBaseUrl/teamStatsheets") { parameter("ids", teamStatsheetID.id) })
 }

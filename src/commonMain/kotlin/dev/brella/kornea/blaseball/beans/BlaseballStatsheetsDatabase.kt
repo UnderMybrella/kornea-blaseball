@@ -1,8 +1,10 @@
 package dev.brella.kornea.blaseball.beans
 
 import dev.brella.kornea.blaseball.GameStatsheetID
+import dev.brella.kornea.blaseball.PlayerID
 import dev.brella.kornea.blaseball.PlayerStatsheetID
 import dev.brella.kornea.blaseball.SeasonStatsheetID
+import dev.brella.kornea.blaseball.TeamID
 import dev.brella.kornea.blaseball.TeamStatsheetID
 import kotlinx.serialization.Serializable
 
@@ -25,14 +27,14 @@ data class BlaseballTeamStatsheet(
     val wins: Int,
     val losses: Int,
     val name: String,
-    val teamId: String
+    val teamId: TeamID
 )
 
 @Serializable
 data class BlaseballPlayerStatsheet(
     val id: PlayerStatsheetID,
-    val playerId: String,
-    val teamId: String,
+    val playerId: PlayerID,
+    val teamId: TeamID,
     val team: String,
     val name: String,
     val atBats: Int,

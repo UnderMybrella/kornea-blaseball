@@ -9,7 +9,6 @@ import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*
 import io.ktor.http.*
 import kotlinx.coroutines.runBlocking
-import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
@@ -82,7 +81,7 @@ class BlaseballLeagueTests {
         ]
     )
     fun `Get Playoff Matchup`(uuid: String, homeTeam: String?, awayTeam: String?) = runBlocking {
-        api.getPlayoffMatchups(uuid)[0].homeTeam?.uuid assertEquals homeTeam?.takeUnless(String::isBlank)
+        api.getPlayoffMatchup(PlayoffMatchupID(uuid)).homeTeam?.id assertEquals homeTeam?.takeUnless(String::isBlank)
     }
 
     @ParameterizedTest(name = "Season {0}''s UUID should be ''{1}''")
@@ -96,7 +95,7 @@ class BlaseballLeagueTests {
     )
     fun `Get Season Details`(season: Int, id: String) = runBlocking {
         val season = api.getSeason(season - 1)
-        season.id.uuid assertEquals id
+        season.id.id assertEquals id
     }
 
     @ParameterizedTest(name = "In Season {0}, the {1} should be going {3}-{4}")
@@ -104,7 +103,7 @@ class BlaseballLeagueTests {
         value = [
             "5,San Francisco Lovers,b72f3061-f573-40d7-832a-5ad475bd7909,65,34",
             "10,Yellowstone Magic,7966eb04-efcc-499b-8f03-d13916330531,32,67",
-            "15,Houston Spies,9debc64f-74b7-4ae1-a4d6-fce0144b6ea5,38,42"
+            "14,Houston Spies,9debc64f-74b7-4ae1-a4d6-fce0144b6ea5,49,50"
         ]
     )
     fun `Get Season Standings`(season: Int, name: String, teamUID: String, wins: Int, losses: Int) = runBlocking {
@@ -123,7 +122,7 @@ class BlaseballLeagueTests {
         ]
     )
     fun `Get Subleague`(uid: String, name: String, divisions: Int) = runBlocking {
-        val subleague = api.getSubleague(uid)
+        val subleague = api.getSubleague(SubleagueID(uid))
 
         subleague.name assertEquals name
         subleague.divisions.size assertEquals divisions
@@ -136,7 +135,7 @@ class BlaseballLeagueTests {
         ]
     )
     fun `Get Tiebreaker`(uid: String, teams: Int) = runBlocking {
-        val tiebreaker = api.getTiebreaker(uid)
+        val tiebreaker = api.getTiebreaker(TiebreakerID(uid))
 
         tiebreaker.order.size assertEquals teams
     }

@@ -1,13 +1,9 @@
 package dev.brella.kornea.blaseball.endpoints
 
-import dev.brella.kornea.blaseball.DecreeID
-import dev.brella.kornea.blaseball.GameID
 import dev.brella.kornea.blaseball.PlayerID
 import dev.brella.kornea.blaseball.TeamID
 import dev.brella.kornea.blaseball.beans.*
 import io.ktor.client.request.*
-import kotlinx.serialization.json.JsonArray
-import kotlinx.serialization.json.JsonObject
 
 interface BlaseballDatabaseService : BlaseballService {
     companion object {
@@ -32,7 +28,7 @@ interface BlaseballDatabaseService : BlaseballService {
 
     suspend fun getPlayerFeed(playerID: PlayerID, category: Int? = null, limit: Int = 100, type: Int? = null): List<BlaseballFeedEvent> =
         client.get("$databaseBaseUrl/feed/player") {
-            parameter("id", playerID.uuid)
+            parameter("id", playerID.id)
 
             if (category != null) parameter("category", category)
             if (type != null) parameter("type", type)
@@ -41,7 +37,7 @@ interface BlaseballDatabaseService : BlaseballService {
 
     suspend fun getTeamFeed(teamID: TeamID, category: Int? = null, limit: Int = 100, type: Int? = null): List<BlaseballFeedEvent> =
         client.get("$databaseBaseUrl/feed/team") {
-            parameter("id", teamID.uuid)
+            parameter("id", teamID.id)
 
             if (category != null) parameter("category", category)
             if (type != null) parameter("type", type)

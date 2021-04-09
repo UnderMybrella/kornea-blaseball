@@ -100,3 +100,52 @@ object ColourAsHexSerialiser : KSerializer<Colour> {
         return Colour.fromHex(str)
     }
 }
+object ColourAsNullableHexSerialiser : KSerializer<Colour?> {
+    private val HEX_CHAR_ENCODE = "0123456789ABCDEF".toCharArray()
+    private val HEX_CHAR_DECODE = IntArray(16) { HEX_CHAR_ENCODE[it].toInt() or 0x20 }
+
+    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("ColourAsHex", PrimitiveKind.STRING)
+
+    override fun serialize(encoder: Encoder, value: Colour?) {
+        if (value == null) {
+            encoder.encodeNull()
+            return
+        }
+
+        encoder.encodeNotNullMark()
+        val alpha = value.alpha
+
+        encoder.encodeString(buildString {
+            append('#')
+            append(HEX_CHAR_ENCODE[value.redHigher])
+            append(HEX_CHAR_ENCODE[value.redLower])
+            append(HEX_CHAR_ENCODE[value.greenHigher])
+            append(HEX_CHAR_ENCODE[value.greenLower])
+            append(HEX_CHAR_ENCODE[value.blueHigher])
+            append(HEX_CHAR_ENCODE[value.blueLower])
+            if (alpha == 0xFF) {
+                append(HEX_CHAR_ENCODE[(alpha shr 4) and 0xF])
+                append(HEX_CHAR_ENCODE[(alpha shr 0) and 0xF])
+            }
+        })
+    }
+
+    override fun deserialize(decoder: Decoder): Colour? {
+        if (!decoder.decodeNotNullMark()) {
+            decoder.decodeNull()
+            return null
+        }
+
+        val str = decoder.decodeString()
+        if (str.isBlank()) return null
+        require(str[0] == '#')
+        /*
+        ((alpha and 0xFF) shl 24)
+                or ((red and 0xFF) shl 16)
+                or ((green and 0xFF) shl 8)
+                or ((blue and 0xFF) shl 0)
+        */
+
+        return Colour.fromHex(str)
+    }
+}

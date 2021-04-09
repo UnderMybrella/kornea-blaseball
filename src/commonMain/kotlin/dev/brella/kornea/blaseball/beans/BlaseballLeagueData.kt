@@ -1,21 +1,7 @@
 package dev.brella.kornea.blaseball.beans
 
 import dev.brella.kornea.blaseball.*
-import kotlinx.serialization.ExperimentalSerializationApi
-import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.builtins.serializer
-import kotlinx.serialization.descriptors.PrimitiveKind
-import kotlinx.serialization.descriptors.SerialDescriptor
-import kotlinx.serialization.descriptors.buildClassSerialDescriptor
-import kotlinx.serialization.descriptors.mapSerialDescriptor
-import kotlinx.serialization.encoding.CompositeDecoder
-import kotlinx.serialization.encoding.CompositeEncoder
-import kotlinx.serialization.encoding.Decoder
-import kotlinx.serialization.encoding.Encoder
-import kotlinx.serialization.encoding.decodeStructure
-import kotlinx.serialization.json.JsonObject
-import kotlin.reflect.KClass
 
 @Serializable
 data class BlaseballDivision(
@@ -26,31 +12,31 @@ data class BlaseballDivision(
 
 @Serializable
 data class BlaseballLeague(
-    val id: String,
-    val subleagues: List<String>,
+    val id: LeagueID,
+    val subleagues: List<SubleagueID>,
     val name: String,
     val tiebreakers: String
 )
 
 @Serializable
 data class BlaseballSubleague(
-    val id: String,
-    val divisions: List<String>,
+    val id: SubleagueID,
+    val divisions: List<DivisionID>,
     val name: String
 )
 
 @Serializable
 data class BlaseballTeam(
-    val id: String,
-    val lineup: List<String>,
-    val rotation: List<String>,
-    val bullpen: List<String>,
-    val bench: List<String>,
+    val id: TeamID,
+    val lineup: List<PlayerID>,
+    val rotation: List<PlayerID>,
+    val bullpen: List<PlayerID>,
+    val bench: List<PlayerID>,
     val fullName: String,
     val location: String,
-    val mainColor: String,
+    val mainColor: @Serializable(ColourAsHexSerialiser::class) Colour,
     val nickname: String,
-    val secondaryColor: String,
+    val secondaryColor: @Serializable(ColourAsHexSerialiser::class) Colour,
     val shorthand: String,
     val emoji: String,
     val slogan: String,
@@ -61,15 +47,15 @@ data class BlaseballTeam(
     val seasonShamings: Int,
     val championships: Int,
     val rotationSlot: Int,
-    val weekAttr: List<String>,
-    val gameAttr: List<String>,
-    val seasAttr: List<String>,
-    val permAttr: List<String>,
+    val weekAttr: List<ModificationID>,
+    val gameAttr: List<ModificationID>,
+    val seasAttr: List<ModificationID>,
+    val permAttr: List<ModificationID>,
     val teamSpirit: Double,
     val card: Int,
     /*   */
     val tournamentWins: Int,
-    val stadium: String?,
+    val stadium: StadiumID?,
     val imPosition: Double? = null,
     val eDensity: Double? = null,
     val eVelocity: Double? = null,
@@ -81,7 +67,7 @@ data class BlaseballTeam(
 
 @Serializable
 data class BlaseballPlayoffMatchup(
-    val id: MatchupID,
+    val id: PlayoffMatchupID,
     val name: String?,
     val awaySeed: Int?,
     val awayTeam: TeamID?,

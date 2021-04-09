@@ -1,9 +1,6 @@
 package dev.brella.kornea.blaseball.beans
 
-import dev.brella.kornea.blaseball.DecreeID
-import dev.brella.kornea.blaseball.GameID
-import dev.brella.kornea.blaseball.PlayerID
-import dev.brella.kornea.blaseball.TeamID
+import dev.brella.kornea.blaseball.*
 import dev.brella.kornea.blaseball.json.RoundsGameSerialiser
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonArray
@@ -14,7 +11,7 @@ typealias unknown = Map<String, JsonElement>
 
 @Serializable
 data class BlaseballDatabasePlayer(
-    val id: String,
+    val id: PlayerID,
     val anticapitalism: Double,
     val baseThirst: Double,
     val buoyancy: Double,
@@ -52,17 +49,17 @@ data class BlaseballDatabasePlayer(
     val ritual: String?,
     val coffee: Int?,
     val blood: Int?,
-    val permAttr: List<String>,
-    val seasAttr: List<String>,
-    val weekAttr: List<String>,
-    val gameAttr: List<String>,
+    val permAttr: List<ModificationID>,
+    val seasAttr: List<ModificationID>,
+    val weekAttr: List<ModificationID>,
+    val gameAttr: List<ModificationID>,
     val hitStreak: Int,
     val consecutiveHits: Int,
     val baserunningRating: Double,
     val pitchingRating: Double,
     val hittingRating: Double,
     val defenseRating: Double,
-    val leagueTeamId: String?,
+    val leagueTeamId: TeamID?,
     val tournamentTeamId: String?,
     val eDensity: Double,
     val state: JsonObject,
@@ -74,34 +71,34 @@ data class BlaseballDatabasePlayer(
 data class BlaseballDatabaseGame(
     val id: GameID,
     val basesOccupied: List<Int>,
-    val baseRunners: List<String>,
+    val baseRunners: List<PlayerID>,
     val baseRunnerNames: List<String>,
     val outcomes: List<String>,
-    val terminology: String,
+    val terminology: TerminologyID,
     val lastUpdate: String,
-    val rules: String,
-    val statsheet: String,
-    val awayPitcher: String?,
+    val rules: RulesID,
+    val statsheet: GameStatsheetID,
+    val awayPitcher: PlayerID?,
     val awayPitcherName: String?,
-    val awayBatter: String?,
+    val awayBatter: PlayerID?,
     val awayBatterName: String?,
-    val awayTeam: String,
+    val awayTeam: TeamID,
     val awayTeamName: String,
     val awayTeamNickname: String,
-    val awayTeamColor: String,
+    val awayTeamColor: @Serializable(ColourAsHexSerialiser::class) Colour,
     val awayTeamEmoji: String,
     val awayOdds: Double,
     val awayStrikes: Double,
     val awayScore: Double,
     val awayTeamBatterCount: Int,
-    val homePitcher: String?,
+    val homePitcher: PlayerID?,
     val homePitcherName: String,
-    val homeBatter: String?,
+    val homeBatter: PlayerID?,
     val homeBatterName: String?,
-    val homeTeam: String,
+    val homeTeam: TeamID,
     val homeTeamName: String,
     val homeTeamNickname: String,
-    val homeTeamColor: String,
+    val homeTeamColor: @Serializable(ColourAsHexSerialiser::class) Colour,
     val homeTeamEmoji: String,
     val homeOdds: Double,
     val homeStrikes: Double,
@@ -128,22 +125,22 @@ data class BlaseballDatabaseGame(
     val homeBases: Double,
     val awayBases: Double,
     val repeatCount: Int,
-    val awayTeamSecondaryColor: String,
-    val homeTeamSecondaryColor: String,
+    val awayTeamSecondaryColor: @Serializable(ColourAsNullableHexSerialiser::class) Colour?,
+    val homeTeamSecondaryColor: @Serializable(ColourAsNullableHexSerialiser::class) Colour?,
     val homeBalls: Int,
     val awayBalls: Int,
     val homeOuts: Int,
     val awayOuts: Int,
     val playCount: Int,
     val tournament: Int,
-    val baseRunnerMods: List<String>,
-    val homePitcherMod: String,
-    val homeBatterMod: String,
-    val awayPitcherMod: String,
-    val awayBatterMod: String,
+    val baseRunnerMods: List<ModificationID>,
+    val homePitcherMod: ModificationID,
+    val homeBatterMod: ModificationID,
+    val awayPitcherMod: ModificationID,
+    val awayBatterMod: ModificationID,
     val scoreUpdate: String,
     val scoreLedger: String,
-    val stadiumId: JsonElement?,
+    val stadiumId: StadiumID?,
     val secretBaserunner: JsonElement?,
     val topInningScore: Double,
     val bottomInningScore: Double,
@@ -154,11 +151,11 @@ data class BlaseballDatabaseGame(
 
 @Serializable
 data class BlaseballDatabasePlayoffs(
-    val id: String,
+    val id: PlayoffID,
     val name: String,
     val numberOfRounds: Int,
     val playoffDay: Int,
-    val rounds: List<String>,
+    val rounds: List<PlayoffRoundID>,
     val season: Int,
     val tomorrowRound: Int,
     val winner: String,
@@ -167,10 +164,10 @@ data class BlaseballDatabasePlayoffs(
 
 @Serializable
 data class BlaseballDatabasePlayoffRound(
-    val id: String,
+    val id: PlayoffRoundID,
     val gameIndex: Int,
     val games: List<List<@Serializable(with = RoundsGameSerialiser::class) GameID?>>,
-    val matchups: List<String>,
+    val matchups: List<PlayoffMatchupID>,
     val name: String,
     val roundNumber: Int,
     val special: Boolean,
@@ -182,10 +179,10 @@ data class BlaseballDatabasePlayoffRound(
 
 @Serializable
 data class BlaseballDatabaseBlessingResult(
-    val id: String,
+    val id: BlessingID,
     val bonusId: String,
     val bonusTitle: String,
-    val teamId: String,
+    val teamId: TeamID,
     val totalVotes: Int,
     val description: String,
     val teamVotes: Int? = null,
@@ -203,23 +200,23 @@ data class BlaseballDatabaseDecreeResult(
 )
 
 @Serializable
-data class BlaseballDatabaseEventResult(
-    val id: String,
+data class BlaseballDatabaseTidingResult(
+    val id: TidingID,
     val msg: String
 )
 
 @Serializable
 data class BlaseballDatabaseOffseasonRecap(
-    val id: String,
-    val bonusResults: List<String>,
+    val id: OffseasonRecapID,
+    val bonusResults: List<BlessingID>,
     val decreeResults: List<DecreeID>,
     val name: String,
     val season: Int,
     val totalBonusVotes: Int,
     val totalDecreeVotes: Int,
     val voteCount: Int,
-    val eventResults: List<String>,
-    val willResults: List<String>? = null,
+    val eventResults: List<TidingID>,
+    val willResults: List<WillID>? = null,
     val totalWillVotes: Int? = null
 )
 
@@ -235,7 +232,7 @@ data class BlaseballDatabaseOffseasonSetup(
 
 @Serializable
 data class BlaseballDatabaseOffseasonDecree(
-    val id: String,
+    val id: DecreeID,
     val type: Int,
     val title: String,
     val description: String
@@ -243,7 +240,7 @@ data class BlaseballDatabaseOffseasonDecree(
 
 @Serializable
 data class BlaseballDatabaseOffseasonBlessing(
-    val id: String,
+    val id: BlessingID,
     val type: Int,
     val value: Int,
     val title: String,
@@ -253,7 +250,7 @@ data class BlaseballDatabaseOffseasonBlessing(
 
 @Serializable
 data class BlaseballDatabaseOffseasonWill(
-    val id: String,
+    val id: WillID,
     val title: String,
     val description: String,
     val info: List<JsonObject>
@@ -261,7 +258,7 @@ data class BlaseballDatabaseOffseasonWill(
 
 @Serializable
 data class BlaseballFeedEvent(
-    val id: String,
+    val id: FeedID,
     val playerTags: List<PlayerID>,
     val teamTags: List<TeamID>,
     val gameTags: List<GameID>,

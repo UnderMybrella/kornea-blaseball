@@ -44,18 +44,18 @@ class BlaseballElectionDatabaseTests {
     @DisplayName("Get Blessing Results")
     inner class `Get Blessing Results` {
         val blessing = runBlocking {
-            val list = api.getBlessingResults("f0f15969-aecb-4f9e-8eb9-00f05ece732c", "cbb567c0-d770-4d22-92f6-ff16ebb94758", "winniehess_mystery")
+            val list = api.getBlessingResults(listOf(BlessingID("f0f15969-aecb-4f9e-8eb9-00f05ece732c"), BlessingID("cbb567c0-d770-4d22-92f6-ff16ebb94758"), BlessingID("winniehess_mystery")))
             arrayOf(
-                list.first { it.id == "f0f15969-aecb-4f9e-8eb9-00f05ece732c" },
-                list.first { it.id == "cbb567c0-d770-4d22-92f6-ff16ebb94758" },
-                list.first { it.id == "winniehess_mystery" }
+                list.first { it.id.id == "f0f15969-aecb-4f9e-8eb9-00f05ece732c" },
+                list.first { it.id.id == "cbb567c0-d770-4d22-92f6-ff16ebb94758" },
+                list.first { it.id.id == "winniehess_mystery" }
             )
         }
 
         @ParameterizedTest(name = "Blessing[{0}] ID is ''{1}''")
         @CsvSource(value = ["0,f0f15969-aecb-4f9e-8eb9-00f05ece732c", "1,cbb567c0-d770-4d22-92f6-ff16ebb94758"])
         fun `Get Blessing ID`(index: Int, id: String) {
-            blessing[index].id assertEquals id
+            blessing[index].id.id assertEquals id
         }
 
         @ParameterizedTest(name = "Blessing[{0}] Bonus ID is ''{1}''")
@@ -73,7 +73,7 @@ class BlaseballElectionDatabaseTests {
         @ParameterizedTest(name = "Blessing[{0}] Team ID is ''{1}''")
         @CsvSource(value = ["0,b72f3061-f573-40d7-832a-5ad475bd7909", "1,7966eb04-efcc-499b-8f03-d13916330531"])
         fun `Get Blessing Team ID`(index: Int, teamID: String) {
-            blessing[index].teamId assertEquals teamID
+            blessing[index].teamId.id assertEquals teamID
         }
 
         @ParameterizedTest(name = "Blessing[{0}] Total Votes is ''{1}''")
@@ -120,15 +120,15 @@ class BlaseballElectionDatabaseTests {
             val list = api.getDecreeResults(listOf(DecreeID("b090fdfc-7d9d-414b-a4a5-bbc698028c15"), DecreeID("94ca62b2-fbba-4d32-a682-18b524ddd4a8")))
 
             arrayOf(
-                list.first { it.id.uuid == "b090fdfc-7d9d-414b-a4a5-bbc698028c15" },
-                list.first { it.id.uuid == "94ca62b2-fbba-4d32-a682-18b524ddd4a8" }
+                list.first { it.id.id == "b090fdfc-7d9d-414b-a4a5-bbc698028c15" },
+                list.first { it.id.id == "94ca62b2-fbba-4d32-a682-18b524ddd4a8" }
             )
         }
 
         @ParameterizedTest(name = "Decree[{0}] UUID is ''{1}''")
         @CsvSource(value = ["0,b090fdfc-7d9d-414b-a4a5-bbc698028c15", "1,94ca62b2-fbba-4d32-a682-18b524ddd4a8"])
         fun `Get Decree UUID`(index: Int, uuid: String) {
-            decree[index].id.uuid assertEquals uuid
+            decree[index].id.id assertEquals uuid
         }
 
         @ParameterizedTest(name = "Decree[{0}] ID is ''{1}''")

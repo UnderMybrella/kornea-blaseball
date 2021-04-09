@@ -1,8 +1,6 @@
 package dev.brella.kornea.blaseball.beans
 
-import dev.brella.kornea.blaseball.GameID
-import dev.brella.kornea.blaseball.PlayerID
-import dev.brella.kornea.blaseball.StadiumID
+import dev.brella.kornea.blaseball.*
 import dev.brella.kornea.blaseball.json.RoundsGameSerialiser
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Serializer
@@ -33,22 +31,22 @@ data class BlaseballStreamDataGames(
 
 @Serializable
 data class BlaseballStreamDataSim(
-    val id: String,
+    val id: SimulationID,
     val day: Int,
-    val league: String,
+    val league: LeagueID,
     val nextPhaseTime: String,
     val phase: Int,
     val playOffRound: Int,
-    val playoffs: String,
-    val rules: String,
+    val playoffs: PlayoffID,
+    val rules: RulesID,
     val season: Int,
-    val seasonId: String,
-    val terminology: String,
-    val eraColor: String,
+    val seasonId: SeasonID,
+    val terminology: TerminologyID,
+    val eraColor: @Serializable(ColourAsHexSerialiser::class) Colour,
     val eraTitle: String,
-    val subEraColor: String,
+    val subEraColor: @Serializable(ColourAsHexSerialiser::class) Colour,
     val subEraTitle: String,
-    val attr: Array<String>,
+    val attr: List<SimulationAttributeID>,
     val agitations: Int,
     val salutations: Int,
     val tournament: Int,
@@ -68,57 +66,57 @@ data class BlaseballStreamDataSim(
 
 @Serializable
 data class BlaseballStreamDataSeason(
-    val id: String,
-    val league: String,
-    val rules: String,
-    val schedule: String,
+    val id: SeasonID,
+    val league: LeagueID,
+    val rules: RulesID,
+    val schedule: ScheduleID,
     val seasonNumber: Int,
-    val standings: String,
-    val stats: String,
-    val terminology: String
+    val standings: StandingsID,
+    val stats: SeasonStatsheetID,
+    val terminology: TerminologyID
 )
 
 @Serializable
 data class BlaseballStreamDataStandings(
-    val id: String,
-    val losses: Map<String, Double>,
-    val wins: Map<String, Double>,
-    val runs: Map<String, Double>,
-    val gamesPlayed: Map<String, Double>
+    val id: StandingsID,
+    val losses: UUIDMap<TeamID, Double>,
+    val wins: UUIDMap<TeamID, Double>,
+    val runs: UUIDMap<TeamID, Double>,
+    val gamesPlayed: UUIDMap<TeamID, Double>
 )
 
 @Serializable
 data class BlaseballStreamDataSchedule(
-    val id: String,
+    val id: ScheduleID,
     val basesOccupied: List<Int>,
     val baseRunners: List<PlayerID>,
     val baseRunnerNames: List<String>,
     val outcomes: List<String>,
     val terminology: String,
     val lastUpdate: String,
-    val rules: String,
-    val statsheet: String,
-    val awayPitcher: String?,
+    val rules: RulesID,
+    val statsheet: GameStatsheetID,
+    val awayPitcher: PlayerID?,
     val awayPitcherName: String,
-    val awayBatter: String?,
+    val awayBatter: PlayerID?,
     val awayBatterName: String,
-    val awayTeam: String,
+    val awayTeam: TeamID,
     val awayTeamName: String,
     val awayTeamNickname: String,
-    val awayTeamColor: String,
+    val awayTeamColor: @Serializable(ColourAsHexSerialiser::class) Colour,
     val awayTeamEmoji: String,
     val awayOdds: Double,
     val awayStrikes: Double,
     val awayScore: Double,
     val awayTeamBatterCount: Int,
-    val homePitcher: String?,
+    val homePitcher: PlayerID?,
     val homePitcherName: String,
-    val homeBatter: String?,
+    val homeBatter: PlayerID?,
     val homeBatterName: String,
-    val homeTeam: String,
+    val homeTeam: TeamID,
     val homeTeamName: String,
     val homeTeamNickname: String,
-    val homeTeamColor: String,
+    val homeTeamColor: @Serializable(ColourAsHexSerialiser::class) Colour,
     val homeTeamEmoji: String,
     val homeOdds: Double,
     val homeStrikes: Double,
@@ -145,19 +143,19 @@ data class BlaseballStreamDataSchedule(
     val homeBases: Double,
     val awayBases: Double,
     val repeatCount: Int,
-    val awayTeamSecondaryColor: String,
-    val homeTeamSecondaryColor: String,
+    val awayTeamSecondaryColor: @Serializable(ColourAsHexSerialiser::class) Colour,
+    val homeTeamSecondaryColor: @Serializable(ColourAsHexSerialiser::class) Colour,
     val homeBalls: Int,
     val awayBalls: Int,
     val homeOuts: Int,
     val awayOuts: Int,
     val playCount: Int,
     val tournament: Int,
-    val baseRunnerMods: List<String>,
-    val homePitcherMod: String,
-    val homeBatterMod: String,
-    val awayPitcherMod: String,
-    val awayBatterMod: String,
+    val baseRunnerMods: List<ModificationID>,
+    val homePitcherMod: ModificationID,
+    val homeBatterMod: ModificationID,
+    val awayPitcherMod: ModificationID,
+    val awayBatterMod: ModificationID,
     val scoreUpdate: String,
     val scoreLedger: String,
     val stadiumId: StadiumID?,
@@ -184,39 +182,39 @@ data class BlaseballStreamDataPostseason(
 
 @Serializable
 data class BlaseballStreamDataPostseasonPlayoffs(
-    val id: String,
+    val id: PlayoffID,
     val name: String,
     val numberOfRounds: Int,
     val playoffDay: Int,
-    val rounds: List<String>,
+    val rounds: List<PlayoffRoundID>,
     val season: Int,
     val tomorrowRound: Int,
-    val winner: String?,
+    val winner: TeamID?,
     val tournament: Int
 )
 
 @Serializable
 data class BlaseballStreamDataPostseasonRound(
-    val id: String,
+    val id: PlayoffRoundID,
     val gameIndex: Int,
     val games: List<List<@Serializable(with = RoundsGameSerialiser::class) GameID?>>,
-    val matchups: List<String>,
+    val matchups: List<PlayoffMatchupID>,
     val name: String,
     val roundNumber: Int,
     val special: Boolean,
     val winnerSeeds: List<Double>,
-    val winners: List<String>
+    val winners: List<TeamID>
 )
 
 @Serializable
 data class BlaseballStreamDataPostseasonMatchup(
-    val id: String,
+    val id: PlayoffMatchupID,
     val name: String?,
     val awaySeed: Double?,
-    val awayTeam: String?,
+    val awayTeam: TeamID?,
     val awayWins: Int,
     val homeSeed: Double,
-    val homeTeam: String,
+    val homeTeam: TeamID,
     val homeWins: Int,
     val gamesPlayed: Int,
     val gamesNeeded: String
@@ -226,32 +224,24 @@ data class BlaseballStreamDataPostseasonMatchup(
 
 @Serializable
 data class BlaseballStreamDataLeagues(
-    val leagues: List<BlaseballStreamDataLeague>,
+    val leagues: List<BlaseballLeague>,
     val stadiums: List<BlaseballStreamDataStadium>,
-    val subleagues: List<BlaseballStreamDataSubleague>,
-    val divisions: List<BlaseballStreamDataDivision>,
-    val teams: List<BlaseballStreamDataTeam>,
-    val tiebreakers: List<BlaseballStreamDataTiebreaker>
-)
-
-@Serializable
-data class BlaseballStreamDataLeague(
-    val id: String,
-    val subleagues: List<String>,
-    val name: String,
-    val tiebreakers: String
+    val subleagues: List<BlaseballSubleague>,
+    val divisions: List<BlaseballDivision>,
+    val teams: List<BlaseballTeam>,
+    val tiebreakers: List<BlaseballTiebreaker>
 )
 
 @Serializable
 data class BlaseballStreamDataStadium(
-    val id: String,
-    val teamId: String,
+    val id: StadiumID,
+    val teamId: TeamID,
     val name: String,
     val nickname: String,
     val model: Int?,
-    val mainColor: String,
-    val secondaryColor: String,
-    val tertiaryColor: String,
+    val mainColor: @Serializable(ColourAsHexSerialiser::class) Colour,
+    val secondaryColor: @Serializable(ColourAsHexSerialiser::class) Colour,
+    val tertiaryColor: @Serializable(ColourAsHexSerialiser::class) Colour,
     val ominousness: Double,
     val forwardness: Double,
     val obtuseness: Double,
@@ -272,65 +262,6 @@ data class BlaseballStreamDataStadium(
     val mods: JsonArray,
     val birds: Int,
     val state: JsonObject
-)
-
-@Serializable
-data class BlaseballStreamDataSubleague(
-    val id: String,
-    val divisions: List<String>,
-    val name: String
-)
-
-@Serializable
-data class BlaseballStreamDataDivision(
-    val id: String,
-    val teams: List<String>,
-    val name: String
-)
-
-@Serializable
-data class BlaseballStreamDataTeam(
-    val id: String,
-    val lineup: List<String>,
-    val rotation: List<String>,
-    val bullpen: List<String>,
-    val bench: List<String>,
-    val seasAttr: List<String>,
-    val permAttr: List<String>,
-    val fullName: String,
-    val location: String,
-    val mainColor: String,
-    val nickname: String,
-    val secondaryColor: String,
-    val shorthand: String,
-    val emoji: String,
-    val slogan: String,
-    val shameRuns: Double,
-    val totalShames: Int,
-    val totalShamings: Int,
-    val seasonShames: Int,
-    val seasonShamings: Int,
-    val championships: Int,
-    val weekAttr: JsonArray,
-    val gameAttr: JsonArray,
-    val rotationSlot: Int,
-    val teamSpirit: Double,
-    val card: Int,
-    val tournamentWins: Int,
-    val stadium: String?,
-    val imPosition: Double? = null,
-    val eDensity: Double? = null,
-    val eVelocity: Double? = null,
-    val state: unknown,
-    val evolution: Double,
-    val winStreak: Double,
-    val level: Int?
-)
-
-@Serializable
-data class BlaseballStreamDataTiebreaker(
-    val id: String,
-    val order: List<String>
 )
 
 /*   */

@@ -59,13 +59,13 @@ class BlaseballGlobalTests {
     @ParameterizedTest(name = "Blood Type ''{0}'' == ''{1}''")
     @CsvSource(value = ["0,A"])
     fun `Get Blood Type`(id: String, bloodType: String) = runBlocking {
-        api.getBloodTypes(id)[0] assertEquals bloodType
+        api.getBloodType(id) assertEquals bloodType
     }
 
     @ParameterizedTest(name = "Coffee Preference ''{0}'' == ''{1}''")
     @CsvSource(value = ["0,Black"])
     fun `Get Coffee Preference`(id: String, coffeeName: String) = runBlocking {
-        api.getCoffeePreferences(id)[0] assertEquals coffeeName
+        api.getCoffeePreference(id) assertEquals coffeeName
     }
 
     @Test
@@ -105,13 +105,13 @@ class BlaseballGlobalTests {
     @DisplayName("Get Mod")
     inner class `Get Mod` {
         val mod = runBlocking {
-            arrayOf(api.getModifications("FIREPROOF")[0])
+            arrayOf(api.getModification(ModificationID("FIREPROOF")))
         }
 
         @ParameterizedTest(name = "Mod[{0}] ID is ''{1}''")
         @CsvSource(value = ["0,FIREPROOF"])
         fun `Mod ID`(index: Int, modID: String) {
-            mod[index].id assertEquals modID
+            mod[index].id.id assertEquals modID
         }
 
         @ParameterizedTest(name = "Mod[{0}] Colour is ''{1}''")

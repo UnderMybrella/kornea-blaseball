@@ -1,6 +1,5 @@
 package dev.brella.kornea.blaseball
 
-import dev.brella.kornea.blaseball.endpoints.getGameById
 import dev.brella.ktornea.apache.KtorneaApache
 import dev.brella.ktornea.common.installGranularHttp
 import io.ktor.client.*
@@ -48,7 +47,7 @@ class BlaseballGamesTests {
         ]
     )
     fun `Get Game By ID`(id: String, playCount: Int) = runBlocking {
-        api.getGameById(id).playCount assertEquals playCount
+        api.getGameById(GameID(id)).playCount assertEquals playCount
     }
 
     @ParameterizedTest(name = "Season {0}, Day {1} - {2} games running")
@@ -98,7 +97,7 @@ class BlaseballGamesTests {
         ]
     )
     fun `Get Playoff Round`(id: String, name: String, seasonName: String, setCount: Int) = runBlocking {
-        val playoff = api.getPlayoffRound(id)
+        val playoff = api.getPlayoffRound(PlayoffRoundID(id))
         playoff.name assertEquals name
         playoff.games.size assertEquals setCount
     }

@@ -1,6 +1,5 @@
 package dev.brella.kornea.blaseball
 
-import dev.brella.kornea.blaseball.endpoints.getGameById
 import dev.brella.ktornea.apache.KtorneaApache
 import dev.brella.ktornea.common.installGranularHttp
 import io.ktor.client.*
@@ -10,7 +9,6 @@ import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*
 import io.ktor.http.*
 import kotlinx.coroutines.runBlocking
-import kotlinx.serialization.json.Json
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
@@ -50,6 +48,6 @@ class BlaseballPlayersTests {
     )
     //Player testing is a bit rough since we can't actually guarantee anything
     fun `Get Players`(uuid: String, name: String) = runBlocking {
-        api.getPlayer(uuid).name assertEquals name
+        api.getPlayer(PlayerID(uuid)).name assertEquals name
     }
 }
