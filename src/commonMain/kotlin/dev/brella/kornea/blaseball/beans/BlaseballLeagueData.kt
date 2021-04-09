@@ -1,8 +1,21 @@
 package dev.brella.kornea.blaseball.beans
 
 import dev.brella.kornea.blaseball.*
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.builtins.serializer
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.SerialDescriptor
+import kotlinx.serialization.descriptors.buildClassSerialDescriptor
+import kotlinx.serialization.descriptors.mapSerialDescriptor
+import kotlinx.serialization.encoding.CompositeDecoder
+import kotlinx.serialization.encoding.CompositeEncoder
+import kotlinx.serialization.encoding.Decoder
+import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.encoding.decodeStructure
 import kotlinx.serialization.json.JsonObject
+import kotlin.reflect.KClass
 
 @Serializable
 data class BlaseballDivision(
@@ -95,10 +108,10 @@ data class BlaseballSeason(
 @Serializable
 data class BlaseballStandings(
     val id: StandingsID,
-    val losses: Map<TeamID, Int>,
-    val wins: Map<TeamID, Int>,
-    val runs: Map<TeamID, Double> = emptyMap(),
-    val gamesPlayed: Map<TeamID, Int> = emptyMap(),
+    val losses: UUIDMap<TeamID, Int>,
+    val wins: UUIDMap<TeamID, Int>,
+    val runs: UUIDMap<TeamID, Double> = emptyUUIDMap(),
+    val gamesPlayed: UUIDMap<TeamID, Int> = emptyUUIDMap(),
 )
 
 @Serializable

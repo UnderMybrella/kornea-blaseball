@@ -5,14 +5,20 @@ import dev.brella.kornea.blaseball.beans.BlaseballDatabaseBlessingResult
 import dev.brella.kornea.blaseball.beans.BlaseballDatabaseDecreeResult
 import dev.brella.kornea.blaseball.beans.BlaseballDatabaseOffseasonRecap
 import dev.brella.kornea.blaseball.beans.BlaseballDatabaseOffseasonSetup
+import dev.brella.kornea.blaseball.unwrap
 import io.ktor.client.request.*
 
 interface BlaseballElectionDatabaseService: BlaseballDatabaseService {
+    suspend fun getBlessingResult(blessingID: String): BlaseballDatabaseBlessingResult =
+        unwrap(client.get("$databaseBaseUrl/bonusResults") { parameter("ids", blessingID) })
+
     suspend fun getBlessingResults(vararg blessingIDs: String): List<BlaseballDatabaseBlessingResult> =
         client.get("$databaseBaseUrl/bonusResults") { parameter("ids", blessingIDs.joinToString(",")) }
 
     suspend fun getBlessingResults(blessingIDs: Iterable<String>): List<BlaseballDatabaseBlessingResult> =
         client.get("$databaseBaseUrl/bonusResults") { parameter("ids", blessingIDs.joinToString(",")) }
+
+
 
     suspend fun getDecreeResults(decreeID: DecreeID): List<BlaseballDatabaseDecreeResult> =
         client.get("$databaseBaseUrl/decreeResults") { parameter("ids", decreeID.uuid) }

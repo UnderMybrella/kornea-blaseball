@@ -16,7 +16,7 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class BlaseballElectionDatabaseService {
+class BlaseballElectionDatabaseTests {
     val api = BlaseballApi(HttpClient(KtorneaApache) {
         installGranularHttp()
 

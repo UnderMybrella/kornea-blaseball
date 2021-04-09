@@ -10,13 +10,13 @@ interface BlaseballGamesDatabaseService: BlaseballDatabaseService {
     suspend fun getGameById(gameID: GameID): BlaseballDatabaseGame =
         client.get("$databaseBaseUrl/gameById/${gameID.uuid}")
 
-    suspend fun getGamesByDate(day: Int, season: Int): List<BlaseballDatabaseGame> =
+    suspend fun getGamesByDate(season: Int, day: Int): List<BlaseballDatabaseGame> =
         client.get("$databaseBaseUrl/games") {
             parameter("season", season)
             parameter("day", day)
         }
 
-    suspend fun getGamesByDate(day: Int, season: Int, tournament: Int): List<BlaseballDatabaseGame> =
+    suspend fun getGamesByDate(season: Int, day: Int, tournament: Int): List<BlaseballDatabaseGame> =
         client.get("$databaseBaseUrl/games") {
             parameter("season", season)
             parameter("day", day)

@@ -6,6 +6,7 @@ import dev.brella.kornea.blaseball.PlayerID
 import dev.brella.kornea.blaseball.TeamID
 import dev.brella.kornea.blaseball.json.RoundsGameSerialiser
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
 
@@ -28,7 +29,7 @@ data class BlaseballDatabasePlayer(
     val moxie: Double,
     val musclitude: Double,
     val name: String,
-    val bat: String,
+//    val bat: String,
     val omniscience: Double,
     val overpowerment: Double,
     val patheticism: Double,
@@ -44,13 +45,13 @@ data class BlaseballDatabasePlayer(
     val totalFingers: Int,
     val soul: Int,
     val deceased: Boolean,
-    val peanutAllergy: Boolean,
-    val cinnamon: Double,
-    val fate: Int,
-    val armor: String,
-    val ritual: String,
-    val coffee: Int,
-    val blood: Int,
+    val peanutAllergy: Boolean?,
+    val cinnamon: Double?,
+    val fate: Int?,
+//    val armor: String,
+    val ritual: String?,
+    val coffee: Int?,
+    val blood: Int?,
     val permAttr: List<String>,
     val seasAttr: List<String>,
     val weekAttr: List<String>,
@@ -65,7 +66,8 @@ data class BlaseballDatabasePlayer(
     val tournamentTeamId: String?,
     val eDensity: Double,
     val state: JsonObject,
-    val evolution: Double
+    val evolution: Double,
+    val items: JsonArray
 )
 
 @Serializable
@@ -80,7 +82,7 @@ data class BlaseballDatabaseGame(
     val rules: String,
     val statsheet: String,
     val awayPitcher: String?,
-    val awayPitcherName: String,
+    val awayPitcherName: String?,
     val awayBatter: String?,
     val awayBatterName: String?,
     val awayTeam: String,

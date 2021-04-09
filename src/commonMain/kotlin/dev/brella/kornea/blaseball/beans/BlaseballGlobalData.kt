@@ -45,7 +45,9 @@ data class BlaseballMod(
     val textColor: @Serializable(with = ColourAsHexSerialiser::class) Colour,
     val title: String,
     val description: String
-)
+) {
+    fun hoverText(): String = "$title ($description)"
+}
 
 @Serializable
 data class BlaseballSimulationData(

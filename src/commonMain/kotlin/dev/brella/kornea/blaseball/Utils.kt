@@ -17,3 +17,5 @@ public inline fun HttpClient.writeAsJson(obj: Any): ByteArray =
         is OutgoingContent.ByteArrayContent -> outgoing.bytes()
         else -> throw IllegalStateException("Can't handle $outgoing (${outgoing::class})")
     }
+
+inline fun <T> unwrap(list: List<T>): T = list.first()

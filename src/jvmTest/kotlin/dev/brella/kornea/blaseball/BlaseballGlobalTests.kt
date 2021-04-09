@@ -23,7 +23,7 @@ import org.junit.jupiter.params.provider.NullSource
 import org.junit.jupiter.params.provider.ValueSource
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class BlaseballGlobalService {
+class BlaseballGlobalTests {
     val api = BlaseballApi(HttpClient(KtorneaApache) {
         installGranularHttp()
 

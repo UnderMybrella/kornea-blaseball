@@ -10,6 +10,7 @@ import dev.brella.kornea.blaseball.beans.BlaseballSeason
 import dev.brella.kornea.blaseball.beans.BlaseballStandings
 import dev.brella.kornea.blaseball.beans.BlaseballSubleague
 import dev.brella.kornea.blaseball.beans.BlaseballTiebreaker
+import dev.brella.kornea.blaseball.unwrap
 import io.ktor.client.request.*
 
 interface BlaseballLeagueDatabaseService: BlaseballDatabaseService {
@@ -34,6 +35,6 @@ interface BlaseballLeagueDatabaseService: BlaseballDatabaseService {
     suspend fun getSubleague(subleagueID: String): BlaseballSubleague =
         client.get("$databaseBaseUrl/subleague") { parameter("id", subleagueID) }
 
-    suspend fun getTiebreakers(tiebreakerID: String): BlaseballTiebreaker =
-        client.get("$databaseBaseUrl/tiebreakers") { parameter("id", tiebreakerID) }
+    suspend fun getTiebreaker(tiebreakerID: String): BlaseballTiebreaker =
+        unwrap(client.get("$databaseBaseUrl/tiebreakers") { parameter("id", tiebreakerID) })
 }
