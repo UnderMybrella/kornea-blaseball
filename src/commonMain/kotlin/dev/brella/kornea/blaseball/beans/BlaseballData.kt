@@ -140,13 +140,13 @@ data class BlaseballDatabaseGame(
     val awayBatterMod: ModificationID,
     val scoreUpdate: String,
     val scoreLedger: String,
-    val stadiumId: StadiumID?,
-    val secretBaserunner: JsonElement?,
-    val topInningScore: Double,
-    val bottomInningScore: Double,
-    val newInningPhase: Int,
-    val gameStartPhase: Int,
-    val isTitleMatch: Boolean
+    val stadiumId: StadiumID? = null,
+    val secretBaserunner: JsonElement? = null,
+    val topInningScore: Double? = null,
+    val bottomInningScore: Double? = null,
+    val newInningPhase: Int? = null,
+    val gameStartPhase: Int? = null,
+    val isTitleMatch: Boolean? = null
 )
 
 @Serializable

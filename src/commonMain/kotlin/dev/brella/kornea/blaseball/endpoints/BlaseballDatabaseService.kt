@@ -7,7 +7,7 @@ import io.ktor.client.request.*
 
 interface BlaseballDatabaseService : BlaseballService {
     companion object {
-        const val YES_BRELLA_I_WOULD_LIKE_UNLIMITED_EVENTS = -1
+        const val YES_BRELLA_I_WOULD_LIKE_UNLIMITED_EVENTS = -6543583
     }
 
     val databaseBaseUrl: String
