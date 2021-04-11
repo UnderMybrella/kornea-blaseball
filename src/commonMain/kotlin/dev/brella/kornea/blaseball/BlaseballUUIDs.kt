@@ -11,7 +11,6 @@ import kotlinx.serialization.encoding.CompositeDecoder
 import kotlinx.serialization.encoding.CompositeEncoder
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
-import java.util.function.BiConsumer
 
 interface BlaseballID: CharSequence {
     val id: String
@@ -111,9 +110,7 @@ inline class UUIDMap<K: BlaseballUUID, V: Any?>(val backing: Map<K, V>): Map<K, 
 
     override inline fun containsKey(key: K): Boolean = backing.containsKey(key)
     override inline fun containsValue(value: V): Boolean = backing.containsValue(value)
-    override inline fun forEach(action: BiConsumer<in K, in V>) = backing.forEach(action)
     override inline fun get(key: K): V? = backing.get(key)
-    override inline fun getOrDefault(key: K, defaultValue: V): V = backing.getOrDefault(key, defaultValue)
     override inline fun isEmpty(): Boolean = backing.isEmpty()
 }
 
