@@ -114,6 +114,7 @@ class BlaseballPipelineTests {
 
                                                         println("<Lineup>")
                                                         indent(indenting) {
+                                                            println(teamDetails.lineup.joinParams())
                                                             api.getPlayers(teamDetails.lineup)
                                                                 .forEach { player ->
                                                                     dumpPlayer(player)

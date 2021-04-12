@@ -64,7 +64,8 @@ data class BlaseballDatabasePlayer(
     val eDensity: Double,
     val state: JsonObject,
     val evolution: Double,
-    val items: JsonArray
+    val items: List<BlaseballItem>,
+    val itemAttr: List<ModificationID>
 )
 
 @Serializable

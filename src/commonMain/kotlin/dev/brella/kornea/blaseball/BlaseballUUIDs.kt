@@ -82,6 +82,9 @@ inline class TidingID(override val id: String): BlaseballUUID
 inline class FeedID(override val id: String): BlaseballUUID
 
 @Serializable
+inline class ItemID(override val id: String): BlaseballUUID
+
+@Serializable
 inline class GameStatsheetID(override val id: String): BlaseballUUID
 @Serializable
 inline class PlayerStatsheetID(override val id: String): BlaseballUUID

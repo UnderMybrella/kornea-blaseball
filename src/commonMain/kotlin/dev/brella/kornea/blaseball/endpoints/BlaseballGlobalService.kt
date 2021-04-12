@@ -3,7 +3,7 @@ package dev.brella.kornea.blaseball.endpoints
 import dev.brella.kornea.blaseball.ModificationID
 import dev.brella.kornea.blaseball.beans.BlaseballGlobalEvent
 import dev.brella.kornea.blaseball.beans.BlaseballIdols
-import dev.brella.kornea.blaseball.beans.BlaseballItem
+import dev.brella.kornea.blaseball.beans.BlaseballOldItem
 import dev.brella.kornea.blaseball.beans.BlaseballMod
 import dev.brella.kornea.blaseball.beans.BlaseballSimulationData
 import dev.brella.kornea.blaseball.beans.BlaseballStreamData
@@ -42,7 +42,7 @@ interface BlaseballGlobalService: BlaseballDatabaseService {
     
     @Deprecated("Item IDs are now UUIDs, but no items are available yet", level = DeprecationLevel.ERROR)
     @Suppress("DEPRECATION")
-    suspend fun getItems(vararg itemIDs: String): List<BlaseballItem> =
+    suspend fun getItems(vararg itemIDs: String): List<BlaseballOldItem> =
         client.get("$databaseBaseUrl/items") { parameter("ids", itemIDs.joinToString(",")) }
 
     suspend fun getModification(modID: ModificationID): BlaseballMod =
