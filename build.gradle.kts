@@ -5,8 +5,8 @@ buildscript {
 }
 
 plugins {
-    kotlin("multiplatform") version "1.4.30"
-    kotlin("plugin.serialization") version "1.4.30"
+    kotlin("multiplatform") version "1.4.32"
+    kotlin("plugin.serialization") version "1.4.32"
     id("com.adarshr.test-logger") version "2.1.1"
 }
 
@@ -14,7 +14,7 @@ apply(plugin = "kotlinx-atomicfu")
 apply(plugin = "maven-publish")
 
 group = "dev.brella"
-version = "1.3.2-alpha"
+version = "1.3.3-alpha"
 
 repositories {
     mavenCentral()
