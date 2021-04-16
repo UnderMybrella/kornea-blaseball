@@ -256,21 +256,3 @@ data class BlaseballDatabaseOffseasonWill(
     val description: String,
     val info: List<JsonObject>
 )
-
-@Serializable
-data class BlaseballFeedEvent(
-    val id: FeedID,
-    val playerTags: List<PlayerID>,
-    val teamTags: List<TeamID>,
-    val gameTags: List<GameID>,
-    val metadata: unknown?,
-    val created: String,
-    val season: Int,
-    val tournament: Int,
-    val type: Int,
-    val day: Int,
-    val phase: Int,
-    val category: Int,
-    val description: String,
-    val nuts: Int
-)

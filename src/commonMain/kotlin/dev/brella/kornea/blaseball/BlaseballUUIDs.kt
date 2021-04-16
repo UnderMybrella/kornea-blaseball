@@ -1,6 +1,7 @@
 package dev.brella.kornea.blaseball
 
 import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.builtins.serializer
@@ -11,6 +12,7 @@ import kotlinx.serialization.encoding.CompositeDecoder
 import kotlinx.serialization.encoding.CompositeEncoder
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlinx.serialization.serializer
 
 interface BlaseballID: CharSequence {
     val id: String
@@ -168,5 +170,7 @@ class UUIDMapSerialiser<K : BlaseballUUID, V : Any?>(val keySerialiser: KSeriali
 
 inline fun <T> CompositeEncoder.encodeInlineElement(descriptor: SerialDescriptor, index: Int, serialiser: KSerializer<T>, element: T) = serialiser.serialize(encodeInlineElement(descriptor, index), element)
 inline fun <T> CompositeDecoder.decodeInlineElement(descriptor: SerialDescriptor, serialiser: KSerializer<T>, index: Int): T = serialiser.deserialize(decodeInlineElement(descriptor, index))
+@OptIn(InternalSerializationApi::class)
+inline fun <reified T: Any> CompositeDecoder.decodeInlineElement(descriptor: SerialDescriptor, index: Int): T = T::class.serializer().deserialize(decodeInlineElement(descriptor, index))
 
 inline fun Iterable<BlaseballID>.joinParams(): String = joinToString(",", transform = BlaseballID::id)

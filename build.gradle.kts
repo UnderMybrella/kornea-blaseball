@@ -1,17 +1,20 @@
 buildscript {
     dependencies {
         classpath("org.jetbrains.kotlinx:atomicfu-gradle-plugin:0.15.1")
+//        classpath(kotlin("serialization", version = "1.4.30"))
     }
 }
 
 plugins {
-    kotlin("multiplatform") version "1.4.32"
-    kotlin("plugin.serialization") version "1.4.32"
+    kotlin("multiplatform") version "1.4.30"
+    kotlin("plugin.serialization") version "1.4.30"
     id("com.adarshr.test-logger") version "2.1.1"
+//    id("org.jetbrains.kotlin.plugin.serialization") version "1.4.32"
 }
 
 apply(plugin = "kotlinx-atomicfu")
 apply(plugin = "maven-publish")
+//apply(plugin = "kotlinx-serialization")
 
 group = "dev.brella"
 version = "1.3.3-alpha"
