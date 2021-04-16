@@ -1,6 +1,6 @@
 package dev.brella.kornea.blaseball
 
-object BlaseballFeedEventType {
+object BlaseballFeedEventType: Iterable<Int>, ClosedRange<Int> {
     const val LETS_GO = 0
     const val PLAY_BALL = 1
     const val HALF_INNING = 2
@@ -150,6 +150,7 @@ object BlaseballFeedEventType {
 
     const val TEAM_OVERPERFORMING = 165
     const val LINEUP_OPTIMISED = 166
+
     const val PEANUT_ALLERGY_CURED = 168
     const val PLAYER_ECHOED = 169
     const val ECHO_PLAYER_STATIC = 170
@@ -169,6 +170,51 @@ object BlaseballFeedEventType {
     const val PLAYERS_ITEM_DAMAGED = 186
     const val PLAYERS_ITEM_RESTORED = 187
     const val PLAYERS_ITEM_REPAIRED = 188
+
+    private val RANGE = BlaseballFeedEventType.run {
+        listOf(
+            LETS_GO .. FOUL_BALL,
+            SOLAR_PANEL_OVERFLOW_RUNS .. SOLAR_PANEL_OVERFLOW_RUNS,
+            PLAYER_HITS_ANOTHER_WITH_PITCH .. STRIKE_ZAPPED_BY_ELECTRIC_BLOOD,
+            MILD_PITCH .. SUN_2,
+            BIRDS_FLAVOUR_TEXT .. FREE_REFILL,
+            WIRED .. FEEDBACK,
+            ALLERGIC_REACTION .. REVERB_SHUFFLE,
+            BLOODDRAIN .. SIPHON,
+            INCINERATION .. RENOVATION_BUILT,
+            DECREE_PASSED .. SALMON_SWIM_UPSTREAM,
+            PLAYER_ENTERS_SECRET_BASE .. CONSUMERS_ATTACK_PLAYER,
+            ECHO_CHAMBER_TRAPS_WAVE .. PLAYER_HOPS_ON_GRIND_RAIL,
+            PEANUT_MISTER .. TASTING_THE_INFINITE,
+            SOLAR_PANEL_ALIGNMENT .. SOLAR_PANEL_RUN_COLLECTION,
+            TAROT_READING .. EMERGENCY_ALERT,
+            RETURN_FROM_ELSEWHERE .. UNDER_OVER,
+            UNDERSEA .. UNDERSEA,
+            HOMESICK .. PERK,
+            EARLBIRDS .. LATE_TO_PARTY,
+            ADDED_INGAME_MODIFIER .. PLAYER_REROLL,
+            PLAYER_ENTERS_HALL_OF_FAME .. PLAYER_DROPPED_ITEM,
+            REVERB_SHUFFLE .. REVERB_SHUFFLE_FULL,
+            REVERB_SHUFFLE_ROTATION .. REVERB_SHUFFLE_ROTATION,
+            NEW_TEAM .. PLAYER_HATCHED,
+            PLAYER_EVOLVES .. PLAYER_EVOLVES,
+            TEAM_WINS_INTERNET_SERIES .. POSTSEASON_ADVANCE,
+
+            PLAYER_GAINED_BLOOD_TYPE .. PLAYER_GAINED_BLOOD_TYPE,
+
+            TEAM_OVERPERFORMING .. LINEUP_OPTIMISED,
+            PEANUT_ALLERGY_CURED .. PLAYER_ENTERS_CRIME_SCENE_TO_INVESTIGATE,
+
+            PLAYERS_ITEM_BROKE .. PLAYERS_ITEM_REPAIRED
+        ).flatten().toIntArray()
+    }
+
+    override fun iterator() = RANGE.iterator()
+
+    override val start: Int = RANGE.first()
+    override val endInclusive: Int = RANGE.last()
+
+    override infix fun contains(value: Int): Boolean = RANGE.contains(value)
 
     fun textFromType(type: Int): String =
         when (type) {
