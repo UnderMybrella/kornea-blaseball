@@ -168,6 +168,9 @@ class UUIDMapSerialiser<K : BlaseballUUID, V : Any?>(val keySerialiser: KSeriali
     }
 }
 
+
+@OptIn(InternalSerializationApi::class)
+inline fun <reified T: Any> CompositeEncoder.encodeInlineElement(descriptor: SerialDescriptor, index: Int, element: T) = T::class.serializer().serialize(encodeInlineElement(descriptor, index), element)
 inline fun <T> CompositeEncoder.encodeInlineElement(descriptor: SerialDescriptor, index: Int, serialiser: KSerializer<T>, element: T) = serialiser.serialize(encodeInlineElement(descriptor, index), element)
 inline fun <T> CompositeDecoder.decodeInlineElement(descriptor: SerialDescriptor, serialiser: KSerializer<T>, index: Int): T = serialiser.deserialize(decodeInlineElement(descriptor, index))
 @OptIn(InternalSerializationApi::class)

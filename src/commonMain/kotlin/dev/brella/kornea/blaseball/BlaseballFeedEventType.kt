@@ -1,6 +1,6 @@
 package dev.brella.kornea.blaseball
 
-object BlaseballFeedEventType: Iterable<Int>, ClosedRange<Int> {
+object BlaseballFeedEventType : Iterable<Int>, ClosedRange<Int> {
     const val LETS_GO = 0
     const val PLAY_BALL = 1
     const val HALF_INNING = 2
@@ -37,7 +37,7 @@ object BlaseballFeedEventType: Iterable<Int>, ClosedRange<Int> {
     const val BIRDS_FLAVOUR_TEXT = 33
     const val MURDER_OF_CROWS = 34
     const val BIRDS_FREE_SHELLED_PLAYER = 35
-    const val TRIPLE_THREAD = 36
+    const val TRIPLE_THREAT = 36
     const val FREE_REFILL = 37
     const val WIRED = 39
     const val FEEDBACK_BLOCKED = 40
@@ -67,6 +67,7 @@ object BlaseballFeedEventType: Iterable<Int>, ClosedRange<Int> {
 
     const val PEANUT_MISTER = 72
     const val PEANUTS_FLAVOUR_TEXT = 73
+
     /** Shelling */
     const val TASTING_THE_INFINITE = 74
     const val SOLAR_PANEL_ALIGNMENT = 78
@@ -112,8 +113,8 @@ object BlaseballFeedEventType: Iterable<Int>, ClosedRange<Int> {
     const val PLAYER_STAT_DECREASE = 118
     const val PLAYER_REROLL = 119
 
-    const val PLAYER_ENTERS_HALL_OF_FAME = 125
-    const val PLAYER_EXITS_HALL_OF_FAME = 126
+    const val PLAYER_ENTERS_HALL_OF_FLAME = 125
+    const val PLAYER_EXITS_HALL_OF_FLAME = 126
     const val PLAYER_GAINED_ITEM = 127
     const val PLAYER_DROPPED_ITEM = 128
 
@@ -121,6 +122,7 @@ object BlaseballFeedEventType: Iterable<Int>, ClosedRange<Int> {
     const val REVERB_SHUFFLE_ROTATION = 132
 
     const val NEW_TEAM = 135
+
     /** Excluding Incinerations */
     const val NEW_PLAYER = 136
     const val PLAYER_HATCHED = 137
@@ -135,7 +137,7 @@ object BlaseballFeedEventType: Iterable<Int>, ClosedRange<Int> {
     const val REMOVED_MODIFIER_DUE_TO_MODIFIER = 147
     const val SUPERYUMMY_TRANSITIONS = 148
     const val NECROMANCY_NARRATION = 149
-    const val RETURNED_VALUE_PERMITTED_TO_STAY = 150
+    const val RETURNED_PLAYER_PERMITTED_TO_STAY = 150
     const val DECREE_NARRATION = 151
     const val WILL_RESULTS = 152
     const val BLESSING_RESULTS = 153
@@ -173,39 +175,39 @@ object BlaseballFeedEventType: Iterable<Int>, ClosedRange<Int> {
 
     private val RANGE = BlaseballFeedEventType.run {
         listOf(
-            LETS_GO .. FOUL_BALL,
-            SOLAR_PANEL_OVERFLOW_RUNS .. SOLAR_PANEL_OVERFLOW_RUNS,
-            PLAYER_HITS_ANOTHER_WITH_PITCH .. STRIKE_ZAPPED_BY_ELECTRIC_BLOOD,
-            MILD_PITCH .. SUN_2,
-            BIRDS_FLAVOUR_TEXT .. FREE_REFILL,
-            WIRED .. FEEDBACK,
-            ALLERGIC_REACTION .. REVERB_SHUFFLE,
-            BLOODDRAIN .. SIPHON,
-            INCINERATION .. RENOVATION_BUILT,
-            DECREE_PASSED .. SALMON_SWIM_UPSTREAM,
-            PLAYER_ENTERS_SECRET_BASE .. CONSUMERS_ATTACK_PLAYER,
-            ECHO_CHAMBER_TRAPS_WAVE .. PLAYER_HOPS_ON_GRIND_RAIL,
-            PEANUT_MISTER .. TASTING_THE_INFINITE,
-            SOLAR_PANEL_ALIGNMENT .. SOLAR_PANEL_RUN_COLLECTION,
-            TAROT_READING .. EMERGENCY_ALERT,
-            RETURN_FROM_ELSEWHERE .. UNDER_OVER,
-            UNDERSEA .. UNDERSEA,
-            HOMESICK .. PERK,
-            EARLBIRDS .. LATE_TO_PARTY,
-            ADDED_INGAME_MODIFIER .. PLAYER_REROLL,
-            PLAYER_ENTERS_HALL_OF_FAME .. PLAYER_DROPPED_ITEM,
-            REVERB_SHUFFLE .. REVERB_SHUFFLE_FULL,
-            REVERB_SHUFFLE_ROTATION .. REVERB_SHUFFLE_ROTATION,
-            NEW_TEAM .. PLAYER_HATCHED,
-            PLAYER_EVOLVES .. PLAYER_EVOLVES,
-            TEAM_WINS_INTERNET_SERIES .. POSTSEASON_ADVANCE,
+            LETS_GO..FOUL_BALL,
+            SOLAR_PANEL_OVERFLOW_RUNS..SOLAR_PANEL_OVERFLOW_RUNS,
+            PLAYER_HITS_ANOTHER_WITH_PITCH..STRIKE_ZAPPED_BY_ELECTRIC_BLOOD,
+            MILD_PITCH..SUN_2,
+            BIRDS_FLAVOUR_TEXT..FREE_REFILL,
+            WIRED..FEEDBACK,
+            ALLERGIC_REACTION..REVERB_SHUFFLE,
+            BLOODDRAIN..SIPHON,
+            INCINERATION..RENOVATION_BUILT,
+            DECREE_PASSED..SALMON_SWIM_UPSTREAM,
+            PLAYER_ENTERS_SECRET_BASE..CONSUMERS_ATTACK_PLAYER,
+            ECHO_CHAMBER_TRAPS_WAVE..PLAYER_HOPS_ON_GRIND_RAIL,
+            PEANUT_MISTER..TASTING_THE_INFINITE,
+            SOLAR_PANEL_ALIGNMENT..SOLAR_PANEL_RUN_COLLECTION,
+            TAROT_READING..EMERGENCY_ALERT,
+            RETURN_FROM_ELSEWHERE..UNDER_OVER,
+            UNDERSEA..UNDERSEA,
+            HOMESICK..PERK,
+            EARLBIRDS..LATE_TO_PARTY,
+            ADDED_INGAME_MODIFIER..PLAYER_REROLL,
+            PLAYER_ENTERS_HALL_OF_FLAME..PLAYER_DROPPED_ITEM,
+            REVERB_SHUFFLE..REVERB_SHUFFLE_FULL,
+            REVERB_SHUFFLE_ROTATION..REVERB_SHUFFLE_ROTATION,
+            NEW_TEAM..PLAYER_HATCHED,
+            PLAYER_EVOLVES..PLAYER_EVOLVES,
+            TEAM_WINS_INTERNET_SERIES..POSTSEASON_ADVANCE,
 
-            PLAYER_GAINED_BLOOD_TYPE .. PLAYER_GAINED_BLOOD_TYPE,
+            PLAYER_GAINED_BLOOD_TYPE..PLAYER_GAINED_BLOOD_TYPE,
 
-            TEAM_OVERPERFORMING .. LINEUP_OPTIMISED,
-            PEANUT_ALLERGY_CURED .. PLAYER_ENTERS_CRIME_SCENE_TO_INVESTIGATE,
+            TEAM_OVERPERFORMING..LINEUP_OPTIMISED,
+            PEANUT_ALLERGY_CURED..PLAYER_ENTERS_CRIME_SCENE_TO_INVESTIGATE,
 
-            PLAYERS_ITEM_BROKE .. PLAYERS_ITEM_REPAIRED
+            PLAYERS_ITEM_BROKE..PLAYERS_ITEM_REPAIRED
         ).flatten().toIntArray()
     }
 
