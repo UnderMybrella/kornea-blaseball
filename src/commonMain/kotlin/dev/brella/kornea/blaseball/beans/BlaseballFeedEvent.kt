@@ -2877,7 +2877,7 @@ sealed class BlaseballFeedMetadata {
     class LateToTheParty(override val play: Int, override val subPlay: Int, override val children: List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
 
     @Serializable
-    class LetsGo(val home: TeamID, val away: TeamID, override val play: Int, override val subPlay: Int, val stadium: StadiumID, val weather: Int) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent
+    class LetsGo(val home: TeamID, val away: TeamID, override val play: Int, override val subPlay: Int, val stadium: StadiumID? = null, val weather: Int) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent
 
     @Serializable
     class LineupOrganised(override val parent: FeedID) : BlaseballFeedMetadata(), WithParent.AlwaysPresent

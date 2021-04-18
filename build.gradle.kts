@@ -17,7 +17,7 @@ apply(plugin = "maven-publish")
 //apply(plugin = "kotlinx-serialization")
 
 group = "dev.brella"
-version = "1.4.0-alpha"
+version = "1.4.1-alpha"
 
 repositories {
     mavenCentral()
