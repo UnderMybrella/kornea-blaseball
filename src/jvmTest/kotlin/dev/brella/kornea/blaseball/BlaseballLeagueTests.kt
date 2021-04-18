@@ -37,14 +37,14 @@ class BlaseballLeagueTests {
         }
     })
 
-    @ParameterizedTest(name = "Get League Divisions, which should be {0} long and start with ''{1}''")
+    @ParameterizedTest(name = "Get League Divisions, which should be {0} long and contain ''{1}''")
     @CsvSource(
         value = ["8,Wild High"]
     )
     fun `Get All Divisions`(size: Int, startsWith: String) = runBlocking {
         val divisions = api.getAllDivisions()
         divisions.size assertEquals size
-        divisions[0].name assertEquals startsWith
+        divisions.any { it.name == startsWith } assertEquals true
     }
 
     @ParameterizedTest(name = "League Division[{0}].name == ''{1}''")

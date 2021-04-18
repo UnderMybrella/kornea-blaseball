@@ -2740,7 +2740,7 @@ sealed class BlaseballFeedMetadata {
     }
 
     @Serializable
-    class AddedInGameModifier(override val play: Int? = null, override val subPlay: Int?, val parent: FeedID? = null, val mod: ModificationID, val type: Int) : BlaseballFeedMetadata(), WithPlay
+    class AddedInGameModifier(override val play: Int? = null, override val subPlay: Int? = null, val parent: FeedID? = null, val mod: ModificationID, val type: Int) : BlaseballFeedMetadata(), WithPlay
 
     @Serializable
     class AddedModifierDueToAnotherModifier(override val play: Int, override val subPlay: Int, val mod: ModificationID, val type: Int, val parent: FeedID, val source: ModificationID) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent
