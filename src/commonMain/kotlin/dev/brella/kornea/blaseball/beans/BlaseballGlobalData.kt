@@ -59,10 +59,10 @@ data class BlaseballItem(
     val suffix: JsonElement?,
     val durability: Double,
     val health: Double,
-    val baserunningRating: Double,
-    val pitchingRating: Double,
-    val hittingRating: Double,
-    val defenseRating: Double
+    val baserunningRating: Double?,
+    val pitchingRating: Double?,
+    val hittingRating: Double?,
+    val defenseRating: Double?
 )
 
 @Serializable

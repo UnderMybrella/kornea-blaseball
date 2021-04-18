@@ -147,8 +147,15 @@ data class BlaseballDatabaseGame(
     val bottomInningScore: Double? = null,
     val newInningPhase: Int? = null,
     val gameStartPhase: Int? = null,
-    val isTitleMatch: Boolean? = null
-)
+    val isTitleMatch: Boolean? = null,
+    val queuedEvents: JsonArray? = null
+) {
+    init {
+        if (queuedEvents?.isNotEmpty() == true) {
+            println("Queued Events is not empty: $queuedEvents")
+        }
+    }
+}
 
 @Serializable
 data class BlaseballDatabasePlayoffs(

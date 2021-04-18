@@ -3,7 +3,6 @@ package dev.brella.kornea.blaseball.beans
 import dev.brella.kornea.blaseball.*
 import dev.brella.kornea.blaseball.json.RoundsGameSerialiser
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.Serializer
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
@@ -24,8 +23,8 @@ data class BlaseballStreamDataGames(
     val sim: BlaseballStreamDataSim,
     val season: BlaseballStreamDataSeason,
     val standings: BlaseballStreamDataStandings,
-    val schedule: List<BlaseballStreamDataSchedule>,
-    val tomorrowSchedule: List<BlaseballStreamDataSchedule>,
+    val schedule: List<BlaseballStreamDataGame>,
+    val tomorrowSchedule: List<BlaseballStreamDataGame>,
     val postseason: BlaseballStreamDataPostseason
 )
 
@@ -86,8 +85,8 @@ data class BlaseballStreamDataStandings(
 )
 
 @Serializable
-data class BlaseballStreamDataSchedule(
-    val id: ScheduleID,
+data class BlaseballStreamDataGame(
+    val id: GameID,
     val basesOccupied: List<Int>,
     val baseRunners: List<PlayerID>,
     val baseRunnerNames: List<String>,
@@ -164,8 +163,15 @@ data class BlaseballStreamDataSchedule(
     val bottomInningScore: Double,
     val newInningPhase: Int,
     val gameStartPhase: Int,
-    val isTitleMatch: Boolean
-)
+    val isTitleMatch: Boolean,
+    val queuedEvents: JsonArray
+) {
+    init {
+        if (queuedEvents.isNotEmpty()) {
+            println("Queued Events is not empty: $queuedEvents")
+        }
+    }
+}
 
 @Serializable
 data class BlaseballStreamDataPostseason(

@@ -2776,7 +2776,7 @@ sealed class BlaseballFeedMetadata {
     class BlackHoleInGame(override val play: Int, override val subPlay: Int, override val children: List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
 
     @Serializable
-    class BlessingWon(val id: BlessingID, val title: String, val votes: Int, val teamId: TeamID, override val children: List<FeedID>) : BlaseballFeedMetadata(), WithChildren.AlwaysPresent
+    class BlessingWon(val id: BlessingID, val title: String, val votes: Int, val teamId: TeamID, override val children: List<FeedID>, val teamName: String, val totalVotes: Int? = null, val highestTeam: TeamID, val highestVotes: Int? = null) : BlaseballFeedMetadata(), WithChildren.AlwaysPresent
 
     @Serializable
     class BlessingResults(override val parent: FeedID) : BlaseballFeedMetadata(), WithParent.AlwaysPresent
@@ -2961,8 +2961,8 @@ sealed class BlaseballFeedMetadata {
 
     @Serializable
     class PlayerDroppedItem(
-        override val play: Int,
-        override val subPlay: Int,
+        override val play: Int? = null,
+        override val subPlay: Int? = null,
         val mods: List<ModificationID>,
         val itemId: ItemID,
         val itemName: String,
@@ -2970,7 +2970,7 @@ sealed class BlaseballFeedMetadata {
         val playerRating: Double,
         val playerItemRatingBefore: Double,
         val playerItemRatingAfter: Double
-    ) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithParent.AlwaysPresent
+    ) : BlaseballFeedMetadata(), WithPlay, WithParent.AlwaysPresent
 
     @Serializable
     class PlayerEchoed(override val play: Int, override val subPlay: Int, override val children: List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
