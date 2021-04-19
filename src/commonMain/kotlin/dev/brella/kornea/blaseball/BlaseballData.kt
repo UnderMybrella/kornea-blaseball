@@ -11,7 +11,8 @@ object BettingPayouts {
           ? Math.round(a * (2 + 555e-6 * Math.pow(100 * (0.5 - e), 2.4135)))
           : Math.round(a * (2 - 335e-6 * Math.pow(100 * (e - 0.5), 2.045)));
       }*/
-    fun seasonEleven(amount: Int, odds: Double): Int =
+    /** Season 1-11 */
+    fun disciplineEra(amount: Int, odds: Double): Int =
         when {
             0.5 == odds -> 2 * amount
             odds < 0.5 -> (amount * (2 + 555e-6 * (100 * (0.5 - odds)).pow(2.4135))).roundToInt()
@@ -31,7 +32,8 @@ object BettingPayouts {
                       A * (0.571 + 1.429 / (1 + Math.pow(3 * (e - 0.5), 0.77)))
                     );
               })(I(), v)*/
-    fun seasonTwelve(amount: Int, odds: Double): Int =
+    /** Season 12 */
+    fun theReturn(amount: Int, odds: Double): Int =
         when {
             odds == 0.5 -> 2 * amount
             odds < 0.5 -> (amount * (2 + 0.0015 * (100 * (0.5 - odds)).pow(2.2))).roundToInt()
@@ -46,7 +48,8 @@ object BettingPayouts {
                   ? Math.round(A * (2 + 0.0015 * Math.pow(100 * (0.5 - e), 2.2)))
                   : Math.round(A * (3.206 / (1 + Math.pow(0.443 * (e - 0.5), 0.95)) - 1.206));
               })(I(), v)*/
-    fun seasonThirteen(amount: Int, odds: Double): Int =
+    /** Season 13+ */
+    fun expansionEra(amount: Int, odds: Double): Int =
         when {
             0.5 == odds -> 2 * amount
             odds < 0.5 -> (amount * (2 + 0.0015 * (100 * (0.5 - odds)).pow(2.2))).roundToInt()
@@ -54,40 +57,15 @@ object BettingPayouts {
             else -> 2 * amount
         }
 
-    /*
-    {(function (e, a) {
-                  return 0.5 === e
-                    ? Math.round(2 * a)
-                    : e < 0.5
-                    ? Math.round(a * (2 + 0.0015 * Math.pow(100 * (0.5 - e), 2.2)))
-                    : Math.round(a * (3.206 / (1 + Math.pow(0.443 * (e - 0.5), 0.95)) - 1.206));
-                })(x(), E)}
-     */
-    fun seasonFourteen(amount: Int, odds: Double): Int =
+    inline fun currentSeason(amount: Int, odds: Double): Int = expansionEra(amount, odds)
+    inline fun forSeason(season: Int, amount: Int, odds: Double): Int =
         when {
-            0.5 == odds -> 2 * amount
-            odds < 0.5 -> (amount * (2 + 0.0015 * (100 * (0.5 - odds)).pow(2.2))).roundToInt()
-            odds > 0.5 -> (amount * (3.206 / (1 + (0.443 * (odds - 0.5)).pow(0.95)) - 1.206)).roundToInt()
-            else -> 2 * amount
+            season < 12 -> disciplineEra(amount, odds)
+            season > 12 -> expansionEra(amount, odds)
+
+            //Season == 12
+            else -> theReturn(amount, odds)
         }
-
-
-    /*
-    return 0.5 === e
-        ? Math.round(2 * a)
-        : e < 0.5
-        ? Math.round(a * (2 + 0.0015 * Math.pow(100 * (0.5 - e), 2.2)))
-        : Math.round(a * (3.206 / (1 + Math.pow(0.443 * (e - 0.5), 0.95)) - 1.206));
-     */
-    fun seasonFifteen(amount: Int, odds: Double): Int =
-        when {
-            0.5 == odds -> 2 * amount
-            odds < 0.5 -> (amount * (2 + 0.0015 * (100 * (0.5 - odds)).pow(2.2))).roundToInt()
-            odds > 0.5 -> (amount * (3.206 / (1 + (0.443 * (odds - 0.5)).pow(0.95)) - 1.206)).roundToInt()
-            else -> 2 * amount
-        }
-
-    inline fun currentSeason(amount: Int, odds: Double): Int = seasonFifteen(amount, odds)
 }
 
 data class BlaseballRewardShopItem(val price: Int, val payout: Int) {
