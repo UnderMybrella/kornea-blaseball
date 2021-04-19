@@ -7,6 +7,7 @@ import io.ktor.client.features.json.*
 import io.ktor.http.content.*
 import io.ktor.utils.io.*
 import io.ktor.utils.io.core.*
+import kotlinx.serialization.KSerializer
 
 public inline fun <reified T> HttpClient.readAsJson(data: ByteArray): T =
     this[JsonFeature].serializer.read(typeInfo<T>(), ByteReadPacket(data)) as T
@@ -19,3 +20,6 @@ public inline fun HttpClient.writeAsJson(obj: Any): ByteArray =
     }
 
 inline fun <T> unwrap(list: List<T>): T = list.first()
+
+inline fun <T, R: T> coerce(value: KSerializer<out T>): KSerializer<R> =
+    value as KSerializer<R>

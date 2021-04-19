@@ -3319,10 +3319,14 @@ sealed class BlaseballFeedMetadata {
     ) : BlaseballFeedMetadata(), WithPlay, WithParent
 
     @Serializable(NoMetadataSerialiser::class)
-    object None : BlaseballFeedMetadata()
+    object None : BlaseballFeedMetadata() {
+        override val serialiser: KSerializer<BlaseballFeedMetadata> by lazy { coerce(NoMetadataSerialiser) }
+    }
 
     @Serializable(UnknownMetadataSerialiser::class)
-    class Unknown(val contents: Map<String, JsonElement>) : BlaseballFeedMetadata(), Map<String, JsonElement> by contents
+    class Unknown(val contents: Map<String, JsonElement>) : BlaseballFeedMetadata(), Map<String, JsonElement> by contents {
+        override val serialiser: KSerializer<BlaseballFeedMetadata> by lazy { coerce(UnknownMetadataSerialiser) }
+    }
 
 //    @OptIn(InternalSerializationApi::class)
 //    fun test() {
@@ -3330,9 +3334,11 @@ sealed class BlaseballFeedMetadata {
 //    }
 
     @OptIn(InternalSerializationApi::class)
-    fun serialise(encoder: CompositeEncoder, descriptor: SerialDescriptor, index: Int) {
+    open val serialiser: KSerializer<BlaseballFeedMetadata> by lazy { coerce(this::class.serializer()) }
+
+    open fun serialise(encoder: CompositeEncoder, descriptor: SerialDescriptor, index: Int) {
 //        val serializer =
-        encoder.encodeSerializableElement(descriptor, index, this::class.serializer() as KSerializer<BlaseballFeedMetadata>, this)
+        encoder.encodeSerializableElement(descriptor, index, serialiser, this)
     }
 }
 
