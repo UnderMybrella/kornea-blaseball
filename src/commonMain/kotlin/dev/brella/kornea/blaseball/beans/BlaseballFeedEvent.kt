@@ -3418,8 +3418,8 @@ object BlaseballFeedEventSerialiser : KSerializer<BlaseballFeedEvent> {
                 BlaseballFeedEventType.END_OF_INNING -> serializer<BlaseballFeedMetadata.EndOfInning>()
                 BlaseballFeedEventType.SITE_TAKEOVER_TEXT -> serializer<BlaseballFeedMetadata.SiteTakeoverText>()
 
-                BlaseballFeedEventType.BLACK_HOLE -> NoMetadataSerialiser
-                BlaseballFeedEventType.SUN_2 -> NoMetadataSerialiser
+                BlaseballFeedEventType.BLACK_HOLE -> serializer<BlaseballFeedMetadata.BlackHoleInGame>()
+                BlaseballFeedEventType.SUN_2 -> serializer<BlaseballFeedMetadata.Sun2InGame>()
                 BlaseballFeedEventType.BIRDS_FLAVOUR_TEXT -> serializer<BlaseballFeedMetadata.BirdsFlavourText>()
                 BlaseballFeedEventType.MURDER_OF_CROWS -> serializer<BlaseballFeedMetadata.MurderOfCrows>()
                 BlaseballFeedEventType.BIRDS_FREE_SHELLED_PLAYER -> serializer<BlaseballFeedMetadata.BirdsFreeShelledPlayer>()
