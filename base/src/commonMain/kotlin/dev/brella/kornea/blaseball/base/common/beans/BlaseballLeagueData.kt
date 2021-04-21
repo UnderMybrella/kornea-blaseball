@@ -1,6 +1,7 @@
 package dev.brella.kornea.blaseball.base.common.beans
 
 import dev.brella.kornea.blaseball.*
+import dev.brella.kornea.blaseball.base.common.*
 import dev.brella.kornea.blaseball.base.common.beans.Colour
 import dev.brella.kornea.blaseball.base.common.beans.ColourAsHexSerialiser
 import dev.brella.kornea.blaseball.base.common.beans.unknown

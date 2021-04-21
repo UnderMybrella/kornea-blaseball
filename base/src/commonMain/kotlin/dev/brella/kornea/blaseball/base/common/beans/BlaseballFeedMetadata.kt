@@ -1,5 +1,6 @@
 package dev.brella.kornea.blaseball.beans
 
+import dev.brella.kornea.blaseball.base.common.*
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.KSerializer
@@ -78,7 +79,7 @@ sealed class BlaseballFeedMetadata {
     class AlternateCoinText(override val play: Int? = null, override val subPlay: Int? = null, override val parent: FeedID? = null) : BlaseballFeedMetadata(), WithPlay, WithParent
 
     @Serializable
-    class Ball(override val play: Int, override val subPlay: Int) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent
+    class Ball(override val play: Int, override val subPlay: Int, override val children: List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
 
     @Serializable
     class BirdsFlavourText(override val play: Int, override val subPlay: Int) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent
@@ -185,7 +186,7 @@ sealed class BlaseballFeedMetadata {
     class Homesick(override val play: Int, override val subPlay: Int, override val children: List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
 
     @Serializable
-    class Incineration(override val play: Int, override val subPlay: Int, override val children: List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
+    class Incineration(override val play: Int, override val subPlay: Int, override val children: List<FeedID>? = null, override val parent: FeedID? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren, WithParent
 
     @Serializable
     class LateToTheParty(override val play: Int, override val subPlay: Int, override val children: List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
@@ -707,3 +708,6 @@ object CoercedIntSerialiser : KSerializer<Int> {
         encoder.encodeInt(value)
     }
 }
+
+inline fun <T, R: T> coerce(value: KSerializer<out T>): KSerializer<R> =
+    value as KSerializer<R>

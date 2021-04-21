@@ -1,6 +1,6 @@
-package dev.brella.kornea.blaseball.json
+package dev.brella.kornea.blaseball.base.common.json
 
-import dev.brella.kornea.blaseball.GameID
+import dev.brella.kornea.blaseball.base.common.GameID
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind
 import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor

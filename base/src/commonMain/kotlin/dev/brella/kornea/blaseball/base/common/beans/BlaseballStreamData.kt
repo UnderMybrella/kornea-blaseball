@@ -1,17 +1,11 @@
-package dev.brella.kornea.blaseball.beans
+package dev.brella.kornea.blaseball.base.common.beans
 
-import dev.brella.kornea.blaseball.*
-import dev.brella.kornea.blaseball.base.common.beans.BlaseballDivision
-import dev.brella.kornea.blaseball.base.common.beans.BlaseballLeague
-import dev.brella.kornea.blaseball.base.common.beans.BlaseballSubleague
-import dev.brella.kornea.blaseball.base.common.beans.BlaseballTeam
-import dev.brella.kornea.blaseball.base.common.beans.BlaseballTiebreaker
-import dev.brella.kornea.blaseball.base.common.beans.Colour
-import dev.brella.kornea.blaseball.base.common.beans.ColourAsHexSerialiser
-import dev.brella.kornea.blaseball.json.RoundsGameSerialiser
+import dev.brella.kornea.blaseball.base.common.*
+import dev.brella.kornea.blaseball.base.common.json.RoundsGameSerialiser
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.Serializable
 
 @Serializable
 data class BlaseballStreamDataResponse(val value: BlaseballStreamData)

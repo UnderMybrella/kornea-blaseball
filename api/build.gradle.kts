@@ -14,6 +14,7 @@ repositories {
     mavenCentral()
     mavenLocal()
     maven(url = "https://maven.brella.dev")
+    maven(url = "https://kotlin.bintray.com/ktor")
 }
 
 kotlin {
@@ -26,16 +27,16 @@ kotlin {
             useJUnitPlatform()
         }
     }
-    js(IR) {
-        browser {
-            testTask {
-                useKarma {
-                    useChromeHeadless()
-                    webpackConfig.cssSupport.enabled = true
-                }
-            }
-        }
-    }
+//    js(IR) {
+//        browser {
+//            testTask {
+//                useKarma {
+//                    useChromeHeadless()
+//                    webpackConfig.cssSupport.enabled = true
+//                }
+//            }
+//        }
+//    }
 //    val hostOs = System.getProperty("os.name")
 //    val isMingwX64 = hostOs.startsWith("Windows")
 //    val nativeTarget = when {
@@ -48,17 +49,18 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.1.0")
+                implementation("io.ktor:ktor-client-core:1.5.0")
+                implementation("io.ktor:ktor-client-serialization:1.5.0")
+
+                implementation("dev.brella:kornea-io:5.2.0-alpha")
+                implementation("dev.brella:kornea-toolkit:3.3.1-alpha")
+                implementation("dev.brella:ktornea-utils:1.2.2-alpha")
+
+                implementation("org.jetbrains.kotlinx:atomicfu:0.15.1")
+                implementation(project(":kornea-blaseball-base"))
+
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0")
-//
-//                implementation("io.ktor:ktor-client-core:1.5.0")
-//                implementation("io.ktor:ktor-client-serialization:1.5.0")
-//
-//                implementation("dev.brella:kornea-io:5.2.0-alpha")
-//                implementation("dev.brella:kornea-toolkit:3.3.1-alpha")
-//                implementation("dev.brella:ktornea-utils:1.2.0-alpha")
-//
-//                implementation("org.jetbrains.kotlinx:atomicfu:0.15.1")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.1.0")
             }
         }
         val commonTest by getting {
@@ -69,23 +71,23 @@ kotlin {
         }
         val jvmMain by getting {
             dependencies {
-//                implementation("io.ktor:ktor-client-apache:1.5.0")
-//                implementation("io.ktor:ktor-client-encoding:1.5.0")
-//                implementation("io.ktor:ktor-client-core-jvm:1.5.0")
-//                implementation("dev.brella:ktornea-apache:1.0.0-alpha")
+                implementation("io.ktor:ktor-client-apache:1.5.0")
+                implementation("io.ktor:ktor-client-encoding:1.5.0")
+                implementation("io.ktor:ktor-client-core-jvm:1.5.0")
+                implementation("dev.brella:ktornea-apache:1.0.0-alpha")
             }
         }
         val jvmTest by getting {
             dependencies {
-//                implementation("org.junit.jupiter:junit-jupiter-api:5.7.1")
-//                implementation("org.junit.jupiter:junit-jupiter-params:5.7.1")
-//                runtimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.1")
-//
-//                implementation("io.ktor:ktor-client-apache:1.5.0")
-//                implementation("io.ktor:ktor-client-encoding:1.5.0")
-//                implementation("io.ktor:ktor-client-core-jvm:1.5.0")
-//                implementation("dev.brella:ktornea-apache:1.0.0-alpha")
-//                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.3")
+                implementation("org.junit.jupiter:junit-jupiter-api:5.7.1")
+                implementation("org.junit.jupiter:junit-jupiter-params:5.7.1")
+                runtimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.1")
+
+                implementation("io.ktor:ktor-client-apache:1.5.0")
+                implementation("io.ktor:ktor-client-encoding:1.5.0")
+                implementation("io.ktor:ktor-client-core-jvm:1.5.0")
+                implementation("dev.brella:ktornea-apache:1.0.0-alpha")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.4.3")
             }
         }
 //        val jsMain by getting

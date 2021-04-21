@@ -1,7 +1,7 @@
 package dev.brella.kornea.blaseball.base.common.beans
 
 import dev.brella.kornea.blaseball.base.common.*
-import dev.brella.kornea.blaseball.json.RoundsGameSerialiser
+import dev.brella.kornea.blaseball.base.common.json.RoundsGameSerialiser
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonElement
