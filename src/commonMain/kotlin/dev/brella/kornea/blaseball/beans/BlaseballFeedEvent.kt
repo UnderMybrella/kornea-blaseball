@@ -2764,7 +2764,7 @@ sealed class BlaseballFeedMetadata {
     class AlternateCoinText(override val play: Int? = null, override val subPlay: Int? = null, override val parent: FeedID? = null) : BlaseballFeedMetadata(), WithPlay, WithParent
 
     @Serializable
-    class Ball(override val play: Int, override val subPlay: Int) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent
+    class Ball(override val play: Int, override val subPlay: Int, override val children: List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
 
     @Serializable
     class BirdsFlavourText(override val play: Int, override val subPlay: Int) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent
