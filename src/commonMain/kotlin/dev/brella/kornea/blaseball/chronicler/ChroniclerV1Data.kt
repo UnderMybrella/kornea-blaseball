@@ -13,6 +13,7 @@ import dev.brella.kornea.blaseball.beans.ColourAsHexSerialiser
 import dev.brella.kornea.blaseball.beans.ColourAsNullableHexSerialiser
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonElement
 
 enum class EnumOrder(val order: String) {
@@ -108,7 +109,8 @@ data class ChroniclerBlaseballGame(
     val bottomInningScore: Double? = null,
     val newInningPhase: Int? = null,
     val gameStartPhase: Int? = null,
-    val isTitleMatch: Boolean? = null
+    val isTitleMatch: Boolean? = null,
+    val queuedEvents: JsonArray? = null
 )
 
 @Serializable
@@ -199,7 +201,8 @@ data class ChroniclerBlaseballGameUpdate(
     val bottomInningScore: Double? = null,
     val newInningPhase: Int? = null,
     val gameStartPhase: Int? = null,
-    val isTitleMatch: Boolean? = null
+    val isTitleMatch: Boolean? = null,
+    val queuedEvents: JsonArray? = null
 ) {
     val id: GameID get() = newID ?: oldID!!
 }
