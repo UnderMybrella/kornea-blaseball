@@ -89,7 +89,7 @@ data class ChroniclerBlaseballGame(
     val seriesIndex: Int,
     val seriesLength: Int,
     val shame: Boolean,
-    val weather: Int,
+    val weather: Int? = null,
     val baserunnerCount: Int,
     val homeBases: Double,
     val awayBases: Double,
