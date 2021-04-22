@@ -8,7 +8,7 @@ apply(plugin = "kotlinx-atomicfu")
 apply(plugin = "maven-publish")
 
 group = "dev.brella"
-version = "2.0.0-alpha"
+version = "2.1.0-alpha"
 
 repositories {
     mavenCentral()
@@ -50,6 +50,8 @@ kotlin {
             dependencies {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.1.0")
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0")
+
+                api("com.soywiz.korlibs.klock:klock:2.0.7")
 //
 //                implementation("io.ktor:ktor-client-core:1.5.0")
 //                implementation("io.ktor:ktor-client-serialization:1.5.0")
