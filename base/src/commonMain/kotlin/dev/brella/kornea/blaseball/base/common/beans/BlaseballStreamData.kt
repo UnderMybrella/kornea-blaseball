@@ -166,7 +166,8 @@ data class BlaseballStreamDataGame(
     val newInningPhase: Int,
     val gameStartPhase: Int,
     val isTitleMatch: Boolean,
-    val queuedEvents: JsonArray
+    val queuedEvents: JsonArray,
+    val state: JsonObject? = null
 ) {
     init {
         if (queuedEvents.isNotEmpty()) {

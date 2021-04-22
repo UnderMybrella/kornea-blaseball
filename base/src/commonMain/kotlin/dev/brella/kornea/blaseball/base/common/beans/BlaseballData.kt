@@ -148,7 +148,8 @@ data class BlaseballDatabaseGame(
     val newInningPhase: Int? = null,
     val gameStartPhase: Int? = null,
     val isTitleMatch: Boolean? = null,
-    val queuedEvents: JsonArray? = null
+    val queuedEvents: JsonArray? = null,
+    val state: JsonObject? = null
 ) {
     init {
         if (queuedEvents?.isNotEmpty() == true) {
