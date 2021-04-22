@@ -2,14 +2,6 @@ package dev.brella.kornea.blaseball
 
 import dev.brella.kornea.blaseball.base.common.ModificationID
 import dev.brella.kornea.blaseball.base.common.beans.Colour
-import dev.brella.ktornea.apache.KtorneaApache
-import dev.brella.ktornea.common.installGranularHttp
-import io.ktor.client.*
-import io.ktor.client.features.*
-import io.ktor.client.features.compression.*
-import io.ktor.client.features.json.*
-import io.ktor.client.features.json.serializer.*
-import io.ktor.http.*
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeout
@@ -20,32 +12,10 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
-import org.junit.jupiter.params.provider.NullSource
-import org.junit.jupiter.params.provider.ValueSource
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class BlaseballGlobalTests {
-    val api = BlaseballApi(HttpClient(KtorneaApache) {
-        installGranularHttp()
-
-        install(ContentEncoding) {
-            gzip()
-            deflate()
-            identity()
-        }
-
-        install(JsonFeature) {
-            serializer = KotlinxSerializer(kotlinx.serialization.json.Json {
-//                ignoreUnknownKeys = true
-            })
-        }
-
-        expectSuccess = true
-
-        defaultRequest {
-            userAgent("kornea-blaseball v1.0.0")
-        }
-    })
+    val api = buildBlaseballApiClient()
 
     @Test
     fun `Test Idol Board`() = runBlocking {

@@ -16,27 +16,7 @@ import org.junit.jupiter.params.provider.CsvSource
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class BlaseballTeamTests {
-    val api = BlaseballApi(HttpClient(KtorneaApache) {
-        installGranularHttp()
-
-        install(ContentEncoding) {
-            gzip()
-            deflate()
-            identity()
-        }
-
-        install(JsonFeature) {
-            serializer = KotlinxSerializer(kotlinx.serialization.json.Json {
-//                ignoreUnknownKeys = true
-            })
-        }
-
-        expectSuccess = true
-
-        defaultRequest {
-            userAgent("kornea-blaseball v1.0.0")
-        }
-    })
+    val api = buildBlaseballApiClient()
 
     @ParameterizedTest(name = "Get All Teams (Should be {0})")
     @CsvSource("41")

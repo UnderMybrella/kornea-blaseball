@@ -8,7 +8,7 @@ apply(plugin = "kotlinx-atomicfu")
 apply(plugin = "maven-publish")
 
 group = "dev.brella"
-version = "2.1.1-alpha"
+version = "2.1.2-alpha"
 
 repositories {
     mavenCentral()
@@ -72,6 +72,7 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 implementation("io.ktor:ktor-client-apache:1.5.0")
+                implementation("io.ktor:ktor-client-okhttp:1.5.0")
                 implementation("io.ktor:ktor-client-encoding:1.5.0")
                 implementation("io.ktor:ktor-client-core-jvm:1.5.0")
                 implementation("dev.brella:ktornea-apache:1.0.0-alpha")
@@ -84,6 +85,7 @@ kotlin {
                 runtimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.1")
 
                 implementation("io.ktor:ktor-client-apache:1.5.0")
+                implementation("io.ktor:ktor-client-okhttp:1.5.0")
                 implementation("io.ktor:ktor-client-encoding:1.5.0")
                 implementation("io.ktor:ktor-client-core-jvm:1.5.0")
                 implementation("dev.brella:ktornea-apache:1.0.0-alpha")

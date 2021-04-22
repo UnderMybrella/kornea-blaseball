@@ -2,14 +2,6 @@ package dev.brella.kornea.blaseball
 
 import dev.brella.kornea.blaseball.base.common.BlessingID
 import dev.brella.kornea.blaseball.base.common.DecreeID
-import dev.brella.ktornea.apache.KtorneaApache
-import dev.brella.ktornea.common.installGranularHttp
-import io.ktor.client.*
-import io.ktor.client.features.*
-import io.ktor.client.features.compression.*
-import io.ktor.client.features.json.*
-import io.ktor.client.features.json.serializer.*
-import io.ktor.http.*
 import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
@@ -19,27 +11,7 @@ import org.junit.jupiter.params.provider.CsvSource
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class BlaseballElectionDatabaseTests {
-    val api = BlaseballApi(HttpClient(KtorneaApache) {
-        installGranularHttp()
-
-        install(ContentEncoding) {
-            gzip()
-            deflate()
-            identity()
-        }
-
-        install(JsonFeature) {
-            serializer = KotlinxSerializer(kotlinx.serialization.json.Json {
-//                ignoreUnknownKeys = true
-            })
-        }
-
-        expectSuccess = true
-
-        defaultRequest {
-            userAgent("kornea-blaseball v1.0.0")
-        }
-    })
+    val api = buildBlaseballApiClient()
 
     @Nested
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
