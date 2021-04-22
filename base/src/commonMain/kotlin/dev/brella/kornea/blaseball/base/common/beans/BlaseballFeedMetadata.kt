@@ -472,13 +472,13 @@ sealed class BlaseballFeedMetadata {
     class PlayerStatDecrease(override val play: Int? = null, override val subPlay: Int? = null, val type: Int, val before: Double, val after: Double, override val parent: FeedID? = null) : BlaseballFeedMetadata(), WithPlay, WithParent
 
     @Serializable
-    class PlayerStatDecreaseByPercent(override val parent: FeedID? = null, val before: Double, val after: Double, val type: Int) : BlaseballFeedMetadata(), WithParent
+    class PlayerStatDecreaseByPercent(override val play: Int? = null, override val subPlay: Int? = null, override val parent: FeedID? = null, val before: Double, val after: Double, val type: Int) : BlaseballFeedMetadata(), WithPlay, WithParent
 
     @Serializable
     class PlayerStatIncrease(override val play: Int? = null, override val subPlay: Int? = null, val type: Int, val before: Double, val after: Double, override val parent: FeedID? = null) : BlaseballFeedMetadata(), WithPlay, WithParent
 
     @Serializable
-    class PlayerStatIncreaseByPercent(override val parent: FeedID? = null, val before: Double, val after: Double, val type: Int) : BlaseballFeedMetadata(), WithParent
+    class PlayerStatIncreaseByPercent(override val play: Int? = null, override val subPlay: Int? = null, override val parent: FeedID? = null, val before: Double, val after: Double, val type: Int) : BlaseballFeedMetadata(), WithPlay, WithParent
 
     @Serializable
     class PlayerTrade(
