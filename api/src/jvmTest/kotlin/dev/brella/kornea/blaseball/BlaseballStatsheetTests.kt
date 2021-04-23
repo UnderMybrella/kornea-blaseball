@@ -4,15 +4,6 @@ import dev.brella.kornea.blaseball.base.common.GameStatsheetID
 import dev.brella.kornea.blaseball.base.common.PlayerStatsheetID
 import dev.brella.kornea.blaseball.base.common.SeasonStatsheetID
 import dev.brella.kornea.blaseball.base.common.TeamStatsheetID
-import dev.brella.ktornea.apache.KtorneaApache
-import dev.brella.ktornea.common.installGranularHttp
-import io.ktor.client.*
-import io.ktor.client.features.*
-import io.ktor.client.features.compression.*
-import io.ktor.client.features.json.*
-import io.ktor.client.features.json.serializer.*
-import io.ktor.http.*
-import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
@@ -28,7 +19,7 @@ class BlaseballStatsheetTests {
             "6340c731-43c9-4fd9-843d-cb8b5af98437,0,0"
         ]
     )
-    fun `Get Game Statsheets`(id: String, homeTeamTotalBatters: Int, awayTeamTotalBatters: Int) = runBlocking {
+    fun `Get Game Statsheets`(id: String, homeTeamTotalBatters: Int, awayTeamTotalBatters: Int) = runTest {
         val gameStatsheet = assertSuccessful(api.getGameStatsheet(GameStatsheetID(id)))
         gameStatsheet.homeTeamTotalBatters assertEquals homeTeamTotalBatters
         gameStatsheet.awayTeamTotalBatters assertEquals awayTeamTotalBatters
@@ -46,7 +37,7 @@ class BlaseballStatsheetTests {
             "d3faddda-029f-4b02-a967-359fa73fc1c5,Edric Tosser,0"
         ]
     )
-    fun `Get Player Statsheets`(id: String, name: String, earnedRuns: Int) = runBlocking {
+    fun `Get Player Statsheets`(id: String, name: String, earnedRuns: Int) = runTest {
         val gameStatsheet = assertSuccessful(api.getPlayerStatsheet(PlayerStatsheetID(id)))
         gameStatsheet.name assertEquals name
         gameStatsheet.earnedRuns assertEquals earnedRuns
@@ -59,7 +50,7 @@ class BlaseballStatsheetTests {
             "416850be-936a-49e4-b0c5-cfb2e2f78538,Chicago Firefighters,10"
         ]
     )
-    fun `Get Team Statsheets`(id: String, name: String, relevantPlayers: Int) = runBlocking {
+    fun `Get Team Statsheets`(id: String, name: String, relevantPlayers: Int) = runTest {
         val teamStatsheet = assertSuccessful(api.getTeamStatsheet(TeamStatsheetID(id)))
         teamStatsheet.name assertEquals name
         teamStatsheet.playerStats.size assertEquals relevantPlayers
@@ -73,7 +64,7 @@ class BlaseballStatsheetTests {
             "aeb9927a-89fd-434b-8924-d1b8f83ed372,15,24"
         ]
     )
-    fun `Get Season Statsheets`(id: String, season: Int, expectedTeams: Int) = runBlocking {
+    fun `Get Season Statsheets`(id: String, season: Int, expectedTeams: Int) = runTest {
         val seasonStatsheet = assertSuccessful(api.getSeasonStatsheet(SeasonStatsheetID(id)))
         seasonStatsheet.teamStats.size assertEquals expectedTeams
     }

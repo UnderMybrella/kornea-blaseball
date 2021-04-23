@@ -4,15 +4,6 @@ import dev.brella.kornea.blaseball.base.common.LeagueID
 import dev.brella.kornea.blaseball.base.common.beans.BlaseballDatabasePlayer
 import dev.brella.kornea.blaseball.base.common.beans.BlaseballMod
 import dev.brella.kornea.blaseball.base.common.joinParams
-import dev.brella.ktornea.apache.KtorneaApache
-import dev.brella.ktornea.common.installGranularHttp
-import io.ktor.client.*
-import io.ktor.client.features.*
-import io.ktor.client.features.compression.*
-import io.ktor.client.features.json.*
-import io.ktor.client.features.json.serializer.*
-import io.ktor.http.*
-import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.assertDoesNotThrow
@@ -23,7 +14,7 @@ class BlaseballPipelineTests {
 
     @Test
     fun `League To Player`() = assertDoesNotThrow {
-        runBlocking {
+        runTest {
             val indenting = "\t"
 
             suspend fun Indented.dumpPlayer(player: BlaseballDatabasePlayer) {
@@ -151,7 +142,7 @@ class BlaseballPipelineTests {
 
     @Test
     fun `Hall of Flame Players`() = assertDoesNotThrow {
-        runBlocking {
+        runTest {
             val tributeBoard = assertSuccessful(api.getHallOfFlamePlayers())
             val playerList = assertSuccessful(api.getPlayers(tributeBoard.map { it.playerId }))
             tributeBoard.zip(playerList).forEach { (tribute, player) ->

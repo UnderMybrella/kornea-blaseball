@@ -1,15 +1,6 @@
 package dev.brella.kornea.blaseball
 
 import dev.brella.kornea.blaseball.base.common.TeamID
-import dev.brella.ktornea.apache.KtorneaApache
-import dev.brella.ktornea.common.installGranularHttp
-import io.ktor.client.*
-import io.ktor.client.features.*
-import io.ktor.client.features.compression.*
-import io.ktor.client.features.json.*
-import io.ktor.client.features.json.serializer.*
-import io.ktor.http.*
-import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
@@ -20,7 +11,7 @@ class BlaseballTeamTests {
 
     @ParameterizedTest(name = "Get All Teams (Should be {0})")
     @CsvSource("41")
-    fun `Get All Teams`(teamSize: Int) = runBlocking {
+    fun `Get All Teams`(teamSize: Int) = runTest {
         assertSuccessful(api.getAllTeams()).size assertEquals teamSize
     }
 
@@ -33,7 +24,7 @@ class BlaseballTeamTests {
             "7966eb04-efcc-499b-8f03-d13916330531,Yellowstone Magic"
         ]
     )
-    fun `Get Teams`(teamID: String, teamName: String) = runBlocking {
+    fun `Get Teams`(teamID: String, teamName: String) = runTest {
         assertSuccessful(api.getTeam(TeamID(teamID))).fullName assertEquals teamName
     }
 }

@@ -2,7 +2,6 @@ package dev.brella.kornea.blaseball
 
 import dev.brella.kornea.blaseball.base.common.PlayerID
 import dev.brella.kornea.blaseball.base.common.TeamID
-import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.api.assertDoesNotThrow
@@ -17,14 +16,14 @@ class BlaseballDatabaseTests {
     @CsvSource(value = ["1,11"])
     fun `Get Feed By Phase`(phase: Int, season: Int) {
         assertDoesNotThrow {
-            runBlocking {
+            runTest {
                 assertSuccessful(api.getFeedByPhase(phase, season))
             }
         }
     }
 
     @Test
-    fun `Get Global Feed`() = runBlocking {
+    fun `Get Global Feed`() = runTest {
         assertSuccessful(api.getGlobalFeed(limit = 5))
             .isNotEmpty() assertEquals true
     }
@@ -43,7 +42,7 @@ class BlaseballDatabaseTests {
         ]
     )
     fun `Get Player Feed`(playerID: String, playerName: String) =
-        runBlocking {
+        runTest {
             assertSuccessful(api.getPlayerFeed(PlayerID(playerID), limit = 5))
                 .isNotEmpty() assertEquals true
         }
@@ -62,7 +61,7 @@ class BlaseballDatabaseTests {
         ]
     )
     fun `Get Team Feed`(teamID: String, teamName: String) =
-        runBlocking {
+        runTest {
             assertSuccessful(api.getTeamFeed(TeamID(teamID), limit = 5))
                 .isNotEmpty() assertEquals true
         }

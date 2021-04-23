@@ -6,15 +6,6 @@ import dev.brella.kornea.blaseball.base.common.PlayoffMatchupID
 import dev.brella.kornea.blaseball.base.common.SubleagueID
 import dev.brella.kornea.blaseball.base.common.TeamID
 import dev.brella.kornea.blaseball.base.common.TiebreakerID
-import dev.brella.ktornea.apache.KtorneaApache
-import dev.brella.ktornea.common.installGranularHttp
-import io.ktor.client.*
-import io.ktor.client.features.*
-import io.ktor.client.features.compression.*
-import io.ktor.client.features.json.*
-import io.ktor.client.features.json.serializer.*
-import io.ktor.http.*
-import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
@@ -27,7 +18,7 @@ class BlaseballLeagueTests {
     @CsvSource(
         value = ["8,Wild High"]
     )
-    fun `Get All Divisions`(size: Int, startsWith: String) = runBlocking {
+    fun `Get All Divisions`(size: Int, startsWith: String) = runTest {
         val divisions = assertSuccessful(api.getAllDivisions())
         divisions.size assertEquals size
         divisions.any { it.name == startsWith } assertEquals true
@@ -46,7 +37,7 @@ class BlaseballLeagueTests {
             "fadc9684-45b3-47a6-b647-3be3f0735a84,Mild Low"
         ]
     )
-    fun `Get League Division`(uuid: String, name: String) = runBlocking {
+    fun `Get League Division`(uuid: String, name: String) = runTest {
         assertSuccessful(api.getDivision(DivisionID(uuid))).name assertEquals name
     }
 
@@ -54,7 +45,7 @@ class BlaseballLeagueTests {
     @CsvSource(
         value = ["d8545021-e9fc-48a3-af74-48685950a183,Internet League Blaseball"]
     )
-    fun `Get League`(uuid: String, name: String) = runBlocking {
+    fun `Get League`(uuid: String, name: String) = runTest {
         assertSuccessful(api.getLeague(LeagueID(uuid))).name assertEquals name
     }
 
@@ -66,7 +57,7 @@ class BlaseballLeagueTests {
             "2b6550de-98b3-4a7d-a3da-59e62ddebf41,7966eb04-efcc-499b-8f03-d13916330531,3f8bbb15-61c0-4e3f-8e4a-907a5fb1565e"
         ]
     )
-    fun `Get Playoff Matchup`(uuid: String, homeTeam: String?, awayTeam: String?) = runBlocking {
+    fun `Get Playoff Matchup`(uuid: String, homeTeam: String?, awayTeam: String?) = runTest {
         assertSuccessful(api.getPlayoffMatchup(PlayoffMatchupID(uuid)))
             .homeTeam?.id assertEquals homeTeam?.takeUnless(String::isBlank)
     }
@@ -80,7 +71,7 @@ class BlaseballLeagueTests {
             "15,645cdd84-175f-42f1-a9f3-d9014d97ae3b"
         ]
     )
-    fun `Get Season Details`(season: Int, id: String) = runBlocking {
+    fun `Get Season Details`(season: Int, id: String) = runTest {
         val season = assertSuccessful(api.getSeason(season - 1))
         season.id.id assertEquals id
     }
@@ -93,7 +84,7 @@ class BlaseballLeagueTests {
             "14,Houston Spies,9debc64f-74b7-4ae1-a4d6-fce0144b6ea5,49,50"
         ]
     )
-    fun `Get Season Standings`(season: Int, name: String, teamUID: String, wins: Int, losses: Int) = runBlocking {
+    fun `Get Season Standings`(season: Int, name: String, teamUID: String, wins: Int, losses: Int) = runTest {
         val season = assertSuccessful(api.getSeason(season - 1))
         val standings = assertSuccessful(api.getStandings(season.standings))
 
@@ -108,7 +99,7 @@ class BlaseballLeagueTests {
             "4fe65afa-804f-4bb2-9b15-1281b2eab110,The Mild League,2"
         ]
     )
-    fun `Get Subleague`(uid: String, name: String, divisions: Int) = runBlocking {
+    fun `Get Subleague`(uid: String, name: String, divisions: Int) = runTest {
         val subleague = assertSuccessful(api.getSubleague(SubleagueID(uid)))
 
         subleague.name assertEquals name
@@ -121,7 +112,7 @@ class BlaseballLeagueTests {
             "de6896bf-02de-442a-87df-4b77b1d3f4b2,24"
         ]
     )
-    fun `Get Tiebreaker`(uid: String, teams: Int) = runBlocking {
+    fun `Get Tiebreaker`(uid: String, teams: Int) = runTest {
         val tiebreaker = assertSuccessful(api.getTiebreaker(TiebreakerID(uid)))
 
         tiebreaker.order.size assertEquals teams

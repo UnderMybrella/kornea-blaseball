@@ -2,7 +2,6 @@ package dev.brella.kornea.blaseball
 
 import dev.brella.kornea.blaseball.base.common.GameID
 import dev.brella.kornea.blaseball.base.common.PlayoffRoundID
-import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
@@ -19,7 +18,7 @@ class BlaseballGamesTests {
             "9f8105f8-8d69-4c7d-8f01-2d33be6abaef,252"
         ]
     )
-    fun `Get Game By ID`(id: String, playCount: Int) = runBlocking {
+    fun `Get Game By ID`(id: String, playCount: Int) = runTest {
         assertSuccessful(api.getGameById(GameID(id))).playCount assertEquals playCount
     }
 
@@ -43,7 +42,7 @@ class BlaseballGamesTests {
             "15,1,12"
         ]
     )
-    fun `Get Games By Date`(season: Int, day: Int, gamesRunning: Int) = runBlocking {
+    fun `Get Games By Date`(season: Int, day: Int, gamesRunning: Int) = runTest {
         assertSuccessful(api.getGamesByDate(season = season - 1, day = day - 1)).size assertEquals gamesRunning
     }
 
@@ -56,7 +55,7 @@ class BlaseballGamesTests {
             "12,11,1,2"
         ]
     )
-    fun `Get Games By Date With Tournament`(season: Int, day: Int, tournament: Int, gamesRunning: Int) = runBlocking {
+    fun `Get Games By Date With Tournament`(season: Int, day: Int, tournament: Int, gamesRunning: Int) = runTest {
         assertSuccessful(api.getGamesByDate(season = season - 1, day = day - 1, tournament = tournament - 1)).size assertEquals gamesRunning
     }
 
@@ -69,7 +68,7 @@ class BlaseballGamesTests {
             "b89526a8-42d6-4796-8e3b-3299f802e3e2,The Internet Series,Postseason 14,3"
         ]
     )
-    fun `Get Playoff Round`(id: String, name: String, seasonName: String, setCount: Int) = runBlocking {
+    fun `Get Playoff Round`(id: String, name: String, seasonName: String, setCount: Int) = runTest {
         val playoff = assertSuccessful(api.getPlayoffRound(PlayoffRoundID(id)))
         playoff.name assertEquals name
         playoff.games.size assertEquals setCount
@@ -84,7 +83,7 @@ class BlaseballGamesTests {
             "13,Postseason 14,eb67ae5e-c4bf-46ca-bbbc-425cd34182ff"
         ]
     )
-    fun `Get Playoff Details`(season: Int, name: String, winner: String) = runBlocking {
+    fun `Get Playoff Details`(season: Int, name: String, winner: String) = runTest {
         val playoff = assertSuccessful(api.getPlayoff(season))
         playoff.name assertEquals name
         playoff.winner assertEquals winner

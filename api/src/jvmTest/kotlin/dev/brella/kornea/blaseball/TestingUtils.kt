@@ -10,6 +10,12 @@ import io.ktor.client.features.compression.*
 import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*
 import io.ktor.http.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.serialization.json.Json
 import org.junit.jupiter.api.Assertions
 import kotlin.contracts.ExperimentalContracts
@@ -89,3 +95,6 @@ fun buildBlaseballApiClient() =
             }
         }
     })
+
+inline fun <T> runTest(noinline block: suspend CoroutineScope.() -> T): T =
+    GlobalScope.async(Dispatchers.IO, block = block).let { runBlocking { it.await() } }

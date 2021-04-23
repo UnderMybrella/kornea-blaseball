@@ -2,7 +2,6 @@ package dev.brella.kornea.blaseball
 
 import dev.brella.kornea.blaseball.base.common.BlessingID
 import dev.brella.kornea.blaseball.base.common.DecreeID
-import kotlinx.coroutines.runBlocking
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.TestInstance
@@ -17,7 +16,7 @@ class BlaseballElectionDatabaseTests {
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     @DisplayName("Get Blessing Results")
     inner class `Get Blessing Results` {
-        val blessing = runBlocking {
+        val blessing = runTest {
             val list = assertSuccessful(
                 api.getBlessingResults(listOf(BlessingID("f0f15969-aecb-4f9e-8eb9-00f05ece732c"), BlessingID("cbb567c0-d770-4d22-92f6-ff16ebb94758"), BlessingID("winniehess_mystery")))
             )
@@ -93,7 +92,7 @@ class BlaseballElectionDatabaseTests {
     @TestInstance(TestInstance.Lifecycle.PER_CLASS)
     @DisplayName("Get Decree Results")
     inner class `Get Decree Results` {
-        val decree = runBlocking {
+        val decree = runTest {
             val list = assertSuccessful(
                 api.getDecreeResults(listOf(DecreeID("b090fdfc-7d9d-414b-a4a5-bbc698028c15"), DecreeID("94ca62b2-fbba-4d32-a682-18b524ddd4a8")))
             )
