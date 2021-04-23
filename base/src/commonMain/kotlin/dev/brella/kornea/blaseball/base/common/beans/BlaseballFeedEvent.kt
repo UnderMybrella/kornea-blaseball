@@ -3,6 +3,7 @@ package dev.brella.kornea.blaseball.base.common.beans
 import com.soywiz.klock.DateTimeTz
 import com.soywiz.klock.parse
 import dev.brella.kornea.blaseball.*
+import dev.brella.kornea.blaseball.base.common.BLASEBALL_TIME_PATTERN
 import dev.brella.kornea.blaseball.base.common.BlaseballFeedEventType
 import dev.brella.kornea.blaseball.base.common.FeedID
 import dev.brella.kornea.blaseball.base.common.GameID
@@ -2919,7 +2920,7 @@ object BlaseballFeedEventSerialiser : KSerializer<BlaseballFeedEvent> {
                     descriptor.getElementIndex("playerTags") -> builder.playerTags = decodeSerializableElement(descriptor, index, ListSerializer(PlayerID::class.serializer()))
                     descriptor.getElementIndex("teamTags") -> builder.teamTags = decodeSerializableElement(descriptor, index, ListSerializer(TeamID::class.serializer()))
                     descriptor.getElementIndex("gameTags") -> builder.gameTags = decodeSerializableElement(descriptor, index, ListSerializer(GameID::class.serializer()))
-                    descriptor.getElementIndex("created") -> builder.created = BlaseballDateTimeSerialiser.format.parse(decodeStringElement(descriptor, index))
+                    descriptor.getElementIndex("created") -> builder.created = BLASEBALL_TIME_PATTERN.parse(decodeStringElement(descriptor, index))
                     descriptor.getElementIndex("season") -> builder.season = decodeIntElement(descriptor, index)
                     descriptor.getElementIndex("tournament") -> builder.tournament = decodeIntElement(descriptor, index)
                     descriptor.getElementIndex("day") -> builder.day = decodeIntElement(descriptor, index)
@@ -2962,7 +2963,7 @@ object BlaseballFeedEventSerialiser : KSerializer<BlaseballFeedEvent> {
             encodeSerializableElement(descriptor, descriptor.getElementIndex("playerTags"), ListSerializer(serializer()), value.playerTags)
             encodeSerializableElement(descriptor, descriptor.getElementIndex("teamTags"), ListSerializer(serializer()), value.teamTags)
             encodeSerializableElement(descriptor, descriptor.getElementIndex("gameTags"), ListSerializer(serializer()), value.gameTags)
-            encodeStringElement(descriptor, descriptor.getElementIndex("created"), BlaseballDateTimeSerialiser.format.format(value.created))
+            encodeStringElement(descriptor, descriptor.getElementIndex("created"), BLASEBALL_TIME_PATTERN.format(value.created))
             encodeIntElement(descriptor, descriptor.getElementIndex("season"), value.season)
             encodeIntElement(descriptor, descriptor.getElementIndex("tournament"), value.tournament)
             encodeIntElement(descriptor, descriptor.getElementIndex("day"), value.day)
