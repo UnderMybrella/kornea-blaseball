@@ -5,6 +5,7 @@ import dev.brella.kornea.blaseball.base.common.beans.Colour
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.withTimeout
 import org.junit.jupiter.api.Assertions.assertDoesNotThrow
+import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
@@ -120,6 +121,7 @@ class BlaseballGlobalTests {
         assertDoesNotThrow { runTest { api.getSimulationData() } }
 
     @Test
+    @Disabled
     fun `Get Live Data Stream`() =
         assertDoesNotThrow {
             runTest {
