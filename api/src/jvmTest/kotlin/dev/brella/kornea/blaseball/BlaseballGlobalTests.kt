@@ -121,13 +121,12 @@ class BlaseballGlobalTests {
         assertDoesNotThrow { runTest { api.getSimulationData() } }
 
     @Test
-    @Disabled
     fun `Get Live Data Stream`() =
         assertDoesNotThrow {
             runTest {
                 val liveDataStream = assertSuccessful(api.getLiveDataStream())
                 //No clue why this takes 20s?? In testing only??
-                withTimeout(30_000) { liveDataStream.firstOrNull() }
+                withTimeout(10_000) { liveDataStream.firstOrNull() }
             }
         }
 }

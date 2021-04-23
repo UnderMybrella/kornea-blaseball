@@ -8,7 +8,7 @@ apply(plugin = "kotlinx-atomicfu")
 apply(plugin = "maven-publish")
 
 group = "dev.brella"
-version = "2.1.3-alpha"
+version = "2.1.4-alpha"
 
 repositories {
     mavenCentral()
@@ -54,7 +54,7 @@ kotlin {
 
                 implementation("dev.brella:kornea-io:5.2.0-alpha")
                 implementation("dev.brella:kornea-toolkit:3.3.1-alpha")
-                implementation("dev.brella:ktornea-utils:1.2.2-alpha")
+                implementation("dev.brella:ktornea-utils:1.2.3-alpha")
 
                 implementation("org.jetbrains.kotlinx:atomicfu:0.15.1")
                 api(project(":kornea-blaseball-base"))

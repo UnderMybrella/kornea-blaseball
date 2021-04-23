@@ -97,4 +97,5 @@ fun buildBlaseballApiClient() =
     })
 
 inline fun <T> runTest(noinline block: suspend CoroutineScope.() -> T): T =
-    GlobalScope.async(Dispatchers.IO, block = block).let { runBlocking { it.await() } }
+//    GlobalScope.async(Dispatchers.IO, block = block).let { runBlocking { it.await() } }
+    runBlocking(block = block)

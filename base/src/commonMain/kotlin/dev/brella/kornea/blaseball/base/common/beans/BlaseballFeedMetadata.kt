@@ -281,11 +281,11 @@ sealed class BlaseballFeedMetadata {
         val mods: List<ModificationID>,
         val itemId: ItemID,
         val itemName: String,
-        override val parent: FeedID,
+        override val parent: FeedID? = null,
         val playerRating: Double,
         val playerItemRatingBefore: Double,
         val playerItemRatingAfter: Double
-    ) : BlaseballFeedMetadata(), WithPlay, WithParent.AlwaysPresent
+    ) : BlaseballFeedMetadata(), WithPlay, WithParent
 
     @Serializable
     class PlayerEchoed(override val play: Int, override val subPlay: Int, override val children: List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
