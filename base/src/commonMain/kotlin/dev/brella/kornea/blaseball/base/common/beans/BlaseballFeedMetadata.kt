@@ -1,6 +1,7 @@
-package dev.brella.kornea.blaseball.beans
+package dev.brella.kornea.blaseball.base.common.beans
 
 import dev.brella.kornea.blaseball.base.common.*
+import dev.brella.kornea.blaseball.base.common.json.UnwrappedSerialiser
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.KSerializer
@@ -18,6 +19,7 @@ import kotlinx.serialization.encoding.Encoder
 import kotlinx.serialization.json.JsonDecoder
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.int
+import kotlinx.serialization.json.intOrNull
 import kotlinx.serialization.json.jsonPrimitive
 import kotlinx.serialization.serializer
 
@@ -39,10 +41,10 @@ sealed class BlaseballFeedMetadata {
     }
 
     interface WithChildren {
-        val children: List<FeedID>?
+        val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>?
 
         interface AlwaysPresent : WithChildren {
-            override val children: List<FeedID>
+            override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>
         }
     }
 
@@ -66,65 +68,65 @@ sealed class BlaseballFeedMetadata {
         override val subPlay: Int,
         override val parent: FeedID,
         val source: ModificationID,
-        val adds: List<EchoModAddition>
+        val adds: @Serializable(UnwrappedSerialiser::class) List<EchoModAddition>
     ) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithParent.AlwaysPresent {
         @Serializable
         data class EchoModAddition(val mod: ModificationID, val type: Int)
     }
 
     @Serializable
-    class AllergicReaction(override val play: Int, override val subPlay: Int, override val children: List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
+    class AllergicReaction(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
 
     @Serializable
     class AlternateCoinText(override val play: Int? = null, override val subPlay: Int? = null, override val parent: FeedID? = null) : BlaseballFeedMetadata(), WithPlay, WithParent
 
     @Serializable
-    class Ball(override val play: Int, override val subPlay: Int, override val children: List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
+    class Ball(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
 
     @Serializable
     class BirdsFlavourText(override val play: Int, override val subPlay: Int) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent
 
     @Serializable
-    class BirdsFreeShelledPlayer(override val play: Int, override val subPlay: Int, override val children: List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
+    class BirdsFreeShelledPlayer(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
 
     @Serializable
-    class BlackHoleInGame(override val play: Int, override val subPlay: Int, override val children: List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
+    class BlackHoleInGame(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
 
     @Serializable
-    class BlessingWon(val id: BlessingID, val title: String, val votes: Int, val teamId: TeamID, override val children: List<FeedID>, val teamName: String, val totalVotes: Int? = null, val highestTeam: TeamID, val highestVotes: Int? = null) : BlaseballFeedMetadata(), WithChildren.AlwaysPresent
+    class BlessingWon(val id: BlessingID, val title: String, val votes: Int, val teamId: TeamID, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>, val teamName: String, val totalVotes: Int? = null, val highestTeam: TeamID, val highestVotes: Int? = null) : BlaseballFeedMetadata(), WithChildren.AlwaysPresent
 
     @Serializable
     class BlessingResults(override val parent: FeedID) : BlaseballFeedMetadata(), WithParent.AlwaysPresent
 
     @Serializable
-    class BloodDrain(override val play: Int, override val subPlay: Int, override val children: List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
+    class BloodDrain(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
 
     @Serializable
-    class ConsumersAttack(override val play: Int, override val subPlay: Int, override val children: List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
+    class ConsumersAttack(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
 
     @Serializable
     class DecreeNarration(override val parent: FeedID) : BlaseballFeedMetadata(), WithParent.AlwaysPresent
 
     @Serializable
-    class DecreePassed(val id: DecreeID, val title: String, val votes: Int, override val children: List<FeedID>, val totalVotes: Int) : BlaseballFeedMetadata(), WithChildren.AlwaysPresent
+    class DecreePassed(val id: DecreeID, val title: String, val votes: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>, val totalVotes: Int) : BlaseballFeedMetadata(), WithChildren.AlwaysPresent
 
     @Serializable
-    class EarlBirds(override val play: Int, override val subPlay: Int, override val children: List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
+    class EarlBirds(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
 
     @Serializable
-    class EchoChamberTrapsWave(override val play: Int, override val subPlay: Int, override val children: List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
+    class EchoChamberTrapsWave(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
 
     @Serializable
-    class EchoFades(override val play: Int? = null, override val subPlay: Int? = null, val source: ModificationID, val removes: List<EchoFadeRemoved>) : BlaseballFeedMetadata(), WithPlay {
+    class EchoFades(override val play: Int? = null, override val subPlay: Int? = null, val source: ModificationID, val removes: @Serializable(UnwrappedSerialiser::class) List<EchoFadeRemoved>) : BlaseballFeedMetadata(), WithPlay {
         @Serializable
         data class EchoFadeRemoved(val mod: ModificationID, val type: Int)
     }
 
     @Serializable
-    class EchoPlayerReceiver(override val play: Int, override val subPlay: Int, override val children: List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
+    class EchoPlayerReceiver(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
 
     @Serializable
-    class EchoPlayerStatic(override val play: Int, override val subPlay: Int, override val children: List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
+    class EchoPlayerStatic(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
 
     @Serializable
     class EchoPlayerStaticChild(
@@ -138,58 +140,58 @@ sealed class BlaseballFeedMetadata {
     ) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithParent.AlwaysPresent
 
     @Serializable
-    class EndOfInning(override val play: Int, override val subPlay: Int, override val children: List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
+    class EndOfInning(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
 
     @Serializable
-    class Feedback(override val play: Int, override val subPlay: Int, override val children: List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
+    class Feedback(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
 
     @Serializable
-    class FeedbackBlocked(override val play: Int, override val subPlay: Int, override val children: List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
+    class FeedbackBlocked(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
 
     @Serializable
     class FinalStandings(val place: Int) : BlaseballFeedMetadata()
 
     @Serializable
-    class FireEating(override val play: Int, override val subPlay: Int, override val children: List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
+    class FireEating(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
 
     @Serializable
-    class FlagPlanted(val title: String, val votes: Int, val renoId: String) : BlaseballFeedMetadata()
+    class FlagPlanted(val title: String, val votes: Int, val renoId: @Serializable(CoercedIntSerialiser::class) Int) : BlaseballFeedMetadata()
 
     @Serializable
-    class Flooding(override val play: Int, override val subPlay: Int, override val children: List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
+    class Flooding(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
 
     @Serializable
-    class Flyout(override val play: Int, override val subPlay: Int, override val children: List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
+    class Flyout(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
 
     @Serializable
-    class FoulBall(override val play: Int, override val subPlay: Int, override val children: List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
+    class FoulBall(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
 
     @Serializable
-    class FreeRefill(override val play: Int, override val subPlay: Int, override val children: List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
+    class FreeRefill(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
 
     @Serializable
-    class GameEndLog(override val play: Int, override val subPlay: Int, val winner: TeamID, override val children: List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
+    class GameEndLog(override val play: Int, override val subPlay: Int, val winner: TeamID, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
 
     @Serializable
-    class GroundOut(override val play: Int, override val subPlay: Int, override val children: List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
+    class GroundOut(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
 
     @Serializable
     class HalfInning(override val play: Int, override val subPlay: Int) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent
 
     @Serializable
-    class Hit(override val play: Int, override val subPlay: Int, override val children: List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
+    class Hit(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
 
     @Serializable
-    class HomeRun(override val play: Int, override val subPlay: Int, override val children: List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
+    class HomeRun(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
 
     @Serializable
-    class Homesick(override val play: Int, override val subPlay: Int, override val children: List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
+    class Homesick(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
 
     @Serializable
-    class Incineration(override val play: Int, override val subPlay: Int, override val children: List<FeedID>? = null, override val parent: FeedID? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren, WithParent
+    class Incineration(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>? = null, override val parent: FeedID? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren, WithParent
 
     @Serializable
-    class LateToTheParty(override val play: Int, override val subPlay: Int, override val children: List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
+    class LateToTheParty(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
 
     @Serializable
     class LetsGo(val home: TeamID, val away: TeamID, override val play: Int, override val subPlay: Int, val stadium: StadiumID? = null, val weather: Int) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent
@@ -198,10 +200,10 @@ sealed class BlaseballFeedMetadata {
     class LineupOrganised(override val parent: FeedID) : BlaseballFeedMetadata(), WithParent.AlwaysPresent
 
     @Serializable
-    class MildPitch(override val play: Int, override val subPlay: Int, override val children: List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
+    class MildPitch(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
 
     @Serializable
-    class ModifierExpires(val mods: List<ModificationID>, val type: Int) : BlaseballFeedMetadata()
+    class ModifierExpires(val mods: @Serializable(UnwrappedSerialiser::class) List<ModificationID>, val type: Int) : BlaseballFeedMetadata()
 
     @Serializable
     class MurderOfCrows(override val play: Int, override val subPlay: Int) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent
@@ -230,31 +232,31 @@ sealed class BlaseballFeedMetadata {
     class NewTeam(val teamId: TeamID, val teamName: String, val divisionID: DivisionID, val divisionName: String) : BlaseballFeedMetadata()
 
     @Serializable
-    class OverUnder(override val play: Int, override val subPlay: Int, override val children: List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
+    class OverUnder(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
 
     @Serializable
-    class Partying(override val play: Int, override val subPlay: Int, override val children: List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
+    class Partying(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
 
     @Serializable
     class PeanutAllergyCured(override val parent: FeedID) : BlaseballFeedMetadata(), WithParent.AlwaysPresent
 
     @Serializable
-    class PeanutMister(override val play: Int, override val subPlay: Int, override val children: List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
+    class PeanutMister(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
 
     @Serializable
     class PeanutFlavourText(override val play: Int, override val subPlay: Int) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent
 
     @Serializable
-    class Perk(override val play: Int, override val subPlay: Int, override val children: List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
+    class Perk(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
 
     @Serializable
     class PitcherChange(override val play: Int, override val subPlay: Int) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent
 
     @Serializable
-    class PlateAppearance(override val play: Int, override val subPlay: Int, override val children: List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
+    class PlateAppearance(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
 
     @Serializable
-    class Play(override val play: Int, override val subPlay: Int, override val children: List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
+    class Play(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
 
     @Serializable
     class PlayerBecomesAlternate(val type: Int, val before: Double, val after: Double, override val parent: FeedID) : BlaseballFeedMetadata(), WithParent.AlwaysPresent
@@ -278,7 +280,7 @@ sealed class BlaseballFeedMetadata {
     class PlayerDroppedItem(
         override val play: Int? = null,
         override val subPlay: Int? = null,
-        val mods: List<ModificationID>,
+        val mods: @Serializable(UnwrappedSerialiser::class) List<ModificationID>,
         val itemId: ItemID,
         val itemName: String,
         override val parent: FeedID? = null,
@@ -288,7 +290,7 @@ sealed class BlaseballFeedMetadata {
     ) : BlaseballFeedMetadata(), WithPlay, WithParent
 
     @Serializable
-    class PlayerEchoed(override val play: Int, override val subPlay: Int, override val children: List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
+    class PlayerEchoed(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
 
     @Serializable
     class PlayerEntersSecretBase(override val play: Int, override val subPlay: Int) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent
@@ -297,7 +299,7 @@ sealed class BlaseballFeedMetadata {
     class PlayerExitsSecretBase(override val play: Int, override val subPlay: Int) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent
 
     @Serializable
-    class PlayerEntersCrimeScene(override val play: Int, override val subPlay: Int, override val children: List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
+    class PlayerEntersCrimeScene(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
 
     @Serializable
     class PlayerEntersHallOfFlame(override val play: Int, override val subPlay: Int, override val parent: FeedID) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithParent.AlwaysPresent
@@ -315,7 +317,7 @@ sealed class BlaseballFeedMetadata {
     class PlayerGainedItem(
         override val play: Int? = null,
         override val subPlay: Int? = null,
-        val mods: List<ModificationID>,
+        val mods: @Serializable(UnwrappedSerialiser::class) List<ModificationID>,
         val itemId: ItemID,
         val itemName: String,
         override val parent: FeedID? = null,
@@ -333,7 +335,7 @@ sealed class BlaseballFeedMetadata {
     ) : BlaseballFeedMetadata(), WithPlay, WithParent
 
     @Serializable
-    class PlayerHitsAnotherWithPitch(override val play: Int, override val subPlay: Int, override val children: List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
+    class PlayerHitsAnotherWithPitch(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
 
     @Serializable
     class PlayerHopsOnGrindRail(override val play: Int, override val subPlay: Int) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent
@@ -354,7 +356,7 @@ sealed class BlaseballFeedMetadata {
     ) : BlaseballFeedMetadata(), WithPlay, WithParent
 
     @Serializable
-    class PlayerOpensCrate(override val play: Int, override val subPlay: Int, override val children: List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
+    class PlayerOpensCrate(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
 
     @Serializable
     class PlayerRecruited(
@@ -393,7 +395,7 @@ sealed class BlaseballFeedMetadata {
         override val play: Int,
         override val subPlay: Int,
         override val parent: FeedID,
-        val mods: List<ModificationID>,
+        val mods: @Serializable(UnwrappedSerialiser::class) List<ModificationID>,
         val itemId: ItemID,
         val itemName: String,
         val playerRating: Double,
@@ -409,7 +411,7 @@ sealed class BlaseballFeedMetadata {
         override val play: Int,
         override val subPlay: Int,
         override val parent: FeedID,
-        val mods: List<ModificationID>,
+        val mods: @Serializable(UnwrappedSerialiser::class) List<ModificationID>,
         val itemId: ItemID,
         val itemName: String,
         val playerRating: Double,
@@ -425,7 +427,7 @@ sealed class BlaseballFeedMetadata {
         override val play: Int,
         override val subPlay: Int,
         override val parent: FeedID,
-        val mods: List<ModificationID>,
+        val mods: @Serializable(UnwrappedSerialiser::class) List<ModificationID>,
         val itemId: ItemID,
         val itemName: String,
         val playerRating: Double,
@@ -441,7 +443,7 @@ sealed class BlaseballFeedMetadata {
         override val play: Int,
         override val subPlay: Int,
         override val parent: FeedID,
-        val mods: List<ModificationID>,
+        val mods: @Serializable(UnwrappedSerialiser::class) List<ModificationID>? = null,
         val itemId: ItemID,
         val itemName: String,
         val playerRating: Double,
@@ -498,7 +500,7 @@ sealed class BlaseballFeedMetadata {
     ) : BlaseballFeedMetadata(), WithPlay, WithParent.AlwaysPresent
 
     @Serializable
-    class PsychoacousticsEcho(override val play: Int, override val subPlay: Int, override val children: List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
+    class PsychoacousticsEcho(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
 
     @Serializable
     class RemovedInGameModifier(override val play: Int? = null, override val subPlay: Int? = null, override val parent: FeedID? = null, val mod: ModificationID, val type: Int) : BlaseballFeedMetadata(), WithPlay, WithParent
@@ -517,10 +519,10 @@ sealed class BlaseballFeedMetadata {
     class RenovationBuiltInt(val title: String, val votes: @Serializable(CoercedIntSerialiser::class) Int, val renoId: String) : BlaseballFeedMetadata()
 
     @Serializable
-    class ReturnFromElsewhere(override val play: Int, override val subPlay: Int, override val children: List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
+    class ReturnFromElsewhere(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
 
     @Serializable
-    class ReverbShuffle(override val play: Int, override val subPlay: Int, override val children: List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
+    class ReverbShuffle(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
 
     @Serializable
     class ReverbShuffleFull(override val play: Int, override val subPlay: Int, override val parent: FeedID) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithParent.AlwaysPresent
@@ -529,13 +531,13 @@ sealed class BlaseballFeedMetadata {
     class ReverbShuffleRotation(override val play: Int, override val subPlay: Int, override val parent: FeedID) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithParent.AlwaysPresent
 
     @Serializable
-    class Reverberating(override val play: Int, override val subPlay: Int, override val children: List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
+    class Reverberating(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
 
     @Serializable
-    class SalmonSwimUpstream(override val play: Int, override val subPlay: Int, override val children: List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
+    class SalmonSwimUpstream(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
 
     @Serializable
-    class Siphon(override val play: Int, override val subPlay: Int, override val children: List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
+    class Siphon(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
 
     @Serializable
     class SiteTakeoverText(val being: Int) : BlaseballFeedMetadata()
@@ -550,7 +552,7 @@ sealed class BlaseballFeedMetadata {
     class SolarPanelRunCollection(override val play: Int, override val subPlay: Int) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent
 
     @Serializable
-    class StolenBase(override val play: Int, override val subPlay: Int, override val children: List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
+    class StolenBase(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
 
     @Serializable
     class Strike(override val play: Int, override val subPlay: Int) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent
@@ -559,13 +561,13 @@ sealed class BlaseballFeedMetadata {
     class StrikeZappedElectricBlood(override val play: Int, override val subPlay: Int) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent
 
     @Serializable
-    class Strikeout(override val play: Int, override val subPlay: Int, override val children: List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
+    class Strikeout(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
 
     @Serializable
-    class Sun2InGame(override val play: Int, override val subPlay: Int, override val children: List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
+    class Sun2InGame(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
 
     @Serializable
-    class SuperyummyText(override val play: Int, override val subPlay: Int, override val children: List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
+    class SuperyummyText(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
 
     @Serializable
     class SuperyummyTransition(
@@ -579,16 +581,16 @@ sealed class BlaseballFeedMetadata {
     ) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithParent.AlwaysPresent
 
     @Serializable
-    class TarotReading(@Serializable(CoercedIntSerialiser::class) val count: Int, val spread: List<Int>, val tarotId: String? = null) : BlaseballFeedMetadata()
+    class TarotReading(@Serializable(CoercedIntSerialiser::class) val count: Int, val spread: @Serializable(UnwrappedSerialiser::class) List<Int>, val tarotId: String? = null) : BlaseballFeedMetadata()
 
     @Serializable
-    class TastingTheInfinite(override val play: Int, override val subPlay: Int, override val children: List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
+    class TastingTheInfinite(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
 
     @Serializable
-    class TeamMiddling(override val play: Int, override val subPlay: Int, override val children: List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
+    class TeamMiddling(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
 
     @Serializable
-    class TeamOverperforming(override val play: Int, override val subPlay: Int, override val children: List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
+    class TeamOverperforming(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
 
     @Serializable
     class TeamShamed(val totalShames: Int, val totalShamings: Int) : BlaseballFeedMetadata()
@@ -600,28 +602,28 @@ sealed class BlaseballFeedMetadata {
     class TeamWinsInternetSeries(val championships: Int) : BlaseballFeedMetadata()
 
     @Serializable
-    class InvestigationUnderway(override val children: List<FeedID>) : BlaseballFeedMetadata(), WithChildren.AlwaysPresent
+    class InvestigationUnderway(override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>) : BlaseballFeedMetadata(), WithChildren.AlwaysPresent
 
     @Serializable
-    class TripleThreat(override val play: Int, override val subPlay: Int, override val children: List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
+    class TripleThreat(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
 
     @Serializable
-    class UnderOver(override val play: Int, override val subPlay: Int, override val children: List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
+    class UnderOver(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
 
     @Serializable
-    class Undersea(override val play: Int, override val subPlay: Int, override val children: List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
+    class Undersea(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
 
     @Serializable
-    class Walk(override val play: Int, override val subPlay: Int, override val children: List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
+    class Walk(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>? = null) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
 
     @Serializable
-    class WillReceived(val id: WillID, val title: String, override val children: List<FeedID>, val dataVotes: Int, val willVotes: Int, val totalVotes: Int) : BlaseballFeedMetadata(), WithChildren.AlwaysPresent
+    class WillReceived(val id: WillID, val title: String, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>, val dataVotes: Int, val willVotes: Int, val totalVotes: Int) : BlaseballFeedMetadata(), WithChildren.AlwaysPresent
 
     @Serializable
     class WillResults(override val parent: FeedID) : BlaseballFeedMetadata(), WithParent.AlwaysPresent
 
     @Serializable
-    class Wired(override val play: Int, override val subPlay: Int, override val children: List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
+    class Wired(override val play: Int, override val subPlay: Int, override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
 
     @Serializable
     class ModificationTransition(
@@ -685,7 +687,11 @@ object NoMetadataSerialiser : KSerializer<BlaseballFeedMetadata.None> {
     }
 
     override fun deserialize(decoder: Decoder): BlaseballFeedMetadata.None {
-        decoder.decodeNull()
+        if (decoder is JsonDecoder) {
+            decoder.decodeJsonElement()
+        } else {
+            decoder.decodeNull()
+        }
         return BlaseballFeedMetadata.None
     }
 }
@@ -695,7 +701,7 @@ object CoercedIntSerialiser : KSerializer<Int> {
 
     override fun deserialize(decoder: Decoder): Int =
         when (decoder) {
-            is JsonDecoder -> decoder.decodeJsonElement().jsonPrimitive.int
+            is JsonDecoder -> decoder.decodeJsonElement().jsonPrimitive.intOrNull ?: 0
             else -> try {
                 decoder.decodeInt()
             } catch (serial: SerializationException) {

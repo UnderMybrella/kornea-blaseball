@@ -2,7 +2,6 @@ package dev.brella.kornea.blaseball.base.common.beans
 
 import com.soywiz.klock.DateTimeTz
 import com.soywiz.klock.parse
-import dev.brella.kornea.blaseball.*
 import dev.brella.kornea.blaseball.base.common.BLASEBALL_TIME_PATTERN
 import dev.brella.kornea.blaseball.base.common.BlaseballFeedEventType
 import dev.brella.kornea.blaseball.base.common.FeedID
@@ -12,9 +11,6 @@ import dev.brella.kornea.blaseball.base.common.TeamID
 import dev.brella.kornea.blaseball.base.common.decodeInlineElement
 import dev.brella.kornea.blaseball.base.common.encodeInlineElement
 import dev.brella.kornea.blaseball.base.common.json.BlaseballDateTimeSerialiser
-import dev.brella.kornea.blaseball.beans.BlaseballFeedMetadata
-import dev.brella.kornea.blaseball.beans.NoMetadataSerialiser
-import dev.brella.kornea.blaseball.beans.UnknownMetadataSerialiser
 import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
@@ -2905,6 +2901,9 @@ object BlaseballFeedEventSerialiser : KSerializer<BlaseballFeedEvent> {
         element("metadata", buildSerialDescriptor("metadata", PolymorphicKind.SEALED) {
             METADATA_TYPES.forEach { (k, v) -> element(if (k == -1) "Unknown" else BlaseballFeedEventType.textFromType(k), v.descriptor) }
         }, isOptional = true)
+
+        element<List<String>>("playerNames", isOptional = true)
+        element<List<String>>("teamNames", isOptional = true)
     }
 
     @InternalSerializationApi
@@ -2927,7 +2926,10 @@ object BlaseballFeedEventSerialiser : KSerializer<BlaseballFeedEvent> {
                     descriptor.getElementIndex("phase") -> builder.phase = decodeIntElement(descriptor, index)
                     descriptor.getElementIndex("category") -> builder.category = decodeIntElement(descriptor, index)
                     descriptor.getElementIndex("description") -> builder.description = decodeStringElement(descriptor, index)
-                    descriptor.getElementIndex("nuts") -> builder.nuts = decodeIntElement(descriptor, index)
+                    descriptor.getElementIndex("nuts") -> builder.nuts = decodeSerializableElement(descriptor, index, CoercedIntSerialiser)
+
+                    descriptor.getElementIndex("playerNames") -> decodeSerializableElement(descriptor, index, ListSerializer(String::class.serializer()))
+                    descriptor.getElementIndex("teamNames") -> decodeSerializableElement(descriptor, index, ListSerializer(String::class.serializer()))
 
                     descriptor.getElementIndex("metadata") -> {
                         if (builder.type == null) {
