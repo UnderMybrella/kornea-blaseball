@@ -4,7 +4,7 @@ import com.soywiz.klock.PatternDateFormat
 import kotlin.math.pow
 import kotlin.math.roundToInt
 
-val BLASEBALL_TIME_PATTERN = PatternDateFormat("yyyy-MM-dd'T'HH:mm:ss[.SS[S[SSS]]][Z]", options = PatternDateFormat.Options.WITH_OPTIONAL)
+val BLASEBALL_TIME_PATTERN = PatternDateFormat("yyyy-MM-dd'T'HH:mm:ss[.S[S[S[S[S[S]]]]]][Z]", options = PatternDateFormat.Options.WITH_OPTIONAL)
 
 object BettingPayouts {
     /*function Ie(e, a) {
