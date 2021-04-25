@@ -15,16 +15,16 @@ inline class Colour(val rgba: Int) {
         fun fromHex(str: String): Colour {
             require(str[0] == '#')
 
-            var rgb = (HEX_CHAR_DECODE.indexOf(str[1].toInt() or 0x20) and 0xFF) shl 20
-            rgb = rgb or (HEX_CHAR_DECODE.indexOf(str[2].toInt() or 0x20) and 0xFF) shl 16
-            rgb = rgb or (HEX_CHAR_DECODE.indexOf(str[3].toInt() or 0x20) and 0xFF) shl 12
-            rgb = rgb or (HEX_CHAR_DECODE.indexOf(str[4].toInt() or 0x20) and 0xFF) shl 8
-            rgb = rgb or (HEX_CHAR_DECODE.indexOf(str[5].toInt() or 0x20) and 0xFF) shl 4
-            rgb = rgb or (HEX_CHAR_DECODE.indexOf(str[6].toInt() or 0x20) and 0xFF) shl 0
+            var rgb = (HEX_CHAR_DECODE.indexOf(str[1].toInt() or 0x20) and 0xFF).also(::println) shl 20
+            rgb = rgb or ((HEX_CHAR_DECODE.indexOf(str[2].toInt() or 0x20) and 0xFF).also(::println) shl 16)
+            rgb = rgb or ((HEX_CHAR_DECODE.indexOf(str[3].toInt() or 0x20) and 0xFF).also(::println) shl 12)
+            rgb = rgb or ((HEX_CHAR_DECODE.indexOf(str[4].toInt() or 0x20) and 0xFF).also(::println) shl 8)
+            rgb = rgb or ((HEX_CHAR_DECODE.indexOf(str[5].toInt() or 0x20) and 0xFF).also(::println) shl 4)
+            rgb = rgb or ((HEX_CHAR_DECODE.indexOf(str[6].toInt() or 0x20) and 0xFF).also(::println) shl 0)
 
             if (str.length > 7) {
-                rgb = rgb or (HEX_CHAR_DECODE.indexOf(str[7].toInt() or 0x20) and 0xFF) shl 28
-                rgb = rgb or (HEX_CHAR_DECODE.indexOf(str[8].toInt() or 0x20) and 0xFF) shl 24
+                rgb = rgb or ((HEX_CHAR_DECODE.indexOf(str[7].toInt() or 0x20) and 0xFF) shl 28)
+                rgb = rgb or ((HEX_CHAR_DECODE.indexOf(str[8].toInt() or 0x20) and 0xFF) shl 24)
             }
 
             return Colour(rgb)
