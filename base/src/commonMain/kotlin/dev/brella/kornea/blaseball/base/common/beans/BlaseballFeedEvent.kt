@@ -11,6 +11,7 @@ import dev.brella.kornea.blaseball.base.common.TeamID
 import dev.brella.kornea.blaseball.base.common.decodeInlineElement
 import dev.brella.kornea.blaseball.base.common.encodeInlineElement
 import dev.brella.kornea.blaseball.base.common.json.BlaseballDateTimeSerialiser
+import dev.brella.kornea.blaseball.base.common.json.CoercedIntSerialiser
 import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable

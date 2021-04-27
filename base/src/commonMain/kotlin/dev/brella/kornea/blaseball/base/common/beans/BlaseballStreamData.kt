@@ -3,6 +3,8 @@ package dev.brella.kornea.blaseball.base.common.beans
 import com.soywiz.klock.DateTimeTz
 import dev.brella.kornea.blaseball.base.common.*
 import dev.brella.kornea.blaseball.base.common.json.BlaseballDateTimeSerialiser
+import dev.brella.kornea.blaseball.base.common.json.CoercedDoubleSerialiser
+import dev.brella.kornea.blaseball.base.common.json.CoercedIntSerialiser
 import dev.brella.kornea.blaseball.base.common.json.RoundsGameSerialiser
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonElement
@@ -148,7 +150,8 @@ data class BlaseballStreamDataLeagues(
     val subleagues: List<BlaseballSubleague>,
     val divisions: List<BlaseballDivision>,
     val teams: List<BlaseballTeam>,
-    val tiebreakers: List<BlaseballTiebreaker>
+    val tiebreakers: List<BlaseballTiebreaker>,
+    val stats: BlaseballStreamDataStats? = null
 )
 
 @Serializable
@@ -193,3 +196,13 @@ data class BlaseballStreamDataTemporalDoc(val id: String, val alpha: Int, val be
 
 @Serializable
 data class BlaseballStreamDataFights(val bossFights: JsonArray)
+
+@Serializable
+data class BlaseballStreamDataStats(val communityChest: BlaseballCommunityChest)
+
+@Serializable
+data class BlaseballCommunityChest(
+    val progress: @Serializable(CoercedDoubleSerialiser::class) Double,
+    val chestsUnlocked: @Serializable(CoercedIntSerialiser::class) Int,
+    val runs: @Serializable(CoercedDoubleSerialiser::class) Double
+)

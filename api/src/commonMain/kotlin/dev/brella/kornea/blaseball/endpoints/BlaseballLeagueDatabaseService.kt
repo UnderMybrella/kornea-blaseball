@@ -9,7 +9,7 @@ import dev.brella.kornea.blaseball.base.common.TiebreakerID
 import dev.brella.kornea.blaseball.base.common.beans.BlaseballDivision
 import dev.brella.kornea.blaseball.base.common.beans.BlaseballLeague
 import dev.brella.kornea.blaseball.base.common.beans.BlaseballPlayoffMatchup
-import dev.brella.kornea.blaseball.base.common.beans.BlaseballSeason
+import dev.brella.kornea.blaseball.base.common.beans.BlaseballSeasonBean
 import dev.brella.kornea.blaseball.base.common.beans.BlaseballStandings
 import dev.brella.kornea.blaseball.base.common.beans.BlaseballSubleague
 import dev.brella.kornea.blaseball.base.common.beans.BlaseballTiebreaker
@@ -35,7 +35,7 @@ interface BlaseballLeagueDatabaseService: BlaseballDatabaseService {
     suspend fun getPlayoffMatchups(matchupIDs: Iterable<PlayoffMatchupID>): KorneaResult<List<BlaseballPlayoffMatchup>> =
         client.getAsResult("$databaseBaseUrl/playoffMatchups") { parameter("ids", matchupIDs.joinParams()) }
 
-    suspend fun getSeason(season: Int): KorneaResult<BlaseballSeason> =
+    suspend fun getSeason(season: Int): KorneaResult<BlaseballSeasonBean> =
         client.getAsResult("$databaseBaseUrl/season") { parameter("number", season) }
 
     suspend fun getStandings(standingsID: StandingsID): KorneaResult<BlaseballStandings> =

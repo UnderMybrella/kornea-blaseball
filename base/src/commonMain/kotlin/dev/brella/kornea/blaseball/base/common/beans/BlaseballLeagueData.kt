@@ -84,7 +84,7 @@ data class BlaseballPlayoffMatchup(
 )
 
 @Serializable
-data class BlaseballSeason(
+data class BlaseballSeasonBean(
     val id: SeasonID,
     val league: LeagueID,
     val rules: RulesID,

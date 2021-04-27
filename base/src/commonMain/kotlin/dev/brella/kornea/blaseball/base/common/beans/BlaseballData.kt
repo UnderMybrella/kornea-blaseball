@@ -1,6 +1,7 @@
 package dev.brella.kornea.blaseball.base.common.beans
 
 import dev.brella.kornea.blaseball.base.common.*
+import dev.brella.kornea.blaseball.base.common.annotations.AddedIn
 import dev.brella.kornea.blaseball.base.common.json.RoundsGameSerialiser
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonArray
@@ -26,7 +27,7 @@ data class BlaseballDatabasePlayer(
     val moxie: Double,
     val musclitude: Double,
     val name: String,
-//    val bat: String,
+    val bat: String? = null,
     val omniscience: Double,
     val overpowerment: Double,
     val patheticism: Double,
@@ -45,7 +46,7 @@ data class BlaseballDatabasePlayer(
     val peanutAllergy: Boolean?,
     val cinnamon: Double?,
     val fate: Int?,
-//    val armor: String,
+    val armor: String? = null,
     val ritual: String?,
     val coffee: Int?,
     val blood: Int?,
@@ -64,8 +65,8 @@ data class BlaseballDatabasePlayer(
     val eDensity: Double,
     val state: JsonObject,
     val evolution: Double,
-    val items: List<BlaseballItem>,
-    val itemAttr: List<ModificationID>
+    val items: List<BlaseballItem>? = null,
+    val itemAttr: List<ModificationID>? = null
 )
 
 @Serializable
