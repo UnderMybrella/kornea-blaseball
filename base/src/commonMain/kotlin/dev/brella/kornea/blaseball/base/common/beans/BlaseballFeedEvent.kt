@@ -2686,7 +2686,7 @@ sealed class BlaseballFeedEvent {
             val description: String = description!!
             var nuts: Int = nuts!!
 
-            return (CONSTRUCTORS[type] ?: CONSTRUCTORS.getValue(-1))(id, playerTags, teamTags, gameTags, created, season, tournament, type, day, phase, category, description, nuts, metadata ?: BlaseballFeedMetadata.None)
+            return (CONSTRUCTORS[type] ?: CONSTRUCTORS.getValue(-1))(id, playerTags, teamTags, gameTags, created, season, tournament, type, day, phase, category, description, nuts, metadata ?: BlaseballFeedMetadata.None(null))
         }
     }
 }
