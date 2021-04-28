@@ -47,7 +47,7 @@ sealed class BlaseballFeedEvent {
     abstract val phase: Int
     abstract val category: Int
     abstract val description: String
-    abstract val nuts: Int
+    abstract var nuts: Int
 
     @Serializable
     data class AddedInGameModifier(
@@ -63,7 +63,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.AddedInGameModifier
     ) : BlaseballFeedEvent()
 
@@ -81,7 +81,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.AddedModifierDueToAnotherModifier
     ) : BlaseballFeedEvent()
 
@@ -99,7 +99,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.AddedModifierDueToEcho
     ) : BlaseballFeedEvent()
 
@@ -117,7 +117,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.AllergicReaction
     ) : BlaseballFeedEvent()
 
@@ -135,7 +135,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.AlternateCoinText?
     ) : BlaseballFeedEvent()
 
@@ -153,7 +153,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.Ball
     ) : BlaseballFeedEvent()
 
@@ -171,7 +171,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.BirdsFlavourText
     ) : BlaseballFeedEvent()
 
@@ -189,7 +189,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.BirdsFreeShelledPlayer
     ) : BlaseballFeedEvent()
 
@@ -207,7 +207,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.BlackHoleInGame
     ) : BlaseballFeedEvent()
 
@@ -225,7 +225,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.BlessingWon
     ) : BlaseballFeedEvent()
 
@@ -243,7 +243,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.BlessingResults
     ) : BlaseballFeedEvent()
 
@@ -261,7 +261,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.BloodDrain
     ) : BlaseballFeedEvent()
 
@@ -279,7 +279,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.ConsumersAttack
     ) : BlaseballFeedEvent()
 
@@ -297,7 +297,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.DecreeNarration
     ) : BlaseballFeedEvent()
 
@@ -315,7 +315,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.DecreePassed
     ) : BlaseballFeedEvent()
 
@@ -333,7 +333,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.EarlBirds
     ) : BlaseballFeedEvent()
 
@@ -351,7 +351,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.EchoChamberTrapsWave
     ) : BlaseballFeedEvent()
 
@@ -369,7 +369,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.EchoFades
     ) : BlaseballFeedEvent()
 
@@ -387,7 +387,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.EchoPlayerReceiver
     ) : BlaseballFeedEvent()
 
@@ -405,7 +405,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.EchoPlayerStatic
     ) : BlaseballFeedEvent()
 
@@ -423,7 +423,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.EchoPlayerStaticChild
     ) : BlaseballFeedEvent()
 
@@ -441,7 +441,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.None?
     ) : BlaseballFeedEvent()
 
@@ -459,7 +459,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.EndOfInning
     ) : BlaseballFeedEvent()
 
@@ -477,7 +477,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.Feedback
     ) : BlaseballFeedEvent()
 
@@ -495,7 +495,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.FeedbackBlocked
     ) : BlaseballFeedEvent()
 
@@ -513,7 +513,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.FinalStandings
     ) : BlaseballFeedEvent()
 
@@ -531,7 +531,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.FireEating
     ) : BlaseballFeedEvent()
 
@@ -549,7 +549,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.FlagPlanted
     ) : BlaseballFeedEvent()
 
@@ -567,7 +567,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.Flooding
     ) : BlaseballFeedEvent()
 
@@ -585,7 +585,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.Flyout
     ) : BlaseballFeedEvent()
 
@@ -603,7 +603,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.FoulBall
     ) : BlaseballFeedEvent()
 
@@ -621,7 +621,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.FreeRefill
     ) : BlaseballFeedEvent()
 
@@ -639,7 +639,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.GameEndLog
     ) : BlaseballFeedEvent()
 
@@ -657,7 +657,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.GroundOut
     ) : BlaseballFeedEvent()
 
@@ -675,7 +675,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.HalfInning
     ) : BlaseballFeedEvent()
 
@@ -693,7 +693,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.Hit
     ) : BlaseballFeedEvent()
 
@@ -711,7 +711,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.HomeRun
     ) : BlaseballFeedEvent()
 
@@ -729,7 +729,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.Homesick
     ) : BlaseballFeedEvent()
 
@@ -747,7 +747,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.Incineration
     ) : BlaseballFeedEvent()
 
@@ -765,7 +765,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.LateToTheParty
     ) : BlaseballFeedEvent()
 
@@ -783,7 +783,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.LetsGo
     ) : BlaseballFeedEvent()
 
@@ -801,7 +801,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.LineupOrganised
     ) : BlaseballFeedEvent()
 
@@ -819,7 +819,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.MildPitch
     ) : BlaseballFeedEvent()
 
@@ -837,7 +837,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.ModifierExpires
     ) : BlaseballFeedEvent()
 
@@ -855,7 +855,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.MurderOfCrows
     ) : BlaseballFeedEvent()
 
@@ -873,7 +873,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.NecromancyNarration
     ) : BlaseballFeedEvent()
 
@@ -891,7 +891,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.NewPlayer
     ) : BlaseballFeedEvent()
 
@@ -909,7 +909,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.NewPlayerAfterIncineration
     ) : BlaseballFeedEvent()
 
@@ -927,7 +927,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.NewTeam
     ) : BlaseballFeedEvent()
 
@@ -945,7 +945,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.OverUnder
     ) : BlaseballFeedEvent()
 
@@ -963,7 +963,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.Partying
     ) : BlaseballFeedEvent()
 
@@ -981,7 +981,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.PeanutAllergyCured
     ) : BlaseballFeedEvent()
 
@@ -999,7 +999,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.PeanutMister
     ) : BlaseballFeedEvent()
 
@@ -1017,7 +1017,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.PeanutFlavourText
     ) : BlaseballFeedEvent()
 
@@ -1035,7 +1035,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.Perk
     ) : BlaseballFeedEvent()
 
@@ -1053,7 +1053,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.PitcherChange
     ) : BlaseballFeedEvent()
 
@@ -1071,7 +1071,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.PlateAppearance
     ) : BlaseballFeedEvent()
 
@@ -1089,7 +1089,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.Play
     ) : BlaseballFeedEvent()
 
@@ -1107,7 +1107,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.PlayerBecomesAlternate
     ) : BlaseballFeedEvent()
 
@@ -1125,7 +1125,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.PlayerChangingPosition
     ) : BlaseballFeedEvent()
 
@@ -1143,7 +1143,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.PlayerDroppedItem
     ) : BlaseballFeedEvent()
 
@@ -1161,7 +1161,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.PlayerEchoed
     ) : BlaseballFeedEvent()
 
@@ -1179,7 +1179,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.PlayerEntersSecretBase
     ) : BlaseballFeedEvent()
 
@@ -1197,7 +1197,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.PlayerExitsSecretBase
     ) : BlaseballFeedEvent()
 
@@ -1215,7 +1215,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.PlayerEntersCrimeScene
     ) : BlaseballFeedEvent()
 
@@ -1233,7 +1233,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.PlayerEntersHallOfFlame
     ) : BlaseballFeedEvent()
 
@@ -1251,7 +1251,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.PlayerExitsHallOfFlame
     ) : BlaseballFeedEvent()
 
@@ -1269,7 +1269,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.PlayerEvolves
     ) : BlaseballFeedEvent()
 
@@ -1287,7 +1287,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.PlayerGainedBloodType
     ) : BlaseballFeedEvent()
 
@@ -1305,7 +1305,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.PlayerGainedItem
     ) : BlaseballFeedEvent()
 
@@ -1323,7 +1323,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.PlayerHatched
     ) : BlaseballFeedEvent()
 
@@ -1341,7 +1341,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.PlayerHitsAnotherWithPitch
     ) : BlaseballFeedEvent()
 
@@ -1359,7 +1359,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.PlayerHopsOnGrindRail
     ) : BlaseballFeedEvent()
 
@@ -1377,7 +1377,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.PlayerJoiningTeam
     ) : BlaseballFeedEvent()
 
@@ -1395,7 +1395,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.PlayerOpensCrate
     ) : BlaseballFeedEvent()
 
@@ -1413,7 +1413,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.PlayerRecruited
     ) : BlaseballFeedEvent()
 
@@ -1431,7 +1431,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.PlayerRemovedAndReplacedFromShadows
     ) : BlaseballFeedEvent()
 
@@ -1449,7 +1449,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.PlayerReroll
     ) : BlaseballFeedEvent()
 
@@ -1467,7 +1467,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.PlayersItemBroke
     ) : BlaseballFeedEvent()
 
@@ -1485,7 +1485,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.PlayersItemDamaged
     ) : BlaseballFeedEvent()
 
@@ -1503,7 +1503,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.PlayersItemRepaired
     ) : BlaseballFeedEvent()
 
@@ -1521,7 +1521,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.PlayersItemRestored
     ) : BlaseballFeedEvent()
 
@@ -1539,7 +1539,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.PlayerSentToShadowsAndReplaced
     ) : BlaseballFeedEvent()
 
@@ -1557,7 +1557,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.PlayerSkippedShelledOrElsewhere
     ) : BlaseballFeedEvent()
 
@@ -1575,7 +1575,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.PlayerStatDecrease
     ) : BlaseballFeedEvent()
 
@@ -1593,7 +1593,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.PlayerStatDecreaseByPercent
     ) : BlaseballFeedEvent()
 
@@ -1611,7 +1611,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.PlayerStatIncrease
     ) : BlaseballFeedEvent()
 
@@ -1629,7 +1629,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.PlayerStatIncreaseByPercent
     ) : BlaseballFeedEvent()
 
@@ -1647,7 +1647,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.PlayerTrade
     ) : BlaseballFeedEvent()
 
@@ -1665,7 +1665,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.None?
     ) : BlaseballFeedEvent()
 
@@ -1683,7 +1683,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.PsychoacousticsEcho
     ) : BlaseballFeedEvent()
 
@@ -1701,7 +1701,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.RemovedInGameModifier
     ) : BlaseballFeedEvent()
 
@@ -1719,7 +1719,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.RemovedModifierDueToAnotherModifier
     ) : BlaseballFeedEvent()
 
@@ -1737,7 +1737,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.RenovationBuiltInt
     ) : BlaseballFeedEvent()
 
@@ -1755,7 +1755,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.ReturnFromElsewhere
     ) : BlaseballFeedEvent()
 
@@ -1773,7 +1773,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.ReverbShuffle
     ) : BlaseballFeedEvent()
 
@@ -1791,7 +1791,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.ReverbShuffleFull
     ) : BlaseballFeedEvent()
 
@@ -1809,7 +1809,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.ReverbShuffleRotation
     ) : BlaseballFeedEvent()
 
@@ -1827,7 +1827,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.Reverberating
     ) : BlaseballFeedEvent()
 
@@ -1845,7 +1845,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.SalmonSwimUpstream
     ) : BlaseballFeedEvent()
 
@@ -1863,7 +1863,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.Siphon
     ) : BlaseballFeedEvent()
 
@@ -1881,7 +1881,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.SiteTakeoverText
     ) : BlaseballFeedEvent()
 
@@ -1899,7 +1899,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.SolarPanelAlignment
     ) : BlaseballFeedEvent()
 
@@ -1917,7 +1917,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.SolarPanelOverflowRuns
     ) : BlaseballFeedEvent()
 
@@ -1935,7 +1935,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.SolarPanelRunCollection
     ) : BlaseballFeedEvent()
 
@@ -1953,7 +1953,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.StolenBase
     ) : BlaseballFeedEvent()
 
@@ -1971,7 +1971,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.Strike
     ) : BlaseballFeedEvent()
 
@@ -1989,7 +1989,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.StrikeZappedElectricBlood
     ) : BlaseballFeedEvent()
 
@@ -2007,7 +2007,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.Strikeout
     ) : BlaseballFeedEvent()
 
@@ -2025,7 +2025,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.Sun2InGame
     ) : BlaseballFeedEvent()
 
@@ -2043,7 +2043,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.SuperyummyText
     ) : BlaseballFeedEvent()
 
@@ -2061,7 +2061,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.SuperyummyTransition
     ) : BlaseballFeedEvent()
 
@@ -2079,7 +2079,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.TarotReading
     ) : BlaseballFeedEvent()
 
@@ -2097,7 +2097,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.TastingTheInfinite
     ) : BlaseballFeedEvent()
 
@@ -2115,7 +2115,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.TeamMiddling
     ) : BlaseballFeedEvent()
 
@@ -2133,7 +2133,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.TeamOverperforming
     ) : BlaseballFeedEvent()
 
@@ -2151,7 +2151,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.TeamShamed
     ) : BlaseballFeedEvent()
 
@@ -2169,7 +2169,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.TeamShames
     ) : BlaseballFeedEvent()
 
@@ -2187,7 +2187,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.TeamWinsInternetSeries
     ) : BlaseballFeedEvent()
 
@@ -2205,7 +2205,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.InvestigationUnderway
     ) : BlaseballFeedEvent()
 
@@ -2223,7 +2223,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.TripleThreat
     ) : BlaseballFeedEvent()
 
@@ -2241,7 +2241,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.UnderOver
     ) : BlaseballFeedEvent()
 
@@ -2259,7 +2259,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.Undersea
     ) : BlaseballFeedEvent()
 
@@ -2277,7 +2277,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.Walk
     ) : BlaseballFeedEvent()
 
@@ -2295,7 +2295,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.WillReceived
     ) : BlaseballFeedEvent()
 
@@ -2313,7 +2313,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.WillResults
     ) : BlaseballFeedEvent()
 
@@ -2331,7 +2331,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.Wired
     ) : BlaseballFeedEvent()
 
@@ -2349,7 +2349,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.ModificationTransition
     ) : BlaseballFeedEvent()
     
@@ -2367,7 +2367,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.None?
     ) : BlaseballFeedEvent()
     
@@ -2385,7 +2385,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.None?
     ) : BlaseballFeedEvent()
     
@@ -2403,7 +2403,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.None?
     ) : BlaseballFeedEvent()
     
@@ -2421,7 +2421,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.None?
     ) : BlaseballFeedEvent()
     
@@ -2439,7 +2439,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.None?
     ) : BlaseballFeedEvent()
 
@@ -2457,7 +2457,7 @@ sealed class BlaseballFeedEvent {
         override val phase: Int,
         override val category: Int,
         override val description: String,
-        override val nuts: Int,
+        override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.Unknown
     ) : BlaseballFeedEvent()
 
@@ -2684,7 +2684,7 @@ sealed class BlaseballFeedEvent {
             val phase: Int = phase!!
             val category: Int = category!!
             val description: String = description!!
-            val nuts: Int = nuts!!
+            var nuts: Int = nuts!!
 
             return (CONSTRUCTORS[type] ?: CONSTRUCTORS.getValue(-1))(id, playerTags, teamTags, gameTags, created, season, tournament, type, day, phase, category, description, nuts, metadata ?: BlaseballFeedMetadata.None)
         }

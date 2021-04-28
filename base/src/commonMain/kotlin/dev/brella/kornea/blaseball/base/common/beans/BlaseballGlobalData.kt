@@ -31,7 +31,7 @@ data class BlaseballSeasonSixIdol(
 @Serializable
 data class BlaseballTribute(
     val playerId: PlayerID,
-    val peanuts: Long
+    var peanuts: Long
 )
 
 @Serializable
