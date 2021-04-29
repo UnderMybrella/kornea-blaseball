@@ -51,7 +51,7 @@ suspend inline fun <reified T: BlaseballFeedEvent> BlaseballDatabaseService.getP
         if (start != null) parameter("start", start)
     }
 
-suspend fun <T: BlaseballFeedEvent> BlaseballDatabaseService.getTeamFeedAs(teamID: TeamID, category: Int? = null, limit: Int = 100, type: Int? = null, sort: Int? = null, start: String? = null): KorneaResult<List<T>> =
+suspend inline fun <reified T: BlaseballFeedEvent> BlaseballDatabaseService.getTeamFeedAs(teamID: TeamID, category: Int? = null, limit: Int = 100, type: Int? = null, sort: Int? = null, start: String? = null): KorneaResult<List<T>> =
     client.getAsResult("$databaseBaseUrl/feed/team") {
         parameter("id", teamID.id)
 
