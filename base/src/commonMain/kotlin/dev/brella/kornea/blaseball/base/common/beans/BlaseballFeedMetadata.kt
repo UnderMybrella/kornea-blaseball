@@ -7,6 +7,7 @@ import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.SerializationException
 import kotlinx.serialization.builtins.MapSerializer
 import kotlinx.serialization.builtins.serializer
 import kotlinx.serialization.descriptors.SerialDescriptor
@@ -123,7 +124,7 @@ sealed class BlaseballFeedMetadata {
     class BlessingWon(
         val id: BlessingID,
         val title: String,
-        val votes: Int,
+        val votes: Int? = null,
         val teamId: TeamID,
         override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>,
         val teamName: String,
@@ -958,9 +959,9 @@ sealed class BlaseballFeedMetadata {
         val id: WillID,
         val title: String,
         override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>,
-        val dataVotes: Int,
-        val willVotes: Int,
-        val totalVotes: Int,
+        val dataVotes: Int? = null,
+        val willVotes: Int? = null,
+        val totalVotes: Int? = null,
         override var upnut: Boolean? = null
     ) : BlaseballFeedMetadata(), WithChildren.AlwaysPresent
 
@@ -1028,7 +1029,18 @@ object UnknownMetadataSerialiser : KSerializer<BlaseballFeedMetadata.Unknown> {
     }
 
     override fun deserialize(decoder: Decoder): BlaseballFeedMetadata.Unknown {
-        return BlaseballFeedMetadata.Unknown(MapSerializer(String.serializer(), JsonElement.serializer()).deserialize(decoder).toMutableMap())
+        if (decoder is JsonDecoder) {
+            return when (val element = decoder.decodeJsonElement()) {
+                is JsonNull -> BlaseballFeedMetadata.Unknown(HashMap())
+                is JsonObject -> BlaseballFeedMetadata.Unknown(element.toMutableMap())
+
+                else -> throw SerializationException("Unexpected JSON token $element")
+            }
+        } else {
+            throw SerializationException("Unknown decoder type ${decoder::class} ($decoder)")
+        }
+
+//        return BlaseballFeedMetadata.Unknown(MapSerializer(String.serializer(), JsonElement.serializer()).deserialize(decoder).toMutableMap())
     }
 }
 

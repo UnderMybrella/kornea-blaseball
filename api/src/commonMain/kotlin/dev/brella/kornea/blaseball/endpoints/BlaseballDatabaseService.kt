@@ -22,33 +22,42 @@ interface BlaseballDatabaseService : BlaseballService {
         }
 
     suspend fun getGlobalFeed(category: Int? = null, limit: Int = 100, type: Int? = null, sort: Int? = null, start: String? = null): KorneaResult<List<BlaseballFeedEvent>> =
-        client.getAsResult("$databaseBaseUrl/feed/global") {
-            if (category != null) parameter("category", category)
-            if (type != null) parameter("type", type)
-            if (limit != YES_BRELLA_I_WOULD_LIKE_UNLIMITED_EVENTS) parameter("limit", limit)
-            if (sort != null) parameter("sort", sort)
-            if (start != null) parameter("start", start)
-        }
+        getGlobalFeedAs(category, limit, type, sort, start)
 
     suspend fun getPlayerFeed(playerID: PlayerID, category: Int? = null, limit: Int = 100, type: Int? = null, sort: Int? = null, start: String? = null): KorneaResult<List<BlaseballFeedEvent>> =
-        client.getAsResult("$databaseBaseUrl/feed/player") {
-            parameter("id", playerID.id)
-
-            if (category != null) parameter("category", category)
-            if (type != null) parameter("type", type)
-            if (limit != YES_BRELLA_I_WOULD_LIKE_UNLIMITED_EVENTS) parameter("limit", limit)
-            if (sort != null) parameter("sort", sort)
-            if (start != null) parameter("start", start)
-        }
+        getPlayerFeedAs(playerID, category, limit, type, sort, start)
 
     suspend fun getTeamFeed(teamID: TeamID, category: Int? = null, limit: Int = 100, type: Int? = null, sort: Int? = null, start: String? = null): KorneaResult<List<BlaseballFeedEvent>> =
-        client.getAsResult("$databaseBaseUrl/feed/team") {
-            parameter("id", teamID.id)
-
-            if (category != null) parameter("category", category)
-            if (type != null) parameter("type", type)
-            if (limit != YES_BRELLA_I_WOULD_LIKE_UNLIMITED_EVENTS) parameter("limit", limit)
-            if (sort != null) parameter("sort", sort)
-            if (start != null) parameter("start", start)
-        }
+        getTeamFeedAs(teamID, category, limit, type, sort, start)
 }
+
+suspend inline fun <reified T: BlaseballFeedEvent> BlaseballDatabaseService.getGlobalFeedAs(category: Int? = null, limit: Int = 100, type: Int? = null, sort: Int? = null, start: String? = null): KorneaResult<List<T>> =
+    client.getAsResult("$databaseBaseUrl/feed/global") {
+        if (category != null) parameter("category", category)
+        if (type != null) parameter("type", type)
+        if (limit != BlaseballDatabaseService.YES_BRELLA_I_WOULD_LIKE_UNLIMITED_EVENTS) parameter("limit", limit)
+        if (sort != null) parameter("sort", sort)
+        if (start != null) parameter("start", start)
+    }
+
+suspend inline fun <reified T: BlaseballFeedEvent> BlaseballDatabaseService.getPlayerFeedAs(playerID: PlayerID, category: Int? = null, limit: Int = 100, type: Int? = null, sort: Int? = null, start: String? = null): KorneaResult<List<T>> =
+    client.getAsResult("$databaseBaseUrl/feed/player") {
+        parameter("id", playerID.id)
+
+        if (category != null) parameter("category", category)
+        if (type != null) parameter("type", type)
+        if (limit != BlaseballDatabaseService.YES_BRELLA_I_WOULD_LIKE_UNLIMITED_EVENTS) parameter("limit", limit)
+        if (sort != null) parameter("sort", sort)
+        if (start != null) parameter("start", start)
+    }
+
+suspend fun <T: BlaseballFeedEvent> BlaseballDatabaseService.getTeamFeedAs(teamID: TeamID, category: Int? = null, limit: Int = 100, type: Int? = null, sort: Int? = null, start: String? = null): KorneaResult<List<T>> =
+    client.getAsResult("$databaseBaseUrl/feed/team") {
+        parameter("id", teamID.id)
+
+        if (category != null) parameter("category", category)
+        if (type != null) parameter("type", type)
+        if (limit != BlaseballDatabaseService.YES_BRELLA_I_WOULD_LIKE_UNLIMITED_EVENTS) parameter("limit", limit)
+        if (sort != null) parameter("sort", sort)
+        if (start != null) parameter("start", start)
+    }

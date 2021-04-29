@@ -8,7 +8,7 @@ apply(plugin = "kotlinx-atomicfu")
 apply(plugin = "maven-publish")
 
 group = "dev.brella"
-version = "2.2.7-alpha"
+version = "2.2.8-alpha"
 
 repositories {
     mavenCentral()
