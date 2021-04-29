@@ -1,6 +1,7 @@
 package dev.brella.kornea.blaseball.base.common
 
 object BlaseballFeedEventType : Iterable<Int>, ClosedRange<Int> {
+    const val REDACTED = -1
     const val LETS_GO = 0
     const val PLAY_BALL = 1
     const val HALF_INNING = 2
@@ -175,6 +176,7 @@ object BlaseballFeedEventType : Iterable<Int>, ClosedRange<Int> {
 
     private val RANGE = BlaseballFeedEventType.run {
         listOf(
+            REDACTED..REDACTED,
             LETS_GO..FOUL_BALL,
             SOLAR_PANEL_OVERFLOW_RUNS..SOLAR_PANEL_OVERFLOW_RUNS,
             PLAYER_HITS_ANOTHER_WITH_PITCH..STRIKE_ZAPPED_BY_ELECTRIC_BLOOD,
@@ -220,6 +222,7 @@ object BlaseballFeedEventType : Iterable<Int>, ClosedRange<Int> {
 
     fun textFromType(type: Int): String =
         when (type) {
+            -1 -> "||||||||"
             0 -> "Let's Go!"
             1 -> "Play ball!"
             2 -> "Half-inning"

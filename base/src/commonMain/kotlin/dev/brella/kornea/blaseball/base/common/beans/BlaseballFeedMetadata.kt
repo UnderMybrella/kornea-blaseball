@@ -986,6 +986,12 @@ sealed class BlaseballFeedMetadata {
         val type: Int, override var upnut: Boolean? = null
     ) : BlaseballFeedMetadata(), WithPlay, WithParent
 
+    @Serializable
+    class REDACTED(
+        val redacted: Boolean,
+        override var upnut: Boolean? = null
+    ) : BlaseballFeedMetadata()
+
     @Serializable(NoMetadataSerialiser::class)
     data class None(override var upnut: Boolean? = null) : BlaseballFeedMetadata() {
         override val serialiser: KSerializer<BlaseballFeedMetadata> by lazy { coerce(NoMetadataSerialiser) }

@@ -14,14 +14,18 @@ import dev.brella.kornea.blaseball.base.common.json.BlaseballDateTimeSerialiser
 import dev.brella.kornea.blaseball.base.common.json.CoercedIntSerialiser
 import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.KSerializer
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.Transient
 import kotlinx.serialization.builtins.ListSerializer
+import kotlinx.serialization.builtins.nullable
 import kotlinx.serialization.descriptors.PolymorphicKind
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.descriptors.buildClassSerialDescriptor
 import kotlinx.serialization.descriptors.buildSerialDescriptor
 import kotlinx.serialization.descriptors.element
 import kotlinx.serialization.descriptors.listSerialDescriptor
+import kotlinx.serialization.descriptors.nullable
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.encoding.CompositeDecoder.Companion.DECODE_DONE
 import kotlinx.serialization.encoding.Decoder
@@ -2352,7 +2356,7 @@ sealed class BlaseballFeedEvent {
         override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.ModificationTransition
     ) : BlaseballFeedEvent()
-    
+
     @Serializable
     data class Sun2GrantsWin(
         override val id: FeedID,
@@ -2370,7 +2374,7 @@ sealed class BlaseballFeedEvent {
         override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.None?
     ) : BlaseballFeedEvent()
-    
+
     @Serializable
     data class BlackHoleSwallows(
         override val id: FeedID,
@@ -2388,7 +2392,7 @@ sealed class BlaseballFeedEvent {
         override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.None?
     ) : BlaseballFeedEvent()
-    
+
     @Serializable
     data class EliminatedFromPostseason(
         override val id: FeedID,
@@ -2406,7 +2410,7 @@ sealed class BlaseballFeedEvent {
         override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.None?
     ) : BlaseballFeedEvent()
-    
+
     @Serializable
     data class PostseasonAdvance(
         override val id: FeedID,
@@ -2424,7 +2428,7 @@ sealed class BlaseballFeedEvent {
         override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.None?
     ) : BlaseballFeedEvent()
-    
+
     @Serializable
     data class ReturnedPlayerPermittedToStay(
         override val id: FeedID,
@@ -2459,6 +2463,24 @@ sealed class BlaseballFeedEvent {
         override val description: String,
         override var nuts: Int,
         override val metadata: BlaseballFeedMetadata.Unknown
+    ) : BlaseballFeedEvent()
+
+    @Serializable
+    data class REDACTED(
+        override val id: FeedID,
+        override val playerTags: List<PlayerID>,
+        override val teamTags: List<TeamID>,
+        override val gameTags: List<GameID>,
+        override val created: @Serializable(BlaseballDateTimeSerialiser::class) DateTimeTz,
+        override val season: Int,
+        override val tournament: Int,
+        override val type: Int,
+        override val day: Int,
+        override val phase: Int,
+        override val category: Int,
+        override val description: String,
+        override var nuts: Int,
+        override val metadata: BlaseballFeedMetadata.REDACTED
     ) : BlaseballFeedEvent()
 
     class Builder {
@@ -2651,9 +2673,11 @@ sealed class BlaseballFeedEvent {
                     BlaseballFeedEventType.PLAYERS_ITEM_RESTORED -> buildConstructor(BlaseballFeedEvent::PlayersItemRestored)
                     BlaseballFeedEventType.PLAYERS_ITEM_REPAIRED -> buildConstructor(BlaseballFeedEvent::PlayersItemRepaired)
 
+                    -1 -> buildConstructor(BlaseballFeedEvent::REDACTED)
+
                     else -> buildConstructor(BlaseballFeedEvent::Unknown)
                 }
-            } + mapOf(-1 to buildConstructor(BlaseballFeedEvent::Unknown))
+            }// + mapOf(-1 to buildConstructor(BlaseballFeedEvent::Unknown))
         }
 
         var id: FeedID? = null
@@ -2691,7 +2715,7 @@ sealed class BlaseballFeedEvent {
     }
 }
 
-typealias BlaseballFeedEventConstructor=(
+typealias BlaseballFeedEventConstructor = (
     id: FeedID,
     playerTags: List<PlayerID>,
     teamTags: List<TeamID>,
@@ -2713,6 +2737,8 @@ object BlaseballFeedEventSerialiser : KSerializer<BlaseballFeedEvent> {
     val METADATA_TYPES =
         BlaseballFeedEventType.associateWith { type ->
             when (type) {
+                BlaseballFeedEventType.REDACTED -> BlaseballFeedMetadata.REDACTED.serializer()
+
                 BlaseballFeedEventType.LETS_GO -> serializer<BlaseballFeedMetadata.LetsGo>()
                 BlaseballFeedEventType.PLAY_BALL -> serializer<BlaseballFeedMetadata.Play>()
                 BlaseballFeedEventType.HALF_INNING -> serializer<BlaseballFeedMetadata.HalfInning>()
@@ -2880,16 +2906,16 @@ object BlaseballFeedEventSerialiser : KSerializer<BlaseballFeedEvent> {
 
                 else -> UnknownMetadataSerialiser
             }
-        } + mapOf(-1 to UnknownMetadataSerialiser)
+        }// + mapOf(-1 to UnknownMetadataSerialiser)
 
     @OptIn(InternalSerializationApi::class)
     override val descriptor: SerialDescriptor = buildClassSerialDescriptor("ClientEvent") {
         element<Int>("type")
 
         element<FeedID>("id")
-        element("playerTags", listSerialDescriptor<PlayerID>())
-        element("teamTags", listSerialDescriptor<TeamID>())
-        element("gameTags", listSerialDescriptor<GameID>())
+        element("playerTags", listSerialDescriptor<PlayerID>().nullable)
+        element("teamTags", listSerialDescriptor<TeamID>().nullable)
+        element("gameTags", listSerialDescriptor<GameID>().nullable)
         element<String>("created")
         element<Int>("season")
         element<Int>("tournament")
@@ -2917,9 +2943,9 @@ object BlaseballFeedEventSerialiser : KSerializer<BlaseballFeedEvent> {
                 when (val index = decodeElementIndex(descriptor)) {
                     descriptor.getElementIndex("type") -> builder.type = decodeIntElement(descriptor, index)
                     descriptor.getElementIndex("id") -> builder.id = decodeInlineElement<FeedID>(descriptor, index)
-                    descriptor.getElementIndex("playerTags") -> builder.playerTags = decodeSerializableElement(descriptor, index, ListSerializer(PlayerID::class.serializer()))
-                    descriptor.getElementIndex("teamTags") -> builder.teamTags = decodeSerializableElement(descriptor, index, ListSerializer(TeamID::class.serializer()))
-                    descriptor.getElementIndex("gameTags") -> builder.gameTags = decodeSerializableElement(descriptor, index, ListSerializer(GameID::class.serializer()))
+                    descriptor.getElementIndex("playerTags") -> builder.playerTags = decodeNullableSerializableElement(descriptor, index, ListSerializer(PlayerID::class.serializer()).nullable) ?: emptyList()
+                    descriptor.getElementIndex("teamTags") -> builder.teamTags = decodeNullableSerializableElement(descriptor, index, ListSerializer(TeamID::class.serializer()).nullable) ?: emptyList()
+                    descriptor.getElementIndex("gameTags") -> builder.gameTags = decodeNullableSerializableElement(descriptor, index, ListSerializer(GameID::class.serializer()).nullable) ?: emptyList()
                     descriptor.getElementIndex("created") -> builder.created = BLASEBALL_TIME_PATTERN.parse(decodeStringElement(descriptor, index))
                     descriptor.getElementIndex("season") -> builder.season = decodeIntElement(descriptor, index)
                     descriptor.getElementIndex("tournament") -> builder.tournament = decodeIntElement(descriptor, index)
@@ -2952,7 +2978,7 @@ object BlaseballFeedEventSerialiser : KSerializer<BlaseballFeedEvent> {
 
             if (metaJson != null && this is JsonDecoder) {
 //                println("==[Json Hacking]==")
-                builder.metadata = json.decodeFromString(METADATA_TYPES[builder.type] ?: METADATA_TYPES.getValue(-1), json.encodeToString(metaJson))
+                builder.metadata = json.decodeFromString(METADATA_TYPES[builder.type] ?: UnknownMetadataSerialiser, json.encodeToString(metaJson))
 //                println("==[Json Hacked]==")
             }
 
