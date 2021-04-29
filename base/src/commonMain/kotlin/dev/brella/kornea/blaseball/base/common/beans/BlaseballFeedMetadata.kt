@@ -148,9 +148,9 @@ sealed class BlaseballFeedMetadata {
     class ConsumersAttack(
         override val play: Int,
         override val subPlay: Int,
-        override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>,
+        override val children: @Serializable(UnwrappedSerialiser::class) List<FeedID>? = null,
         override var upnut: Boolean? = null
-    ) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren.AlwaysPresent
+    ) : BlaseballFeedMetadata(), WithPlay.AlwaysPresent, WithChildren
 
     @Serializable
     class DecreeNarration(override val parent: FeedID, override var upnut: Boolean? = null) : BlaseballFeedMetadata(), WithParent.AlwaysPresent
