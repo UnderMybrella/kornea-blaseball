@@ -8,7 +8,7 @@ apply(plugin = "kotlinx-atomicfu")
 apply(plugin = "maven-publish")
 
 group = "dev.brella"
-version = "2.2.1-alpha"
+version = "2.3.0-alpha"
 
 repositories {
     mavenCentral()
@@ -56,11 +56,11 @@ kotlin {
                 implementation("dev.brella:kornea-toolkit:3.3.1-alpha")
                 implementation("dev.brella:ktornea-utils:1.2.3-alpha")
 
-                implementation("org.jetbrains.kotlinx:atomicfu:0.15.1")
+                implementation("org.jetbrains.kotlinx:atomicfu:0.16.1")
                 api(project(":kornea-blaseball-base"))
 
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.1.0")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.0")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.2.0")
             }
         }
         val commonTest by getting {

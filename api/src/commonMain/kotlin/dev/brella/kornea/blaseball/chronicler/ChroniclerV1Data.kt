@@ -13,10 +13,12 @@ import dev.brella.kornea.blaseball.base.common.beans.ColourAsHexSerialiser
 import dev.brella.kornea.blaseball.base.common.beans.ColourAsNullableHexSerialiser
 import dev.brella.kornea.errors.common.KorneaResult
 import dev.brella.kornea.errors.common.map
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonElement
+import kotlinx.serialization.json.JsonNames
 
 enum class EnumOrder(val order: String) {
     ASC("asc"),
@@ -126,11 +128,10 @@ data class ChroniclerUpdateResponse(val nextPage: String? = null, val data: List
 data class ChroniclerUpdateWrapper(val gameId: GameID, val timestamp: String, val hash: String, val data: ChroniclerBlaseballGameUpdate)
 
 @Serializable
-data class ChroniclerBlaseballGameUpdate(
-    @SerialName("_id")
-    val oldID: GameID? = null,
-    @SerialName("id")
-    val newID: GameID? = null,
+data class ChroniclerBlaseballGameUpdate constructor(
+    @OptIn(ExperimentalSerializationApi::class)
+    @JsonNames("id", "_id")
+    val id: GameID? = null,
     val basesOccupied: List<Int>,
     val baseRunners: List<PlayerID>,
     val baseRunnerNames: List<String>? = null,
@@ -209,6 +210,4 @@ data class ChroniclerBlaseballGameUpdate(
     val gameStartPhase: Int? = null,
     val isTitleMatch: Boolean? = null,
     val queuedEvents: JsonArray? = null
-) {
-    val id: GameID get() = newID ?: oldID!!
-}
+)

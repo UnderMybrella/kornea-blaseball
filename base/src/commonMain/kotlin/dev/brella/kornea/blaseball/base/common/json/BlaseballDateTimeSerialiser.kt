@@ -4,6 +4,7 @@ import com.soywiz.klock.DateFormat
 import com.soywiz.klock.DateTimeTz
 import com.soywiz.klock.parse
 import dev.brella.kornea.blaseball.base.common.BLASEBALL_TIME_PATTERN
+import kotlinx.datetime.Instant
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind
 import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
@@ -20,4 +21,14 @@ object BlaseballDateTimeSerialiser: KSerializer<DateTimeTz> {
 
     override fun deserialize(decoder: Decoder): DateTimeTz =
         BLASEBALL_TIME_PATTERN.parse(decoder.decodeString())
+}
+
+object BlaseballInstantAsStringSerialiser: KSerializer<Instant> {
+    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("BlaseballDateTimeSerializer", PrimitiveKind.STRING)
+
+    override fun deserialize(decoder: Decoder): Instant =
+        Instant.parse(decoder.decodeString())
+
+    override fun serialize(encoder: Encoder, value: Instant) =
+        encoder.encodeString(value.toString())
 }

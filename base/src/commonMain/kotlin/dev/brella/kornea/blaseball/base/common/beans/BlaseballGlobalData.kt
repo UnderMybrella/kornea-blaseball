@@ -86,8 +86,7 @@ sealed class BlaseballItemAdjustment {
 }
 
 @Serializable
-//TODO: Once https://github.com/Kotlin/kotlinx.serialization/pull/1408 has been merged into main, replace mod: String with ModificationID
-data class BlaseballItemModAdjustment(val mod: String, override val type: Int): BlaseballItemAdjustment()
+data class BlaseballItemModAdjustment(val mod: ModificationID, override val type: Int): BlaseballItemAdjustment()
 
 @Serializable
 data class BlaseballItemStatAdjustment(val stat: Int, override val type: Int, val value: Double): BlaseballItemAdjustment()

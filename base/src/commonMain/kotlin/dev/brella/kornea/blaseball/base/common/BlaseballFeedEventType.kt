@@ -168,11 +168,14 @@ object BlaseballFeedEventType : Iterable<Int>, ClosedRange<Int> {
     const val PLAYER_STAT_INCREASED_PERCENT = 179
     const val PLAYER_STAT_DECREASED_PERCENT = 180
     const val PLAYER_ENTERS_CRIME_SCENE_TO_INVESTIGATE = 181
+    const val PLAYER_FEELING_AMBITIOUS = 182
 
     const val PLAYERS_ITEM_BROKE = 185
     const val PLAYERS_ITEM_DAMAGED = 186
     const val PLAYERS_ITEM_RESTORED = 187
     const val PLAYERS_ITEM_REPAIRED = 188
+    const val COMMUNITY_CHEST_OPENED = 189
+    const val PLAYER_DID_NOT_HAVE_ITEM_SLOT = 190
 
     private val RANGE = BlaseballFeedEventType.run {
         listOf(
@@ -207,9 +210,9 @@ object BlaseballFeedEventType : Iterable<Int>, ClosedRange<Int> {
             PLAYER_GAINED_BLOOD_TYPE..PLAYER_GAINED_BLOOD_TYPE,
 
             TEAM_OVERPERFORMING..LINEUP_OPTIMISED,
-            PEANUT_ALLERGY_CURED..PLAYER_ENTERS_CRIME_SCENE_TO_INVESTIGATE,
+            PEANUT_ALLERGY_CURED..PLAYER_FEELING_AMBITIOUS,
 
-            PLAYERS_ITEM_BROKE..PLAYERS_ITEM_REPAIRED
+            PLAYERS_ITEM_BROKE..PLAYER_DID_NOT_HAVE_ITEM_SLOT
         ).flatten().toIntArray()
     }
 
@@ -352,10 +355,13 @@ object BlaseballFeedEventType : Iterable<Int>, ClosedRange<Int> {
             179 -> "Player stat increased by %"
             180 -> "Player stat decreased by %"
             181 -> "Player enters the Crime Scene to Investigate"
+            182 -> "Player is feeling Ambitious..."
             185 -> "Player's item broke"
             186 -> "Player's item was damaged"
             187 -> "Player's item was restored (Salmon swam upstream)"
             188 -> "Player's item was repaired (Salmon swam upstream)"
+            189 -> "The Community Chest Opens!"
+            190 -> "Player did not have an available Item slot"
 
             else -> "UNK_$type"
         }

@@ -13,8 +13,9 @@ import kotlinx.serialization.encoding.CompositeEncoder
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import kotlinx.serialization.serializer
+import kotlin.jvm.JvmInline
 
-interface BlaseballID: CharSequence {
+interface BlaseballID : CharSequence {
     val id: String
 
     override val length: Int
@@ -26,75 +27,183 @@ interface BlaseballID: CharSequence {
 }
 
 @Serializable
-inline class SimulationAttributeID(override val id: String): BlaseballID
+@JvmInline
+value class SimulationAttributeID(override val id: String) : BlaseballID
 
-interface BlaseballUUID: BlaseballID
+interface BlaseballUUID : BlaseballID, Comparable<BlaseballUUID> {
+    val uuid: UUID
+    override val id: String get() = uuid.toString()
 
-@Serializable
-inline class PlayerID(override val id: String): BlaseballUUID
-@Serializable
-inline class TeamID(override val id: String): BlaseballUUID
-@Serializable
-inline class LeagueID(override val id: String): BlaseballUUID
-@Serializable
-inline class SubleagueID(override val id: String): BlaseballUUID
-@Serializable
-inline class DivisionID(override val id: String): BlaseballUUID
-@Serializable
-inline class PlayoffMatchupID(override val id: String): BlaseballUUID
-@Serializable
-inline class SeasonID(override val id: String): BlaseballUUID
-@Serializable
-inline class RulesID(override val id: String): BlaseballUUID
-@Serializable
-inline class ScheduleID(override val id: String): BlaseballUUID
-@Serializable
-inline class StandingsID(override val id: String): BlaseballUUID
-@Serializable
-inline class TerminologyID(override val id: String): BlaseballUUID
-@Serializable
-inline class TiebreakerID(override val id: String): BlaseballUUID
-
+    override fun compareTo(other: BlaseballUUID): Int =
+        uuid.compareTo(other.uuid)
+}
 
 @Serializable
-inline class SimulationID(override val id: String): BlaseballUUID
-@Serializable
-inline class GameID(override val id: String): BlaseballUUID
+@JvmInline
+value class PlayerID(override val uuid: UUID) : BlaseballUUID {
+    constructor(uuid: String): this(UUID.fromString(uuid))
+}
 
 @Serializable
-inline class StadiumID(override val id: String): BlaseballUUID
-@Serializable
-inline class PlayoffID(override val id: String): BlaseballUUID
-@Serializable
-inline class PlayoffRoundID(override val id: String): BlaseballUUID
-@Serializable
-inline class ModificationID(override val id: String): BlaseballID
-@Serializable
-inline class OffseasonRecapID(override val id: String): BlaseballUUID
+@JvmInline
+value class TeamID(override val uuid: UUID) : BlaseballUUID {
+    constructor(uuid: String): this(UUID.fromString(uuid))
+}
 
 @Serializable
-inline class DecreeID(override val id: String): BlaseballUUID
-@Serializable
-inline class BlessingID(override val id: String): BlaseballID
-@Serializable
-inline class WillID(override val id: String): BlaseballUUID
-@Serializable
-inline class TidingID(override val id: String): BlaseballUUID
-@Serializable
-inline class FeedID(override val id: String): BlaseballUUID
+@JvmInline
+value class LeagueID(override val uuid: UUID) : BlaseballUUID {
+    constructor(uuid: String): this(UUID.fromString(uuid))
+}
 
 @Serializable
-inline class ItemID(override val id: String): BlaseballUUID
+@JvmInline
+value class SubleagueID(override val uuid: UUID) : BlaseballUUID {
+    constructor(uuid: String): this(UUID.fromString(uuid))
+}
 
 @Serializable
-inline class GameStatsheetID(override val id: String): BlaseballUUID
-@Serializable
-inline class PlayerStatsheetID(override val id: String): BlaseballUUID
-@Serializable
-inline class SeasonStatsheetID(override val id: String): BlaseballUUID
-@Serializable
-inline class TeamStatsheetID(override val id: String): BlaseballUUID
+@JvmInline
+value class DivisionID(override val uuid: UUID) : BlaseballUUID {
+    constructor(uuid: String): this(UUID.fromString(uuid))
+}
 
+@Serializable
+@JvmInline
+value class PlayoffMatchupID(override val uuid: UUID) : BlaseballUUID {
+    constructor(uuid: String): this(UUID.fromString(uuid))
+}
+
+@Serializable
+@JvmInline
+value class SeasonID(override val uuid: UUID) : BlaseballUUID {
+    constructor(uuid: String): this(UUID.fromString(uuid))
+}
+
+@Serializable
+@JvmInline
+value class RulesID(override val uuid: UUID) : BlaseballUUID {
+    constructor(uuid: String): this(UUID.fromString(uuid))
+}
+
+@Serializable
+@JvmInline
+value class ScheduleID(override val uuid: UUID) : BlaseballUUID {
+    constructor(uuid: String): this(UUID.fromString(uuid))
+}
+
+@Serializable
+@JvmInline
+value class StandingsID(override val uuid: UUID) : BlaseballUUID {
+    constructor(uuid: String): this(UUID.fromString(uuid))
+}
+
+@Serializable
+@JvmInline
+value class TerminologyID(override val uuid: UUID) : BlaseballUUID {
+    constructor(uuid: String): this(UUID.fromString(uuid))
+}
+
+@Serializable
+@JvmInline
+value class TiebreakerID(override val uuid: UUID) : BlaseballUUID {
+    constructor(uuid: String): this(UUID.fromString(uuid))
+}
+
+
+@Serializable
+@JvmInline
+value class SimulationID(override val id: String) : BlaseballID
+
+@Serializable
+@JvmInline
+value class GameID(override val uuid: UUID) : BlaseballUUID {
+    constructor(uuid: String): this(UUID.fromString(uuid))
+}
+
+@Serializable
+@JvmInline
+value class StadiumID(override val uuid: UUID) : BlaseballUUID {
+    constructor(uuid: String): this(UUID.fromString(uuid))
+}
+
+@Serializable
+@JvmInline
+value class PlayoffID(override val uuid: UUID) : BlaseballUUID {
+    constructor(uuid: String): this(UUID.fromString(uuid))
+}
+
+@Serializable
+@JvmInline
+value class PlayoffRoundID(override val uuid: UUID) : BlaseballUUID {
+    constructor(uuid: String): this(UUID.fromString(uuid))
+}
+
+@Serializable
+@JvmInline
+value class ModificationID(override val id: String) : BlaseballID
+
+@Serializable
+@JvmInline
+value class OffseasonRecapID(override val uuid: UUID) : BlaseballUUID {
+    constructor(uuid: String): this(UUID.fromString(uuid))
+}
+
+@Serializable
+@JvmInline
+value class DecreeID(override val uuid: UUID) : BlaseballUUID {
+    constructor(uuid: String): this(UUID.fromString(uuid))
+}
+
+@Serializable
+@JvmInline
+value class BlessingID(override val id: String) : BlaseballID
+
+@Serializable
+@JvmInline
+value class WillID(override val id: String) : BlaseballID
+
+@Serializable
+@JvmInline
+value class TidingID(override val uuid: UUID) : BlaseballUUID {
+    constructor(uuid: String): this(UUID.fromString(uuid))
+}
+
+@Serializable
+@JvmInline
+value class FeedID(override val uuid: UUID) : BlaseballUUID {
+    constructor(uuid: String): this(UUID.fromString(uuid))
+}
+
+@Serializable
+@JvmInline
+value class ItemID(override val uuid: UUID) : BlaseballUUID {
+    constructor(uuid: String): this(UUID.fromString(uuid))
+}
+
+@Serializable
+@JvmInline
+value class GameStatsheetID(override val uuid: UUID) : BlaseballUUID {
+    constructor(uuid: String): this(UUID.fromString(uuid))
+}
+
+@Serializable
+@JvmInline
+value class PlayerStatsheetID(override val uuid: UUID) : BlaseballUUID {
+    constructor(uuid: String): this(UUID.fromString(uuid))
+}
+
+@Serializable
+@JvmInline
+value class SeasonStatsheetID(override val uuid: UUID) : BlaseballUUID {
+    constructor(uuid: String): this(UUID.fromString(uuid))
+}
+
+@Serializable
+@JvmInline
+value class TeamStatsheetID(override val uuid: UUID) : BlaseballUUID {
+    constructor(uuid: String): this(UUID.fromString(uuid))
+}
 
 
 //@Serializable(with = UUIDMapSerialiser::class)
@@ -103,7 +212,8 @@ inline class TeamStatsheetID(override val id: String): BlaseballUUID
 //typealias UUIDMap<K, V> = Map<K, V>
 
 @Serializable(with = UUIDMapSerialiser::class)
-inline class UUIDMap<K: BlaseballUUID, V: Any?>(val backing: Map<K, V>): Map<K, V> {
+@JvmInline
+value class UUIDMap<K : BlaseballUUID, V : Any?>(val backing: Map<K, V>) : Map<K, V> {
     override val entries: Set<Map.Entry<K, V>>
         inline get() = backing.entries
     override val keys: Set<K>
@@ -119,7 +229,7 @@ inline class UUIDMap<K: BlaseballUUID, V: Any?>(val backing: Map<K, V>): Map<K, 
     override inline fun isEmpty(): Boolean = backing.isEmpty()
 }
 
-public fun <K: BlaseballUUID, V: Any?> emptyUUIDMap(): UUIDMap<K, V> = UUIDMap(emptyMap())
+public fun <K : BlaseballUUID, V : Any?> emptyUUIDMap(): UUIDMap<K, V> = UUIDMap(emptyMap())
 
 class UUIDMapSerialiser<K : BlaseballUUID, V : Any?>(val keySerialiser: KSerializer<K>, val valueSerialiser: KSerializer<V>) : KSerializer<Map<K, V>> {
     @OptIn(ExperimentalSerializationApi::class)
@@ -170,10 +280,11 @@ class UUIDMapSerialiser<K : BlaseballUUID, V : Any?>(val keySerialiser: KSeriali
 
 
 @OptIn(InternalSerializationApi::class)
-inline fun <reified T: Any> CompositeEncoder.encodeInlineElement(descriptor: SerialDescriptor, index: Int, element: T) = T::class.serializer().serialize(encodeInlineElement(descriptor, index), element)
+inline fun <reified T : Any> CompositeEncoder.encodeInlineElement(descriptor: SerialDescriptor, index: Int, element: T) = T::class.serializer().serialize(encodeInlineElement(descriptor, index), element)
 inline fun <T> CompositeEncoder.encodeInlineElement(descriptor: SerialDescriptor, index: Int, serialiser: KSerializer<T>, element: T) = serialiser.serialize(encodeInlineElement(descriptor, index), element)
 inline fun <T> CompositeDecoder.decodeInlineElement(descriptor: SerialDescriptor, serialiser: KSerializer<T>, index: Int): T = serialiser.deserialize(decodeInlineElement(descriptor, index))
+
 @OptIn(InternalSerializationApi::class)
-inline fun <reified T: Any> CompositeDecoder.decodeInlineElement(descriptor: SerialDescriptor, index: Int): T = T::class.serializer().deserialize(decodeInlineElement(descriptor, index))
+inline fun <reified T : Any> CompositeDecoder.decodeInlineElement(descriptor: SerialDescriptor, index: Int): T = T::class.serializer().deserialize(decodeInlineElement(descriptor, index))
 
 inline fun Iterable<BlaseballID>.joinParams(): String = joinToString(",", transform = BlaseballID::id)

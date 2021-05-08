@@ -6,6 +6,7 @@ import dev.brella.kornea.blaseball.base.common.json.BlaseballDateTimeSerialiser
 import dev.brella.kornea.blaseball.base.common.json.CoercedDoubleSerialiser
 import dev.brella.kornea.blaseball.base.common.json.CoercedIntSerialiser
 import dev.brella.kornea.blaseball.base.common.json.RoundsGameSerialiser
+import dev.brella.kornea.blaseball.base.common.json.RoundsTeamSerialiser
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonElement
 import kotlinx.serialization.json.JsonObject
@@ -124,7 +125,7 @@ data class BlaseballStreamDataPostseasonRound(
     val roundNumber: Int,
     val special: Boolean,
     val winnerSeeds: List<Double>,
-    val winners: List<TeamID>
+    val winners: List<@Serializable(with = RoundsTeamSerialiser::class) TeamID?>
 )
 
 @Serializable

@@ -8,7 +8,7 @@ apply(plugin = "kotlinx-atomicfu")
 apply(plugin = "maven-publish")
 
 group = "dev.brella"
-version = "2.2.9-alpha"
+version = "2.3.0-alpha"
 
 repositories {
     mavenCentral()
@@ -48,8 +48,10 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.1.0")
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.2.0")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.0")
+
+                api("org.jetbrains.kotlinx:kotlinx-datetime:0.2.0")
 
                 api("com.soywiz.korlibs.klock:klock:2.0.7")
 //
