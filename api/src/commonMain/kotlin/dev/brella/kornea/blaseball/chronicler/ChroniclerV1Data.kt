@@ -131,7 +131,7 @@ data class ChroniclerUpdateWrapper(val gameId: GameID, val timestamp: String, va
 data class ChroniclerBlaseballGameUpdate constructor(
     @OptIn(ExperimentalSerializationApi::class)
     @JsonNames("id", "_id")
-    val id: GameID? = null,
+    val id: GameID,
     val basesOccupied: List<Int>,
     val baseRunners: List<PlayerID>,
     val baseRunnerNames: List<String>? = null,
