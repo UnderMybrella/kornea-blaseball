@@ -1070,6 +1070,7 @@ object NoMetadataSerialiser : KSerializer<BlaseballFeedMetadata.None> {
         }
     }
 
+    @OptIn(ExperimentalSerializationApi::class)
     override fun deserialize(decoder: Decoder): BlaseballFeedMetadata.None {
         if (decoder is JsonDecoder) {
             return when (val element = decoder.decodeJsonElement()) {

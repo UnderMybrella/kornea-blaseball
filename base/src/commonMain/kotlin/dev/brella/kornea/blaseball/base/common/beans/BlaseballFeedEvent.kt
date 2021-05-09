@@ -12,11 +12,10 @@ import dev.brella.kornea.blaseball.base.common.decodeInlineElement
 import dev.brella.kornea.blaseball.base.common.encodeInlineElement
 import dev.brella.kornea.blaseball.base.common.json.BlaseballDateTimeSerialiser
 import dev.brella.kornea.blaseball.base.common.json.CoercedIntSerialiser
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.KSerializer
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.Transient
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.builtins.nullable
 import kotlinx.serialization.descriptors.PolymorphicKind
@@ -26,7 +25,6 @@ import kotlinx.serialization.descriptors.buildSerialDescriptor
 import kotlinx.serialization.descriptors.element
 import kotlinx.serialization.descriptors.listSerialDescriptor
 import kotlinx.serialization.descriptors.nullable
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.encoding.CompositeDecoder.Companion.DECODE_DONE
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
@@ -2933,6 +2931,7 @@ object BlaseballFeedEventSerialiser : KSerializer<BlaseballFeedEvent> {
         element<List<String>>("teamNames", isOptional = true)
     }
 
+    @OptIn(ExperimentalSerializationApi::class)
     @InternalSerializationApi
     override fun deserialize(decoder: Decoder): BlaseballFeedEvent =
         decoder.decodeStructure(descriptor) {
@@ -2978,13 +2977,14 @@ object BlaseballFeedEventSerialiser : KSerializer<BlaseballFeedEvent> {
 
             if (metaJson != null && this is JsonDecoder) {
 //                println("==[Json Hacking]==")
-                builder.metadata = json.decodeFromString(METADATA_TYPES[builder.type] ?: UnknownMetadataSerialiser, json.encodeToString(metaJson))
+                builder.metadata = json.decodeFromJsonElement(METADATA_TYPES[builder.type] ?: UnknownMetadataSerialiser, metaJson)
 //                println("==[Json Hacked]==")
             }
 
             return builder.build()
         }
 
+    @OptIn(ExperimentalSerializationApi::class)
     override fun serialize(encoder: Encoder, value: BlaseballFeedEvent) {
         encoder.encodeStructure(descriptor) {
             encodeIntElement(descriptor, descriptor.getElementIndex("type"), value.type)

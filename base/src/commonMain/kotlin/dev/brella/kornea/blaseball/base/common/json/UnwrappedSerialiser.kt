@@ -29,20 +29,17 @@ class UnwrappedSerialiser<T>(serialiser: KSerializer<T>) : KSerializer<List<T>> 
     override fun serialize(encoder: Encoder, value: List<T>) =
         serialiser.serialize(encoder, value)
 
-    override fun deserialize(decoder: Decoder): List<T> {
+    override fun deserialize(decoder: Decoder): List<T> =
         if (decoder is JsonDecoder) {
             val element = decoder.decodeJsonElement()
-            return decoder.json.decodeFromString(
-                serialiser, decoder.json.encodeToString(
-                    when (element) {
-                        is JsonNull -> JsonArray(emptyList())
-                        is JsonArray -> element
-                        else -> JsonArray(listOf(element))
-                    }
-                )
+            decoder.json.decodeFromJsonElement(
+                serialiser, when (element) {
+                    is JsonNull -> JsonArray(emptyList())
+                    is JsonArray -> element
+                    else -> JsonArray(listOf(element))
+                }
             )
         } else {
-            return serialiser.deserialize(decoder)
+            serialiser.deserialize(decoder)
         }
-    }
 }
