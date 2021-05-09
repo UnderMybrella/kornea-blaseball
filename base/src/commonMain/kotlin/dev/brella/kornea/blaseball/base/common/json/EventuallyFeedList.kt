@@ -72,7 +72,7 @@ object EventuallyFeedListSerialiser : KSerializer<EventuallyFeedList> {
 
                 list.mapNotNull { element ->
                     try {
-                        decoder.json.decodeFromString(BlaseballFeedEventSerialiser, decoder.json.encodeToString(element))
+                        decoder.json.decodeFromJsonElement(BlaseballFeedEventSerialiser, element)
                     } catch (se: SerializationException) {
 //                        se.printStackTrace()
                         null
