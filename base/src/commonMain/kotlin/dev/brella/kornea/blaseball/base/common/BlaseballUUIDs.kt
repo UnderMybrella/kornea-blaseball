@@ -151,9 +151,7 @@ value class OffseasonRecapID(override val uuid: UUID) : BlaseballUUID {
 
 @Serializable
 @JvmInline
-value class DecreeID(override val uuid: UUID) : BlaseballUUID {
-    constructor(uuid: String): this(UUID.fromString(uuid))
-}
+value class DecreeID(override val id: String) : BlaseballID
 
 @Serializable
 @JvmInline
