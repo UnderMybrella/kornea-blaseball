@@ -65,7 +65,8 @@ data class BlaseballStreamDataSim(
     val endseasonDate: @Serializable(BlaseballDateTimeSerialiser::class) DateTimeTz,
     val earlpostseasonDate: @Serializable(BlaseballDateTimeSerialiser::class) DateTimeTz,
     val latepostseasonDate: @Serializable(BlaseballDateTimeSerialiser::class) DateTimeTz,
-    val electionDate: @Serializable(BlaseballDateTimeSerialiser::class) DateTimeTz
+    val electionDate: @Serializable(BlaseballDateTimeSerialiser::class) DateTimeTz,
+    val menu: String? = null
 )
 
 @Serializable
