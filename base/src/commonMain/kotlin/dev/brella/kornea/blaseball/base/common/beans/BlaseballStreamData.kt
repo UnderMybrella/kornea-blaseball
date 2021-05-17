@@ -1,16 +1,14 @@
 package dev.brella.kornea.blaseball.base.common.beans
 
-import com.soywiz.klock.DateTimeTz
 import dev.brella.kornea.blaseball.base.common.*
-import dev.brella.kornea.blaseball.base.common.json.BlaseballDateTimeSerialiser
 import dev.brella.kornea.blaseball.base.common.json.CoercedDoubleSerialiser
 import dev.brella.kornea.blaseball.base.common.json.CoercedIntSerialiser
 import dev.brella.kornea.blaseball.base.common.json.RoundsGameSerialiser
 import dev.brella.kornea.blaseball.base.common.json.RoundsTeamSerialiser
-import kotlinx.serialization.json.JsonArray
-import kotlinx.serialization.json.JsonElement
-import kotlinx.serialization.json.JsonObject
+import kotlinx.datetime.Instant
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.json.JsonArray
+import kotlinx.serialization.json.JsonObject
 
 @Serializable
 data class BlaseballStreamDataResponse(val value: BlaseballStreamData)
@@ -38,7 +36,7 @@ data class BlaseballStreamDataSim(
     val id: SimulationID,
     val day: Int,
     val league: LeagueID,
-    val nextPhaseTime: @Serializable(BlaseballDateTimeSerialiser::class) DateTimeTz,
+    val nextPhaseTime: Instant,
     val phase: Int,
     val playOffRound: Int,
     val playoffs: PlayoffID,
@@ -55,17 +53,17 @@ data class BlaseballStreamDataSim(
     val salutations: Int,
     val tournament: Int,
     val tournamentRound: Int,
-    val godsDayDate: @Serializable(BlaseballDateTimeSerialiser::class) DateTimeTz,
-    val preseasonDate: @Serializable(BlaseballDateTimeSerialiser::class) DateTimeTz,
-    val earlseasonDate: @Serializable(BlaseballDateTimeSerialiser::class) DateTimeTz,
-    val earlsiestaDate: @Serializable(BlaseballDateTimeSerialiser::class) DateTimeTz,
-    val midseasonDate: @Serializable(BlaseballDateTimeSerialiser::class) DateTimeTz,
-    val latesiestaDate: @Serializable(BlaseballDateTimeSerialiser::class) DateTimeTz,
-    val lateseasonDate: @Serializable(BlaseballDateTimeSerialiser::class) DateTimeTz,
-    val endseasonDate: @Serializable(BlaseballDateTimeSerialiser::class) DateTimeTz,
-    val earlpostseasonDate: @Serializable(BlaseballDateTimeSerialiser::class) DateTimeTz,
-    val latepostseasonDate: @Serializable(BlaseballDateTimeSerialiser::class) DateTimeTz,
-    val electionDate: @Serializable(BlaseballDateTimeSerialiser::class) DateTimeTz,
+    val godsDayDate: Instant,
+    val preseasonDate: Instant,
+    val earlseasonDate: Instant,
+    val earlsiestaDate: Instant,
+    val midseasonDate: Instant,
+    val latesiestaDate: Instant,
+    val lateseasonDate: Instant,
+    val endseasonDate: Instant,
+    val earlpostseasonDate: Instant,
+    val latepostseasonDate: Instant,
+    val electionDate: Instant,
     val menu: String? = null
 )
 

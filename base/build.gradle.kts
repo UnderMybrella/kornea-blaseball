@@ -53,7 +53,7 @@ kotlin {
 
                 api("org.jetbrains.kotlinx:kotlinx-datetime:0.2.0")
 
-                api("com.soywiz.korlibs.klock:klock:2.0.7")
+//                api("com.soywiz.korlibs.klock:klock:2.0.7")
 //
 //                implementation("io.ktor:ktor-client-core:1.5.0")
 //                implementation("io.ktor:ktor-client-serialization:1.5.0")
